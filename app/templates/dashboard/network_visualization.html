@@ -1,0 +1,310 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">
+            <svg class="w-8 h-8 inline-block mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+            Product Association Network
+        </h1>
+        <p class="text-gray-600">Visualize how products relate to each other based on purchase patterns</p>
+    </div>
+
+    {% if not rules %}
+    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mb-6">
+        <p class="text-yellow-800">
+            <svg class="w-5 h-5 inline-block mr-2 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+            </svg>
+            No association rules found. Please upload data and generate analytics first.
+        </p>
+        <a href="{{ url_for('dashboard.upload_data') }}" class="text-yellow-700 underline hover:text-yellow-900 mt-2 inline-block">Upload data</a>
+    </div>
+    {% else %}
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
+        <!-- Filter Options -->
+        <div class="lg:col-span-1 bg-white rounded-lg shadow p-4">
+            <h3 class="font-semibold text-gray-900 mb-4">Filters</h3>
+            
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Minimum Confidence</label>
+                <input type="range" id="confidenceFilter" min="0" max="100" value="30" class="w-full">
+                <span id="confidenceValue" class="text-sm text-gray-600">30%</span>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Minimum Support</label>
+                <input type="range" id="supportFilter" min="0" max="100" value="5" class="w-full">
+                <span id="supportValue" class="text-sm text-gray-600">5%</span>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Minimum Lift</label>
+                <input type="range" id="liftFilter" min="0" max="10" step="0.1" value="1" class="w-full">
+                <span id="liftValue" class="text-sm text-gray-600">1.0</span>
+            </div>
+
+            <button onclick="updateNetwork()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+                Apply Filters
+            </button>
+
+            <div class="mt-6 pt-4 border-t">
+                <p class="text-sm text-gray-700 font-semibold mb-2">
+                    <svg class="w-4 h-4 inline-block mr-1 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+                    </svg>
+                    Stats
+                </p>
+                <p class="text-sm text-gray-600">Total Rules: <span class="font-semibold">{{ rules|length }}</span></p>
+            </div>
+        </div>
+
+        <!-- Network Visualization -->
+        <div class="lg:col-span-3 bg-white rounded-lg shadow p-4">
+            <div id="networkGraph" style="width:100%; height:600px;"></div>
+        </div>
+    </div>
+
+    <!-- Rules Table -->
+    <div class="bg-white rounded-lg shadow overflow-hidden mb-6">
+        <div class="bg-gray-50 px-6 py-4 border-b">
+            <h3 class="font-semibold text-gray-900">Association Rules</h3>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead>
+                    <tr class="bg-gray-50 border-b">
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Product A</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">→ Product B</th>
+                        <th class="px-6 py-3 text-center text-sm font-semibold text-gray-900">Support</th>
+                        <th class="px-6 py-3 text-center text-sm font-semibold text-gray-900">Confidence</th>
+                        <th class="px-6 py-3 text-center text-sm font-semibold text-gray-900">Lift</th>
+                        <th class="px-6 py-3 text-center text-sm font-semibold text-gray-900">Context</th>
+                    </tr>
+                </thead>
+                <tbody id="rulesTable">
+                    <!-- Populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="bg-blue-50 rounded-lg p-6">
+        <h3 class="font-semibold text-gray-900 mb-4">
+            <svg class="w-5 h-5 inline-block mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m0 0h6M6 12a6 6 0 100 12 6 6 0 000-12z"/>
+            </svg>
+            How to Read This Network
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+                <p class="text-sm font-semibold text-gray-900 mb-1">
+                    <svg class="w-4 h-4 inline-block mr-1 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16z" clip-rule="evenodd"/>
+                    </svg>
+                    Nodes (Circles)
+                </p>
+                <p class="text-sm text-gray-700">Each circle represents a product. Larger circles = more frequently appearing in rules.</p>
+            </div>
+            <div>
+                <p class="text-sm font-semibold text-gray-900 mb-1">
+                    <svg class="w-4 h-4 inline-block mr-1 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                    </svg>
+                    Edges (Lines)
+                </p>
+                <p class="text-sm text-gray-700">Lines show associations. Thicker lines = stronger relationships (higher confidence). Arrow direction shows direction of rule.</p>
+            </div>
+            <div>
+                <p class="text-sm font-semibold text-gray-900 mb-1">
+                    <svg class="w-4 h-4 inline-block mr-1 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 15a5 5 0 100-10 5 5 0 000 10z"/>
+                    </svg>
+                    Colors
+                </p>
+                <p class="text-sm text-gray-700">Node colors indicate product category. Line colors show confidence level (darker = stronger).</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+    const rulesData = {{ rules_json|safe }};
+    let filteredRules = [...rulesData];
+
+    function updateNetwork() {
+        const minConfidence = parseInt(document.getElementById('confidenceFilter').value);
+        const minSupport = parseInt(document.getElementById('supportFilter').value);
+        const minLift = parseFloat(document.getElementById('liftFilter').value);
+
+        document.getElementById('confidenceValue').textContent = minConfidence + '%';
+        document.getElementById('supportValue').textContent = minSupport + '%';
+        document.getElementById('liftValue').textContent = minLift.toFixed(1);
+
+        // Filter rules
+        filteredRules = rulesData.filter(rule => {
+            return (rule.confidence * 100 >= minConfidence) && 
+                   (rule.support * 100 >= minSupport) && 
+                   (rule.lift >= minLift);
+        });
+
+        // Build network
+        const nodes = new Set();
+        const edges = [];
+        const productNames = {};
+
+        filteredRules.forEach(rule => {
+            rule.antecedents.forEach(ant => {
+                nodes.add(ant);
+                productNames[ant] = rule.antecedent_names[0] || `Product ${ant}`;
+            });
+            rule.consequents.forEach(cons => {
+                nodes.add(cons);
+                productNames[cons] = rule.consequent_names[0] || `Product ${cons}`;
+            });
+
+            rule.antecedents.forEach(ant => {
+                rule.consequents.forEach(cons => {
+                    edges.push({
+                        source: ant,
+                        target: cons,
+                        confidence: rule.confidence,
+                        support: rule.support,
+                        lift: rule.lift
+                    });
+                });
+            });
+        });
+
+        // Create Plotly network data
+        const nodeArray = Array.from(nodes);
+        const trace = {
+            type: 'scatter',
+            mode: 'markers+text',
+            x: [],
+            y: [],
+            text: [],
+            textposition: 'middle center',
+            hovertext: [],
+            hoverinfo: 'text',
+            marker: {
+                size: [],
+                color: [],
+                line: { width: 2, color: 'white' }
+            }
+        };
+
+        // Position nodes using simple force-directed layout
+        const positions = {}; 
+        const angleStep = (2 * Math.PI) / nodeArray.length;
+        nodeArray.forEach((node, i) => {
+            const angle = i * angleStep;
+            positions[node] = {
+                x: 50 + 30 * Math.cos(angle),
+                y: 50 + 30 * Math.sin(angle)
+            };
+            
+            trace.x.push(positions[node].x);
+            trace.y.push(positions[node].y);
+            trace.text.push(productNames[node].substring(0, 10));
+            trace.hovertext.push(`${productNames[node]} (ID: ${node})`);
+            trace.marker.size.push(20);
+            trace.marker.color.push(i % 10); // Color by index
+        });
+
+        // Create edge traces
+        const edgeTraces = [];
+        edges.forEach(edge => {
+            const x0 = positions[edge.source].x;
+            const y0 = positions[edge.source].y;
+            const x1 = positions[edge.target].x;
+            const y1 = positions[edge.target].y;
+
+            edgeTraces.push({
+                type: 'scatter',
+                mode: 'lines',
+                x: [x0, x1],
+                y: [y0, y1],
+                line: {
+                    width: Math.max(1, edge.confidence * 5),
+                    color: `rgba(100, 150, 255, ${0.3 + edge.confidence * 0.4})`
+                },
+                hoverinfo: 'text',
+                hovertext: `Confidence: ${(edge.confidence * 100).toFixed(1)}%<br>Support: ${(edge.support * 100).toFixed(1)}%<br>Lift: ${edge.lift.toFixed(2)}`,
+                showlegend: false
+            });
+        });
+
+        const allTraces = [...edgeTraces, trace];
+        
+        const layout = {
+            title: `Product Association Network (${filteredRules.length} rules)`,
+            showlegend: false,
+            hovermode: 'closest',
+            margin: { b: 20, l: 5, r: 5, t: 40 },
+            xaxis: { showgrid: false, zeroline: false, showticklabels: false },
+            yaxis: { showgrid: false, zeroline: false, showticklabels: false },
+            plot_bgcolor: '#f9fafb'
+        };
+
+        Plotly.newPlot('networkGraph', allTraces, layout, { responsive: true });
+
+        // Update rules table
+        updateTable();
+    }
+
+    function updateTable() {
+        const tableBody = document.getElementById('rulesTable');
+        tableBody.innerHTML = '';
+
+        filteredRules.slice(0, 20).forEach(rule => {
+            const row = document.createElement('tr');
+            row.className = 'border-b hover:bg-gray-50 transition';
+            
+            const antName = rule.antecedent_names[0] || `Product ${rule.antecedents[0]}`;
+            const consName = rule.consequent_names[0] || `Product ${rule.consequents[0]}`;
+            
+            row.innerHTML = `
+                <td class="px-6 py-3 text-sm text-gray-900">${antName}</td>
+                <td class="px-6 py-3 text-sm text-gray-900">${consName}</td>
+                <td class="px-6 py-3 text-center text-sm">
+                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        ${(rule.support * 100).toFixed(1)}%
+                    </span>
+                </td>
+                <td class="px-6 py-3 text-center text-sm">
+                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        ${(rule.confidence * 100).toFixed(1)}%
+                    </span>
+                </td>
+                <td class="px-6 py-3 text-center text-sm">
+                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${rule.lift > 2 ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-800'}">
+                        ${rule.lift.toFixed(2)}
+                    </span>
+                </td>
+                <td class="px-6 py-3 text-center text-sm text-gray-600">${rule.context}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        if (filteredRules.length === 0) {
+            const row = document.createElement('tr');
+            row.innerHTML = '<td colspan="6" class="px-6 py-4 text-center text-gray-500">No rules match the selected filters</td>';
+            tableBody.appendChild(row);
+        }
+    }
+
+    // Initial network
+    updateNetwork();
+
+    // Update on filter change
+    document.getElementById('confidenceFilter').addEventListener('change', updateNetwork);
+    document.getElementById('supportFilter').addEventListener('change', updateNetwork);
+    document.getElementById('liftFilter').addEventListener('change', updateNetwork);
+</script>
+{% endblock %}

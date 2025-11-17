@@ -1,0 +1,328 @@
+<!-- Threshold Configuration Modal -->
+<div class="modal fade" id="thresholdConfigModal" tabindex="-1" role="dialog" aria-labelledby="thresholdModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="thresholdModalLabel">
+          <i class="fas fa-cogs"></i> Configure Analytics Thresholds
+        </h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="alert alert-info" role="alert">
+          <i class="fas fa-lightbulb"></i> <strong>Smart Suggestion:</strong> 
+          We've analyzed your data and prepared recommended thresholds. You can adjust them below if needed.
+        </div>
+        
+        <form id="thresholdConfigForm" method="POST" action="{{ url_for('dashboard.configure_thresholds') }}">
+          {{ threshold_form.hidden_tag() }}
+          
+          <!-- Data Analysis Summary -->
+          <div class="card mb-4">
+            <div class="card-header bg-light">
+              <h6 class="mb-0">📊 Your Data Summary</h6>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3">
+                  <p class="mb-0"><small class="text-muted">Total Records</small></p>
+                  <h5>{{ data_analysis.total_records }}</h5>
+                </div>
+                <div class="col-md-3">
+                  <p class="mb-0"><small class="text-muted">Transactions</small></p>
+                  <h5>{{ data_analysis.total_transactions }}</h5>
+                </div>
+                <div class="col-md-3">
+                  <p class="mb-0"><small class="text-muted">Unique Products</small></p>
+                  <h5>{{ data_analysis.unique_products }}</h5>
+                </div>
+                <div class="col-md-3">
+                  <p class="mb-0"><small class="text-muted">Data Quality</small></p>
+                  <h5>
+                    <span class="badge badge-{% if data_analysis.data_quality_score >= 0.8 %}success{% elif data_analysis.data_quality_score >= 0.6 %}warning{% else %}danger{% endif %}">
+                      {{ "%.0f"|format(data_analysis.data_quality_score * 100) }}%
+                    </span>
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Budget Thresholds -->
+          <div class="card mb-4">
+            <div class="card-header bg-light">
+              <h6 class="mb-0"> Budget Thresholds</h6>
+              <small class="text-muted">Define spending levels for customer segmentation</small>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="budget_low">Low Budget Threshold</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">KES</span>
+                      </div>
+                      {{ threshold_form.budget_low(class="form-control", value=suggested_thresholds.budget_thresholds.low) }}
+                    </div>
+                    <small class="form-text text-muted">
+                      Orders up to this amount are "Low" budget
+                      <br><strong>Suggested:</strong> ${{ suggested_thresholds.budget_thresholds.low }}
+                    </small>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="budget_medium">Medium Budget Threshold</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">KES</span>
+                      </div>
+                      {{ threshold_form.budget_medium(class="form-control", value=suggested_thresholds.budget_thresholds.medium) }}
+                    </div>
+                    <small class="form-text text-muted">
+                      Orders from Low+1 to this amount are "Medium" budget
+                      <br><strong>Suggested:</strong> ${{ suggested_thresholds.budget_thresholds.medium }}
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Association Rules Thresholds -->
+          <div class="card mb-4">
+            <div class="card-header bg-light">
+              <h6 class="mb-0"> Association Rules Thresholds</h6>
+              <small class="text-muted">Control product recommendation quality</small>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="min_support">Minimum Support</label>
+                    {{ threshold_form.min_support(class="form-control", value=suggested_thresholds.association_rules.recommended_support, step=0.01) }}
+                    <small class="form-text text-muted">
+                      % of transactions with product pair
+                      <br><strong>Suggested:</strong> {{ suggested_thresholds.association_rules.recommended_support }}
+                      <br><em>Lower = more rules, Higher = fewer but stronger rules</em>
+                    </small>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="min_confidence">Minimum Confidence</label>
+                    {{ threshold_form.min_confidence(class="form-control", value=suggested_thresholds.association_rules.recommended_confidence, step=0.01) }}
+                    <small class="form-text text-muted">
+                      If B purchased, likelihood of A
+                      <br><strong>Suggested:</strong> {{ suggested_thresholds.association_rules.recommended_confidence }}
+                      <br><em>Higher = more reliable recommendations</em>
+                    </small>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="min_lift">Minimum Lift</label>
+                    {{ threshold_form.min_lift(class="form-control", value=suggested_thresholds.lift_threshold, step=0.1) }}
+                    <small class="form-text text-muted">
+                      Strength of correlation (>1.0 = positive)
+                      <br><strong>Suggested:</strong> {{ suggested_thresholds.lift_threshold }}
+                      <br><em>1.0 captures all positive correlations</em>
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Basket Size Categories -->
+          <div class="card mb-4">
+            <div class="card-header bg-light">
+              <h6 class="mb-0">Basket Size Categories</h6>
+              <small class="text-muted">Define transaction complexity levels</small>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="basket_small_max">Small Basket Max Items</label>
+                    {{ threshold_form.basket_small_max(class="form-control", value=suggested_thresholds.basket_size_categories.small.max) }}
+                    <small class="form-text text-muted">
+                      Max items for "Small" basket
+                      <br><strong>Suggested:</strong> {{ suggested_thresholds.basket_size_categories.small.max }} items
+                    </small>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="basket_medium_max">Medium Basket Max Items</label>
+                    {{ threshold_form.basket_medium_max(class="form-control", value=suggested_thresholds.basket_size_categories.medium.max) }}
+                    <small class="form-text text-muted">
+                      Max items for "Medium" basket
+                      <br><strong>Suggested:</strong> {{ suggested_thresholds.basket_size_categories.medium.max }} items
+                    </small>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Large Basket (Greater than Max Medium)</label>
+                    <input type="text" class="form-control" disabled value="Any items > Medium max" />
+                    <small class="form-text text-muted">
+                      Automatically calculated
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Age Group Boundaries -->
+          <div class="card mb-4">
+            <div class="card-header bg-light">
+              <h6 class="mb-0">Age Group Boundaries</h6>
+              <small class="text-muted">Define customer age segments</small>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="age_teen_max">Teen (0 - Max)</label>
+                    {{ threshold_form.age_teen_max(class="form-control", value=suggested_thresholds.age_group_boundaries.teen.max) }}
+                    <small class="form-text text-muted">
+                      <strong>Suggested:</strong> {{ suggested_thresholds.age_group_boundaries.teen.max }}
+                    </small>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="age_young_adult_max">Young Adult ({{ suggested_thresholds.age_group_boundaries.teen.max + 1 }} - Max)</label>
+                    {{ threshold_form.age_young_adult_max(class="form-control", value=suggested_thresholds.age_group_boundaries.young_adult.max) }}
+                    <small class="form-text text-muted">
+                      <strong>Suggested:</strong> {{ suggested_thresholds.age_group_boundaries.young_adult.max }}
+                    </small>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="age_adult_max">Adult ({{ suggested_thresholds.age_group_boundaries.young_adult.max + 1 }} - Max)</label>
+                    {{ threshold_form.age_adult_max(class="form-control", value=suggested_thresholds.age_group_boundaries.adult.max) }}
+                    <small class="form-text text-muted">
+                      <strong>Suggested:</strong> {{ suggested_thresholds.age_group_boundaries.adult.max }}
+                    </small>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Senior ({{ suggested_thresholds.age_group_boundaries.adult.max + 1 }}+)</label>
+                    <input type="text" class="form-control" disabled value="60+" />
+                    <small class="form-text text-muted">
+                      Automatically calculated
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Quick Actions -->
+          <div class="card mb-4">
+            <div class="card-header bg-light">
+              <h6 class="mb-0">⚡ Quick Actions</h6>
+            </div>
+            <div class="card-body">
+              <button type="button" class="btn btn-sm btn-outline-primary" onclick="resetToSuggested()">
+                <i class="fas fa-redo"></i> Reset to Suggested Values
+              </button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="resetToDefaults()">
+                <i class="fas fa-sync"></i> Reset to Defaults
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          <i class="fas fa-times"></i> Cancel
+        </button>
+        <button type="button" class="btn btn-primary" onclick="submitThresholdConfig()">
+          <i class="fas fa-check"></i> Configure & Process
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Store suggested values for reset
+const suggestedValues = {
+  budget_low: {{ suggested_thresholds.budget_thresholds.low }},
+  budget_medium: {{ suggested_thresholds.budget_thresholds.medium }},
+  min_support: {{ suggested_thresholds.association_rules.recommended_support }},
+  min_confidence: {{ suggested_thresholds.association_rules.recommended_confidence }},
+  min_lift: {{ suggested_thresholds.lift_threshold }},
+  basket_small_max: {{ suggested_thresholds.basket_size_categories.small.max }},
+  basket_medium_max: {{ suggested_thresholds.basket_size_categories.medium.max }},
+  age_teen_max: {{ suggested_thresholds.age_group_boundaries.teen.max }},
+  age_young_adult_max: {{ suggested_thresholds.age_group_boundaries.young_adult.max }},
+  age_adult_max: {{ suggested_thresholds.age_group_boundaries.adult.max }}
+};
+
+function resetToSuggested() {
+  Object.keys(suggestedValues).forEach(key => {
+    const fieldId = key;
+    const element = document.getElementById(fieldId);
+    if (element) {
+      element.value = suggestedValues[key];
+    }
+  });
+  showAlert('Values reset to suggested thresholds', 'info');
+}
+
+function resetToDefaults() {
+  // Default values (conservative)
+  const defaultValues = {
+    budget_low: 25,
+    budget_medium: 75,
+    min_support: 0.05,
+    min_confidence: 0.35,
+    min_lift: 1.0,
+    basket_small_max: 3,
+    basket_medium_max: 8,
+    age_teen_max: 17,
+    age_young_adult_max: 24,
+    age_adult_max: 59
+  };
+  
+  Object.keys(defaultValues).forEach(key => {
+    const fieldId = key;
+    const element = document.getElementById(fieldId);
+    if (element) {
+      element.value = defaultValues[key];
+    }
+  });
+  showAlert('Values reset to defaults', 'info');
+}
+
+function submitThresholdConfig() {
+  const form = document.getElementById('thresholdConfigForm');
+  if (form.checkValidity() === false) {
+    event.preventDefault();
+    event.stopPropagation();
+    form.classList.add('was-validated');
+    showAlert('Please fix the errors before proceeding', 'danger');
+    return;
+  }
+  
+  showAlert('Processing with configured thresholds...', 'info');
+  form.submit();
+}
+
+function showAlert(message, type) {
+  // You can implement a toast/alert notification here
+  console.log(`[${type.toUpperCase()}] ${message}`);
+}
+</script>

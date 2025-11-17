@@ -1,0 +1,488 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics - SmartCart{% endblock %}
+
+{% block extra_css %}
+<style>
+    .chart-container {
+        position: relative;
+        height: 300px;
+        margin-bottom: 1.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+    <!-- Page Header -->
+    <div>
+        <h1 class="text-4xl font-bold text-gray-900 flex items-center gap-2">
+            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+            </svg>
+            Analytics Report
+        </h1>
+        <p class="text-gray-600 mt-2">{{ upload.filename }} - {{ upload.upload_date.strftime('%Y-%m-%d %H:%M') }}</p>
+    </div>
+
+    <!-- Top Action Bar -->
+    <div class="flex gap-3 justify-end mb-4">
+        <!-- <a href="{{ url_for('dashboard.network_visualization', upload_id=analytics.upload_id) }}" class="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.658 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+            </svg>
+            View Network
+        </a> -->
+        <a href="{{ url_for('dashboard.glossary') }}" class="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C6.228 6.228 2 10.228 2 15s4.228 8.772 10 8.772c5.772 0 10-3.9 10-8.772 0-4.772-4.228-8.747-10-8.747z"></path>
+            </svg>
+            Metric Guide
+        </a>
+    </div>
+
+    <!-- Key Metrics Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+        <!-- Total Transactions Card -->
+        <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white hover:shadow-xl transition-shadow">
+            <div class="flex items-start justify-between">
+                <div>
+                    <p class="text-blue-100 text-sm font-medium">Total Transactions</p>
+                    <p class="text-3xl font-bold mt-3">{{ "{:,}".format(analytics.total_transactions) }}</p>
+                </div>
+                <div class="opacity-20">
+                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Unique Products Card -->
+        <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white hover:shadow-xl transition-shadow">
+            <div class="flex items-start justify-between">
+                <div>
+                    <p class="text-green-100 text-sm font-medium">Unique Products</p>
+                    <p class="text-3xl font-bold mt-3">{{ "{:,}".format(analytics.unique_products) }}</p>
+                </div>
+                <div class="opacity-20">
+                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m0 0l8 4m-8-4v10l8 4m0-10l8 4m-8-4v10M8 11l4 2m4-2l-4 2m0 0l4 2m-8-2l4-2"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Avg Basket Size Card -->
+        <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg p-6 text-white hover:shadow-xl transition-shadow">
+            <div class="flex items-start justify-between">
+                <div>
+                    <p class="text-purple-100 text-sm font-medium">Avg Basket Size</p>
+                    <p class="text-3xl font-bold mt-3">{{ "%.1f"|format(analytics.avg_basket_size) }}</p>
+                </div>
+                <div class="opacity-20">
+                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Avg Reorder Rate Card -->
+        <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl shadow-lg p-6 text-white hover:shadow-xl transition-shadow">
+            <div class="flex items-start justify-between">
+                <div>
+                    <p class="text-orange-100 text-sm font-medium">Avg Reorder Rate</p>
+                    <p class="text-3xl font-bold mt-3">{{ "%.1f"|format(analytics.avg_reorder_rate) }}%</p>
+                </div>
+                <div class="opacity-20">
+                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rules Generated Card -->
+        <div class="bg-gradient-to-br from-red-500 to-red-600 rounded-xl shadow-lg p-6 text-white hover:shadow-xl transition-shadow">
+            <div class="flex items-start justify-between">
+                <div>
+                    <p class="text-red-100 text-sm font-medium">Rules Generated</p>
+                    <p class="text-3xl font-bold mt-3">{{ "{:,}".format(analytics.total_rules_generated) }}</p>
+                </div>
+                <div class="opacity-20">
+                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.658 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Charts Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Shopping Time Distribution -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div class="flex items-center gap-2 mb-4">
+                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <h3 class="text-lg font-semibold text-gray-900">Shopping Time Distribution</h3>
+            </div>
+            <div class="chart-container">
+                <canvas id="timeChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Budget Segment Distribution -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div class="flex items-center gap-2 mb-4">
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <h3 class="text-lg font-semibold text-gray-900">Budget Segment Distribution</h3>
+            </div>
+            <div class="chart-container">
+                <canvas id="budgetChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Basket Size Distribution -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div class="flex items-center gap-2 mb-4">
+                <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                <h3 class="text-lg font-semibold text-gray-900">Basket Size Distribution</h3>
+            </div>
+            <div class="chart-container">
+                <canvas id="basketChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Rules by Context -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div class="flex items-center gap-2 mb-4">
+                <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.658 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                </svg>
+                <h3 class="text-lg font-semibold text-gray-900">Rules by Context</h3>
+            </div>
+            <div class="chart-container">
+                <canvas id="rulesChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Section -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div class="flex items-center gap-2 mb-6">
+            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <h3 class="text-lg font-semibold text-gray-900">Summary</h3>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Processing Details -->
+            <div>
+                <h4 class="font-semibold text-gray-900 mb-4">Processing Details</h4>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span class="text-gray-600">Data Type:</span>
+                        <span class="font-medium text-gray-900">{{ upload.data_type }}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span class="text-gray-600">File Size:</span>
+                        <span class="font-medium text-gray-900">
+                            {% if upload.file_size and upload.file_size > 0 %}
+                                {% if upload.file_size > 1048576 %}
+                                    {{ "%.2f"|format(upload.file_size / 1048576) }} MB
+                                {% elif upload.file_size > 1024 %}
+                                    {{ "%.2f"|format(upload.file_size / 1024) }} KB
+                                {% else %}
+                                    {{ upload.file_size }} Bytes
+                                {% endif %}
+                            {% else %}
+                                <span class="text-gray-400">Not available</span>
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span class="text-gray-600">Rows Processed:</span>
+                        <span class="font-medium text-gray-900">
+                            {% if upload.row_count and upload.row_count > 0 %}
+                                {{ "{:,}".format(upload.row_count) }}
+                            {% else %}
+                                <span class="text-gray-400">Not available</span>
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="text-gray-600">Upload Date:</span>
+                        <span class="font-medium text-gray-900">{{ upload.upload_date.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rule Generation -->
+            <div>
+                <h4 class="font-semibold text-gray-900 mb-4">Rule Generation</h4>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span class="text-gray-600">General Rules:</span>
+                        <span class="font-medium text-gray-900">{{ "{:,}".format(analytics.general_rules_count) }}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span class="text-gray-600">Context-Specific:</span>
+                        <span class="font-medium text-gray-900">{{ "{:,}".format(analytics.context_rules_count) }}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span class="text-gray-600">Total Rules:</span>
+                        <span class="font-medium text-gray-900">{{ "{:,}".format(analytics.total_rules_generated) }}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="text-gray-600">Status:</span>
+                        <span class="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">Completed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- Threshold Configuration Section -->
+        {% if upload.threshold_config or upload.threshold_recommendations %}
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div class="flex items-center gap-2 mb-6">
+                <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                <h3 class="text-lg font-semibold text-gray-900">Threshold Configuration</h3>
+            </div>
+    
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <!-- Budget Thresholds -->
+                {% if upload.threshold_config and upload.threshold_config.get('budget_thresholds') %}
+                <div class="p-4 bg-blue-50 rounded-lg border border-blue-100">
+                    <h4 class="font-semibold text-blue-900 mb-3"> Budget Thresholds</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-blue-700">Low Budget:</span>
+                            <span class="font-medium text-blue-900">KES{{ "%.2f"|format(upload.threshold_config.budget_thresholds.low) }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-blue-700">Medium Budget:</span>
+                            <span class="font-medium text-blue-900">KES{{ "%.2f"|format(upload.threshold_config.budget_thresholds.medium) }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+    
+                <!-- Association Rules -->
+                {% if upload.threshold_config and upload.threshold_config.get('association_rules') %}
+                <div class="p-4 bg-green-50 rounded-lg border border-green-100">
+                    <h4 class="font-semibold text-green-900 mb-3"> Association Rules</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-green-700">Min Support:</span>
+                            <span class="font-medium text-green-900">{{ "%.1f"|format(upload.threshold_config.association_rules.min_support * 100) }}%</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-green-700">Min Confidence:</span>
+                            <span class="font-medium text-green-900">{{ "%.1f"|format(upload.threshold_config.association_rules.min_confidence * 100) }}%</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-green-700">Min Lift:</span>
+                            <span class="font-medium text-green-900">{{ "%.2f"|format(upload.threshold_config.association_rules.min_lift) }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+    
+                <!-- Basket Size -->
+                {% if upload.threshold_config and upload.threshold_config.get('basket_size_categories') %}
+                <div class="p-4 bg-purple-50 rounded-lg border border-purple-100">
+                    <h4 class="font-semibold text-purple-900 mb-3">Basket Size</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-purple-700">Small Max:</span>
+                            <span class="font-medium text-purple-900">{{ upload.threshold_config.basket_size_categories.small.max }} items</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-purple-700">Medium Max:</span>
+                            <span class="font-medium text-purple-900">{{ upload.threshold_config.basket_size_categories.medium.max }} items</span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+    
+                <!-- Age Groups -->
+                {% if upload.threshold_config and upload.threshold_config.get('age_group_boundaries') %}
+                <div class="p-4 bg-orange-50 rounded-lg border border-orange-100">
+                    <h4 class="font-semibold text-orange-900 mb-3">Age Groups</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-orange-700">Teen:</span>
+                            <span class="font-medium text-orange-900">&le; {{ upload.threshold_config.age_group_boundaries.teen.max }} years</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-orange-700">Young Adult:</span>
+                            <span class="font-medium text-orange-900">&le; {{ upload.threshold_config.age_group_boundaries.young_adult.max }} years</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-orange-700">Adult:</span>
+                            <span class="font-medium text-orange-900">&le; {{ upload.threshold_config.age_group_boundaries.adult.max }} years</span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+    
+            <!-- Recommendations -->
+            {% if upload.threshold_recommendations %}
+            <div class="border-t border-gray-200 pt-6">
+                <h4 class="font-semibold text-gray-900 mb-4">Threshold Recommendations</h4>
+                <div class="space-y-3">
+                    {% for rec in upload.threshold_recommendations.get('budget_recommendations', []) %}
+                        <div class="p-3 rounded-lg bg-{{ rec.type }}-50 border border-{{ rec.type }}-100">
+                            <p class="text-sm text-{{ rec.type }}-800"><strong> Budget:</strong> {{ rec.message }}</p>
+                        </div>
+                    {% endfor %}
+                    
+                    {% for rec in upload.threshold_recommendations.get('association_recommendations', []) %}
+                        <div class="p-3 rounded-lg bg-{{ rec.type }}-50 border border-{{ rec.type }}-100">
+                            <p class="text-sm text-{{ rec.type }}-800"><strong> Rules:</strong> {{ rec.message }}</p>
+                        </div>
+                    {% endfor %}
+                    
+                    {% for rec in upload.threshold_recommendations.get('basket_size_recommendations', []) %}
+                        <div class="p-3 rounded-lg bg-{{ rec.type }}-50 border border-{{ rec.type }}-100">
+                            <p class="text-sm text-{{ rec.type }}-800"><strong>Basket:</strong> {{ rec.message }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+    // Fetch analytics data
+    fetch('{{ url_for("api.get_analytics", upload_id=analytics.upload_id) }}')
+        .then(response => response.json())
+        .then(data => {
+            // Time Distribution Chart
+            const timeCtx = document.getElementById('timeChart').getContext('2d');
+            new Chart(timeCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(data.time_distribution || {}),
+                    datasets: [{
+                        data: Object.values(data.time_distribution || {}),
+                        backgroundColor: ['#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6'],
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+            
+            // Budget Distribution Chart
+            const budgetCtx = document.getElementById('budgetChart').getContext('2d');
+            new Chart(budgetCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(data.budget_distribution || {}),
+                    datasets: [{
+                        data: Object.values(data.budget_distribution || {}),
+                        backgroundColor: ['#10b981', '#f59e0b', '#ef4444'],
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+            
+            // Basket Size Distribution Chart
+            const basketCtx = document.getElementById('basketChart').getContext('2d');
+            new Chart(basketCtx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(data.basket_size_distribution || {}),
+                    datasets: [{
+                        label: 'Count',
+                        data: Object.values(data.basket_size_distribution || {}),
+                        backgroundColor: '#3b82f6',
+                        borderColor: '#1e40af',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            // Rules Chart
+            const rulesCtx = document.getElementById('rulesChart').getContext('2d');
+            new Chart(rulesCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['General', 'Context-Specific'],
+                    datasets: [{
+                        label: 'Rules Count',
+                        data: [{{ analytics.general_rules_count }}, {{ analytics.context_rules_count }}],
+                        backgroundColor: ['#3b82f6', '#10b981'],
+                        borderColor: ['#1e40af', '#059669'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching analytics:', error));
+</script>
+{% endblock %}

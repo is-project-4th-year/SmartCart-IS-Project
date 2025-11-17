@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Successful - SmartCart{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-8">
+    <div class="max-w-2xl mx-auto">
+        <!-- Success Animation -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-6 animate-bounce">
+                <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">Upload Successful!</h1>
+            <p class="text-lg text-gray-600">Your file has been received and is being processed</p>
+        </div>
+
+        <!-- File Details Card -->
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 mb-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                File Details
+            </h2>
+
+            <div class="space-y-4">
+                <!-- File Name -->
+                <div class="flex justify-between items-center pb-4 border-b border-gray-100">
+                    <span class="text-gray-600 font-medium">File Name:</span>
+                    <span class="text-gray-900 font-semibold">{{ upload.filename }}</span>
+                </div>
+
+                <!-- File Type -->
+                <div class="flex justify-between items-center pb-4 border-b border-gray-100">
+                    <span class="text-gray-600 font-medium">Data Format:</span>
+                    <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">
+                        {% if upload.data_type == 'simple' %}
+                            Simple CSV
+                        {% else %}
+                            Complex Data
+                        {% endif %}
+                    </span>
+                </div>
+
+                <!-- File Size -->
+                <div class="flex justify-between items-center pb-4 border-b border-gray-100">
+                    <span class="text-gray-600 font-medium">File Size:</span>
+                    <span class="text-gray-900 font-semibold">
+                        {% if upload.file_size > 1048576 %}
+                            {{ "%.2f"|format(upload.file_size / 1048576) }} MB
+                        {% elif upload.file_size > 1024 %}
+                            {{ "%.2f"|format(upload.file_size / 1024) }} KB
+                        {% else %}
+                            {{ upload.file_size }} Bytes
+                        {% endif %}
+                    </span>
+                </div>
+
+                <!-- Upload Date -->
+                <div class="flex justify-between items-center pb-4 border-b border-gray-100">
+                    <span class="text-gray-600 font-medium">Uploaded:</span>
+                    <span class="text-gray-900 font-semibold">{{ upload.upload_date.strftime('%B %d, %Y at %I:%M %p') }}</span>
+                </div>
+
+                <!-- Status -->
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600 font-medium">Status:</span>
+                    <div class="flex items-center gap-2">
+                        {% if upload.status == 'completed' %}
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800">
+                                <span class="inline-block w-2 h-2 bg-green-600 rounded-full mr-2"></span>
+                                Processing Complete
+                            </span>
+                        {% elif upload.status == 'processing' %}
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-800">
+                                <svg class="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Processing...
+                            </span>
+                        {% elif upload.status == 'failed' %}
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-red-100 text-red-800">
+                                <span class="inline-block w-2 h-2 bg-red-600 rounded-full mr-2"></span>
+                                Failed
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Message if Failed -->
+            {% if upload.status == 'failed' and upload.error_message %}
+                <div class="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <p class="text-sm text-red-800">
+                        <strong>Error:</strong> {{ upload.error_message }}
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Analytics Summary (if available) -->
+        {% if analytics %}
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 mb-8">
+                <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                    <svg class="w-6 h-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                    Quick Analytics
+                </h2>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <!-- Total Transactions -->
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200">
+                        <p class="text-sm text-blue-600 font-semibold">Transactions</p>
+                        <p class="text-2xl font-bold text-blue-900 mt-2">{{ analytics.total_transactions }}</p>
+                    </div>
+
+                    <!-- Unique Products -->
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4 border border-green-200">
+                        <p class="text-sm text-green-600 font-semibold">Products</p>
+                        <p class="text-2xl font-bold text-green-900 mt-2">{{ analytics.unique_products }}</p>
+                    </div>
+
+                    <!-- Avg Basket Size -->
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4 border border-purple-200">
+                        <p class="text-sm text-purple-600 font-semibold">Avg Basket</p>
+                        <p class="text-2xl font-bold text-purple-900 mt-2">{{ analytics.avg_basket_size|round(1) }}</p>
+                    </div>
+
+                    <!-- Association Rules -->
+                    <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-4 border border-orange-200">
+                        <p class="text-sm text-orange-600 font-semibold">Rules</p>
+                        <p class="text-2xl font-bold text-orange-900 mt-2">{{ analytics.total_rules_generated }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Next Steps -->
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 mb-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                What's Next?
+            </h2>
+
+            <div class="space-y-3">
+                <a href="{{ url_for('dashboard.retailer_dashboard') }}" class="flex items-start gap-4 p-4 rounded-lg hover:bg-blue-50 transition-colors group">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-lg bg-blue-600 text-white group-hover:bg-blue-700 transition">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-900">View Dashboard Analytics</p>
+                        <p class="text-sm text-gray-600">See detailed insights and product associations</p>
+                    </div>
+                </a>
+
+                <a href="{{ url_for('dashboard.recommendations') }}" class="flex items-start gap-4 p-4 rounded-lg hover:bg-green-50 transition-colors group">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-lg bg-green-600 text-white group-hover:bg-green-700 transition">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-900">Generate Recommendations</p>
+                        <p class="text-sm text-gray-600">Create smart product recommendations</p>
+                    </div>
+                </a>
+
+                <a href="{{ url_for('dashboard.upload_history') }}" class="flex items-start gap-4 p-4 rounded-lg hover:bg-purple-50 transition-colors group">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-lg bg-purple-600 text-white group-hover:bg-purple-700 transition">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-900">View Upload History</p>
+                        <p class="text-sm text-gray-600">See all your previous uploads and their status</p>
+                    </div>
+                </a>
+
+                <a href="{{ url_for('dashboard.upload_data') }}" class="flex items-start gap-4 p-4 rounded-lg hover:bg-orange-50 transition-colors group">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-lg bg-orange-600 text-white group-hover:bg-orange-700 transition">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-900">Upload Another File</p>
+                        <p class="text-sm text-gray-600">Process additional data for comparison</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- File Ready Info -->
+        {% if upload.status == 'completed' %}
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
+                <p class="text-sm text-green-800">
+                    <svg class="w-4 h-4 inline-block mr-1.5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <strong>File Ready!</strong> Your file has been saved and is ready for use. You can download it or perform further analysis.
+                </p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    // Show success toast
+    document.addEventListener('DOMContentLoaded', function() {
+        toastr.success('File uploaded successfully!');
+    });
+</script>
+{% endblock %}

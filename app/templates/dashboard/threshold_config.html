@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+
+{% block title %}Configure Analytics Thresholds - SmartCart{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 px-4 py-2">
+  <!-- <div class="max-w-5xl mx-auto"> -->
+    
+    <!-- Header -->
+    <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 mb-6">
+      <div class="flex items-center gap-3 mb-2">
+        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+        </svg>
+        <h1 class="text-3xl font-bold text-gray-900">Configure Analytics Thresholds</h1>
+      </div>
+      <span>This is automatically analyzed during upload .(Please leave this as it is, unless you know what you’re doing!)</span>
+      <p class="text-gray-600">
+      
+        <span class="font-semibold">File:</span> {{ upload.filename }} | 
+        <span class="font-semibold">Uploaded:</span> {{ upload.upload_date.strftime('%Y-%m-%d %H:%M') }}
+      </p>
+    </div>
+
+    <!-- Data Summary Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <div class="bg-white rounded-xl shadow border-l-4 border-blue-500 p-5">
+        <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">Total Records</p>
+        <p class="text-3xl font-bold text-gray-900">{{ data_analysis.total_records }}</p>
+      </div>
+      <div class="bg-white rounded-xl shadow border-l-4 border-green-500 p-5">
+        <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">Transactions</p>
+        <p class="text-3xl font-bold text-gray-900">{{ data_analysis.total_transactions }}</p>
+      </div>
+      <div class="bg-white rounded-xl shadow border-l-4 border-purple-500 p-5">
+        <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">Unique Products</p>
+        <p class="text-3xl font-bold text-gray-900">{{ data_analysis.unique_products }}</p>
+      </div>
+      <div class="bg-white rounded-xl shadow border-l-4 border-yellow-500 p-5">
+        <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">Data Quality</p>
+        <div class="mt-2">
+          {% if data_analysis.data_quality_score >= 0.8 %}
+            <span class="inline-block px-3 py-1 bg-green-100 text-green-800 text-lg font-bold rounded-lg">{{ "%.0f"|format(data_analysis.data_quality_score * 100) }}%</span>
+          {% elif data_analysis.data_quality_score >= 0.6 %}
+            <span class="inline-block px-3 py-1 bg-yellow-100 text-yellow-800 text-lg font-bold rounded-lg">{{ "%.0f"|format(data_analysis.data_quality_score * 100) }}%</span>
+          {% else %}
+            <span class="inline-block px-3 py-1 bg-red-100 text-red-800 text-lg font-bold rounded-lg">{{ "%.0f"|format(data_analysis.data_quality_score * 100) }}%</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Configuration Form -->
+    <form method="POST" class="space-y-6">
+      {{ form.hidden_tag() }}
+
+      <!-- Budget Thresholds Section -->
+      <div class="bg-white rounded-xl shadow border border-gray-200 overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-50 to-blue-100 border-b border-blue-200 px-6 py-4">
+          <div class="flex items-center gap-2 mb-1">
+            <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M8.16 5.314l4.897-1.596A1 1 0 0114.823 4.65l1.096 3.745a1 1 0 01-.823 1.237l-4.897 1.596a1 1 0 01-1.237-.823L8.34 6.55a1 1 0 01.823-1.237zM2.693 7.236a.75.75 0 10-.866 1.223L3.307 9.5 1.827 10.541a.75.75 0 10.866 1.223l2 -1.415v2.651a.75.75 0 001.5 0v-2.651l2 1.415a.75.75 0 10-.866-1.223L5.693 9.5l1.48-1.041a.75.75 0 10-.866-1.223L5.307 8.5l-2-1.415a.75.75 0 00-.614-.15z"></path>
+            </svg>
+            <h3 class="text-lg font-bold text-gray-900">Budget Thresholds</h3>
+          </div>
+          <p class="text-sm text-gray-700">Define spending levels for customer segmentation</p>
+        </div>
+        <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="budget_low" class="block text-sm font-semibold text-gray-900 mb-2">Low Budget Threshold (KES)</label>
+            <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-blue-500">
+              <span class="px-3 bg-gray-50 text-gray-600 font-medium">KES</span>
+              {{ form.budget_low(class="flex-1 px-3 py-2 border-0 focus:outline-none", placeholder="0.00") }}
+            </div>
+            {% if form.budget_low.errors %}
+              <small class="text-red-600 text-sm mt-1">{{ form.budget_low.errors[0] }}</small>
+            {% else %}
+              <small class="text-gray-600 text-sm mt-1">Orders up to this amount are categorized as "Low" budget</small>
+            {% endif %}
+          </div>
+          <div>
+            <label for="budget_medium" class="block text-sm font-semibold text-gray-900 mb-2">Medium Budget Threshold (KES)</label>
+            <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-blue-500">
+              <span class="px-3 bg-gray-50 text-gray-600 font-medium">KES</span>
+              {{ form.budget_medium(class="flex-1 px-3 py-2 border-0 focus:outline-none", placeholder="0.00") }}
+            </div>
+            {% if form.budget_medium.errors %}
+              <small class="text-red-600 text-sm mt-1">{{ form.budget_medium.errors[0] }}</small>
+            {% else %}
+              <small class="text-gray-600 text-sm mt-1">Orders between low and this amount are "Medium", above are "High"</small>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Association Rules Section -->
+      <div class="bg-white rounded-xl shadow border border-gray-200 overflow-hidden">
+        <div class="bg-gradient-to-r from-purple-50 to-purple-100 border-b border-purple-200 px-6 py-4">
+          <div class="flex items-center gap-2 mb-1">
+            <svg class="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M7 18a1 1 0 011-1h6a1 1 0 011 1v1a2 2 0 01-2 2h-6a2 2 0 01-2-2v-1zM2 13a1 1 0 011-1h2a1 1 0 011 1v1a2 2 0 01-2 2H3a2 2 0 01-2-2v-1zM14 2a1 1 0 011-1h2a2 2 0 012 2v1a1 1 0 01-1 1h-2a1 1 0 01-1-1V2z"></path>
+            </svg>
+            <h3 class="text-lg font-bold text-gray-900">Association Rules Thresholds</h3>
+          </div>
+          <p class="text-sm text-gray-700">Control the quality and quantity of product association rules</p>
+        </div>
+        <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <label for="min_support" class="block text-sm font-semibold text-gray-900 mb-2">Min Support (0-1)</label>
+            {{ form.min_support(class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500", placeholder="0.05") }}
+            {% if form.min_support.errors %}
+              <small class="text-red-600 text-sm mt-1">{{ form.min_support.errors[0] }}</small>
+            {% else %}
+              <small class="text-gray-600 text-sm mt-1">Minimum percentage of transactions containing the itemset<br><strong>Lower = more rules</strong></small>
+            {% endif %}
+          </div>
+          <div>
+            <label for="min_confidence" class="block text-sm font-semibold text-gray-900 mb-2">Min Confidence (0-1)</label>
+            {{ form.min_confidence(class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500", placeholder="0.3") }}
+            {% if form.min_confidence.errors %}
+              <small class="text-red-600 text-sm mt-1">{{ form.min_confidence.errors[0] }}</small>
+            {% else %}
+              <small class="text-gray-600 text-sm mt-1">Minimum reliability of the rule<br><strong>Lower = more permissive</strong></small>
+            {% endif %}
+          </div>
+          <div>
+            <label for="min_lift" class="block text-sm font-semibold text-gray-900 mb-2">Min Lift Threshold</label>
+            {{ form.min_lift(class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500", placeholder="1.0") }}
+            {% if form.min_lift.errors %}
+              <small class="text-red-600 text-sm mt-1">{{ form.min_lift.errors[0] }}</small>
+            {% else %}
+              <small class="text-gray-600 text-sm mt-1">Minimum strength of correlation (≥1.0 = positive)<br><strong>Higher = stronger</strong></small>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Basket Size Section -->
+      <div class="bg-white rounded-xl shadow border border-gray-200 overflow-hidden">
+        <div class="bg-gradient-to-r from-green-50 to-green-100 border-b border-green-200 px-6 py-4">
+          <div class="flex items-center gap-2 mb-1">
+            <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 6H6.28l-.31-1.243A1 1 0 005 4H3z"></path>
+            </svg>
+            <h3 class="text-lg font-bold text-gray-900">Basket Size Categories</h3>
+          </div>
+          <p class="text-sm text-gray-700">Define thresholds for basket size categorization</p>
+        </div>
+        <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="basket_small_max" class="block text-sm font-semibold text-gray-900 mb-2">Small Basket Max Items</label>
+            {{ form.basket_small_max(class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500", placeholder="3") }}
+            {% if form.basket_small_max.errors %}
+              <small class="text-red-600 text-sm mt-1">{{ form.basket_small_max.errors[0] }}</small>
+            {% else %}
+              <small class="text-gray-600 text-sm mt-1">Baskets with ≤ this many items are "Small"</small>
+            {% endif %}
+          </div>
+          <div>
+            <label for="basket_medium_max" class="block text-sm font-semibold text-gray-900 mb-2">Medium Basket Max Items</label>
+            {{ form.basket_medium_max(class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500", placeholder="8") }}
+            {% if form.basket_medium_max.errors %}
+              <small class="text-red-600 text-sm mt-1">{{ form.basket_medium_max.errors[0] }}</small>
+            {% else %}
+              <small class="text-gray-600 text-sm mt-1">Baskets between small and this are "Medium", above are "Large"</small>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Age Groups Section -->
+      <div class="bg-white rounded-xl shadow border border-gray-200 overflow-hidden">
+        <div class="bg-gradient-to-r from-orange-50 to-orange-100 border-b border-orange-200 px-6 py-4">
+          <div class="flex items-center gap-2 mb-1">
+            <svg class="w-5 h-5 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v2h8v-2zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-2a4 4 0 00-8 0v2h8z"></path>
+            </svg>
+            <h3 class="text-lg font-bold text-gray-900">Age Group Boundaries</h3>
+          </div>
+          <p class="text-sm text-gray-700">Define age ranges for demographic segmentation</p>
+        </div>
+        <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <label for="age_teen_max" class="block text-sm font-semibold text-gray-900 mb-2">Teen Max Age</label>
+            {{ form.age_teen_max(class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500", placeholder="17") }}
+            {% if form.age_teen_max.errors %}
+              <small class="text-red-600 text-sm mt-1">{{ form.age_teen_max.errors[0] }}</small>
+            {% else %}
+              <small class="text-gray-600 text-sm mt-1">Customers ≤ this age are "Teen"</small>
+            {% endif %}
+          </div>
+          <div>
+            <label for="age_young_adult_max" class="block text-sm font-semibold text-gray-900 mb-2">Young Adult Max Age</label>
+            {{ form.age_young_adult_max(class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500", placeholder="24") }}
+            {% if form.age_young_adult_max.errors %}
+              <small class="text-red-600 text-sm mt-1">{{ form.age_young_adult_max.errors[0] }}</small>
+            {% else %}
+              <small class="text-gray-600 text-sm mt-1">Customers between Teen and this are "Young Adult"</small>
+            {% endif %}
+          </div>
+          <div>
+            <label for="age_adult_max" class="block text-sm font-semibold text-gray-900 mb-2">Adult Max Age</label>
+            {{ form.age_adult_max(class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500", placeholder="59") }}
+            {% if form.age_adult_max.errors %}
+              <small class="text-red-600 text-sm mt-1">{{ form.age_adult_max.errors[0] }}</small>
+            {% else %}
+              <small class="text-gray-600 text-sm mt-1">Customers between Young Adult and this are "Adult", above are "Senior"</small>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="flex gap-3">
+        <button type="submit" class="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.3A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z"></path>
+          </svg>
+          Configure & Process Analytics
+        </button>
+        <a href="{{ url_for('dashboard.upload_history') }}" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-900 font-bold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+          </svg>
+          Cancel
+        </a>
+      </div>
+
+      <!-- Info Box -->
+      <div class="bg-blue-50 rounded-xl border border-blue-200 p-6">
+        <div class="flex items-start gap-3">
+          <svg class="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2z" clip-rule="evenodd"></path>
+          </svg>
+          <div>
+            <h4 class="font-bold text-gray-900 mb-2">What Happens Next?</h4>
+            <ul class="space-y-1 text-sm text-gray-700">
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">✓</span>
+                <span>Your thresholds will be saved and applied to this analysis</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">✓</span>
+                <span>Analytics will be processed with your configured parameters</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">✓</span>
+                <span>All reports will show which thresholds were used</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">✓</span>
+                <span>You can adjust thresholds for future uploads at any time</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </form>
+  <!-- </div> -->
+</div>
+{% endblock %}

@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+
+{% block title %}Upload History - SmartCart{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Processing Status Alert (if tracking an upload OR if there are processing items) -->
+    <div id="processingAlert" class="bg-blue-50 border border-blue-200 rounded-lg p-4 shadow-sm hidden">
+        <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5 animate-spin" id="processingSpinner" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0012 2v5h4.77l-7.06 7.06a1 1 0 11-1.414-1.414L13.586 7H9a1 1 0 01-1-1V2a1 1 0 01.7-.954 8 8 0 013.6 0z" clip-rule="evenodd"></path>
+            </svg>
+            <div class="flex-1">
+                <h3 class="font-semibold text-blue-900" id="statusTitle">Processing Your Upload...</h3>
+                <p class="text-sm text-blue-700 mt-1" id="statusMessage">
+                    File: <span class="font-medium" id="fileNameSpan">{{ tracked_upload.filename if tracked_upload else 'Your file' }}</span><br>
+                    <span id="progressText">Analyzing data and finding patterns...</span>
+                </p>
+            </div>
+            <button onclick="closeProcessingAlert()" class="text-blue-400 hover:text-blue-600">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+            <h1 class="text-4xl font-bold text-gray-900 flex items-center gap-2">
+                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Upload History
+            </h1>
+            <p class="text-gray-600 mt-2">View and manage all your data uploads</p>
+        </div>
+        <a href="{{ url_for('dashboard.upload_data') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition flex items-center gap-2 whitespace-nowrap">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            New Upload
+        </a>
+    </div>
+
+    <!-- Uploads Table -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+        {% if uploads.items %}
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-gray-200 bg-gray-50">
+                            <th class="text-left py-3 px-6 font-semibold text-gray-700 text-sm">Filename</th>
+                            <th class="text-left py-3 px-6 font-semibold text-gray-700 text-sm">Type</th>
+                            <th class="text-left py-3 px-6 font-semibold text-gray-700 text-sm">Upload Date</th>
+                            <th class="text-left py-3 px-6 font-semibold text-gray-700 text-sm">Status</th>
+                            <th class="text-left py-3 px-6 font-semibold text-gray-700 text-sm">Rows</th>
+                            <th class="text-left py-3 px-6 font-semibold text-gray-700 text-sm">Size</th>
+                            <th class="text-left py-3 px-6 font-semibold text-gray-700 text-sm">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for upload in uploads.items %}
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+                                <td class="py-3 px-6 text-gray-900 font-medium flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-red-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"></path>
+                                    </svg>
+                                    {{ upload.filename }}
+                                </td>
+                                <td class="py-3 px-6">
+                                    <span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold">{{ upload.data_type }}</span>
+                                </td>
+                                <td class="py-3 px-6 text-gray-600 text-sm">{{ upload.upload_date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                                <td class="py-3 px-6">
+                                    {% if upload.status == 'completed' %}
+                                        <span class="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 w-fit">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                            Completed
+                                        </span>
+                                    {% elif upload.status == 'processing' %}
+                                        <span class="inline-block bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 w-fit">
+                                            <svg class="w-4 h-4 animate-spin" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0012 2v5h4.77l-7.06 7.06a1 1 0 11-1.414-1.414L13.586 7H9a1 1 0 01-1-1V2a1 1 0 01.7-.954 8 8 0 013.6 0z" clip-rule="evenodd"></path></svg>
+                                            Processing
+                                        </span>
+                                    {% else %}
+                                        <span class="inline-block bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 w-fit">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+                                            Failed
+                                        </span>
+                                    {% endif %}
+                                </td>
+                                <td class="py-3 px-6 text-gray-900 text-sm">{{ upload.row_count or '-' }}</td>
+                                <td class="py-3 px-6 text-gray-600 text-sm">{{ (upload.file_size / 1024 / 1024)|round(2) }} MB</td>
+                                <td class="py-3 px-6">
+                                    {% if upload.status == 'completed' %}
+                                        <a href="{{ url_for('dashboard.analytics_detail', upload_id=upload.id) }}" 
+                                           class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-semibold text-sm p-2 rounded-lg hover:bg-blue-50 transition" 
+                                           title="View Analytics">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                            </svg>
+                                            View
+                                        </a>
+                                    {% elif upload.status == 'failed' %}
+                                        <button class="inline-flex items-center gap-1 text-red-600 font-semibold text-sm p-2 rounded-lg hover:bg-red-50 transition cursor-help" 
+                                                title="{{ upload.error_message or 'Processing failed' }}">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2z" clip-rule="evenodd"></path>
+                                            </svg>
+                                            Info
+                                        </button>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            {% if uploads.pages > 1 %}
+                <div class="border-t border-gray-200 px-6 py-4 flex items-center justify-center gap-2">
+                    {% if uploads.has_prev %}
+                        <a href="{{ url_for('dashboard.upload_history', page=uploads.prev_num) }}" 
+                           class="px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 text-gray-700 font-medium transition">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                        </a>
+                    {% endif %}
+                    
+                    {% for page_num in uploads.iter_pages() %}
+                        {% if page_num %}
+                            {% if page_num == uploads.page %}
+                                <span class="px-3 py-2 rounded-lg bg-blue-600 text-white font-medium">{{ page_num }}</span>
+                            {% else %}
+                                <a href="{{ url_for('dashboard.upload_history', page=page_num) }}" 
+                                   class="px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 text-gray-700 font-medium transition">
+                                    {{ page_num }}
+                                </a>
+                            {% endif %}
+                        {% else %}
+                            <span class="px-2 py-2 text-gray-500">...</span>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if uploads.has_next %}
+                        <a href="{{ url_for('dashboard.upload_history', page=uploads.next_num) }}" 
+                           class="px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 text-gray-700 font-medium transition">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="text-center py-12">
+                <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                </svg>
+                <p class="text-gray-600 mt-4">No uploads yet. <a href="{{ url_for('dashboard.upload_data') }}" class="text-blue-600 hover:text-blue-800 font-semibold">Upload your first dataset</a></p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    let uploadId = null;
+    let refreshInterval;
+    let isProcessing = false;
+
+    // Check if there's a tracked upload from URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlUploadId = urlParams.get('upload_id');
+    
+    // Or check if there are any processing items in the table
+    function findProcessingUpload() {
+        const table = document.querySelector('table tbody');
+        if (!table) return null;
+        
+        const rows = table.querySelectorAll('tr');
+        for (let row of rows) {
+            const statusCell = row.querySelector('td:nth-child(4)');
+            if (statusCell && statusCell.textContent.includes('Processing')) {
+                // Extract upload_id from the "View" link or use data attribute
+                const viewLink = row.querySelector('a[href*="/analytics/"]');
+                if (viewLink) {
+                    const match = viewLink.href.match(/\/analytics\/(\d+)/);
+                    if (match) return parseInt(match[1]);
+                }
+            }
+        }
+        return null;
+    }
+
+    function initProcessingMonitor() {
+        // Use tracked upload from URL, or auto-detect from table
+        uploadId = urlUploadId ? parseInt(urlUploadId) : findProcessingUpload();
+        
+        if (!uploadId) return;
+        
+        isProcessing = true;
+        const alert = document.getElementById('processingAlert');
+        if (alert) {
+            alert.classList.remove('hidden');
+        }
+        
+        // Start checking status
+        checkUploadStatus();
+        refreshInterval = setInterval(checkUploadStatus, 2000);
+    }
+
+    function closeProcessingAlert() {
+        const alert = document.getElementById('processingAlert');
+        if (alert) {
+            alert.classList.add('hidden');
+        }
+        if (refreshInterval) {
+            clearInterval(refreshInterval);
+        }
+        isProcessing = false;
+    }
+
+    function checkUploadStatus() {
+        if (!uploadId) return;
+        
+        fetch(`/api/upload-status/${uploadId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error('Error checking status:', data.error);
+                    return;
+                }
+
+                const spinner = document.getElementById('processingSpinner');
+                const statusTitle = document.getElementById('statusTitle');
+                const progressText = document.getElementById('progressText');
+                const fileNameSpan = document.getElementById('fileNameSpan');
+                const alert = document.getElementById('processingAlert');
+
+                if (fileNameSpan && data.filename) {
+                    fileNameSpan.textContent = data.filename;
+                }
+
+                if (data.status === 'completed') {
+                    // Processing complete
+                    if (spinner) spinner.classList.remove('animate-spin');
+                    if (statusTitle) statusTitle.innerHTML = 'Processing Complete! <svg class="w-5 h-5 inline-block ml-2 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>';
+                    if (progressText) progressText.textContent = 'Your analytics are ready. Redirecting to dashboard...';
+                    
+                    // Clear the interval
+                    if (refreshInterval) {
+                        clearInterval(refreshInterval);
+                    }
+                    
+                    // Redirect to retailer dashboard after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = "{{ url_for('dashboard.retailer_dashboard') }}";
+                    }, 2000);
+                } else if (data.status === 'failed') {
+                    // Processing failed
+                    if (spinner) spinner.classList.remove('animate-spin');
+                    if (statusTitle) statusTitle.innerHTML = 'Processing Failed <svg class="w-5 h-5 inline-block ml-2 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>';
+                    if (progressText) {
+                        progressText.innerHTML = `<span class="text-red-600 font-medium">Error: ${data.error_message || 'Unknown error'}</span>`;
+                    }
+                    if (alert) {
+                        alert.classList.add('bg-red-50', 'border-red-200');
+                        alert.classList.remove('bg-blue-50', 'border-blue-200');
+                        alert.querySelector('svg').classList.remove('text-blue-600');
+                        alert.querySelector('svg').classList.add('text-red-600');
+                    }
+                    
+                    // Clear the interval
+                    if (refreshInterval) {
+                        clearInterval(refreshInterval);
+                    }
+                } else {
+                    // Still processing
+                    const messages = [
+                        'Analyzing data and finding patterns...',
+                        'Generating association rules...',
+                        'Calculating context-specific insights...',
+                        'Organizing results for dashboard...'
+                    ];
+                    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                    if (progressText) progressText.textContent = randomMessage;
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching status:', error);
+            });
+    }
+
+    // Initialize processing monitor when page loads
+    document.addEventListener('DOMContentLoaded', initProcessingMonitor);
+</script>
+{% endblock %}

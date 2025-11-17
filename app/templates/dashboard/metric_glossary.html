@@ -1,0 +1,304 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">
+            <svg class="w-8 h-8 inline-block mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+            </svg>
+            Metric Glossary
+        </h1>
+        <p class="text-gray-600">Understanding the key metrics in basket analysis</p>
+    </div>
+
+    <!-- Main Metrics -->
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Core Analytics Metrics</h2>
+        
+        <div class="grid gap-6">
+            <!-- Total Transactions -->
+            <div class="border-l-4 border-blue-500 pl-4 py-2">
+                <h3 class="text-lg font-semibold text-gray-900">
+                    <svg class="w-5 h-5 inline-block mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                    Total Transactions
+                </h3>
+                <p class="text-gray-700 mt-2">The total number of customer orders/baskets in your dataset.</p>
+                <div class="mt-2 bg-blue-50 p-3 rounded">
+                    <p class="text-sm text-gray-700"><strong>What it means:</strong> Higher numbers indicate more data for analysis.</p>
+                    <p class="text-sm text-gray-700"><strong>Why it matters:</strong> With 100+ transactions, you get reliable patterns. Under 50 transactions may show inflated confidence levels.</p>
+                </div>
+            </div>
+
+            <!-- Unique Products -->
+            <div class="border-l-4 border-green-500 pl-4 py-2">
+                <h3 class="text-lg font-semibold text-gray-900">
+                    <svg class="w-5 h-5 inline-block mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                    </svg>
+                    Unique Products
+                </h3>
+                <p class="text-gray-700 mt-2">The number of different products in your catalog.</p>
+                <div class="mt-2 bg-green-50 p-3 rounded">
+                    <p class="text-sm text-gray-700"><strong>What it means:</strong> How diverse your product range is.</p>
+                    <p class="text-sm text-gray-700"><strong>Why it matters:</strong> More products allow for more association patterns. Very few products (< 10) may result in trivial rules.</p>
+                </div>
+            </div>
+
+            <!-- Average Basket Size -->
+            <div class="border-l-4 border-purple-500 pl-4 py-2">
+                <h3 class="text-lg font-semibold text-gray-900">
+                    <svg class="w-5 h-5 inline-block mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                    </svg>
+                    Average Basket Size
+                </h3>
+                <p class="text-gray-700 mt-2">The average number of items customers buy per transaction.</p>
+                <div class="mt-2 bg-purple-50 p-3 rounded">
+                    <p class="text-sm text-gray-700"><strong>What it means:</strong> Typical spending pattern (items per order).</p>
+                    <p class="text-sm text-gray-700"><strong>Why it matters:</strong> Higher basket size indicates better cross-selling. Size < 2 suggests customers buy single items.</p>
+                    <p class="text-sm text-gray-700 mt-1"><strong>Example:</strong> 3.5 items = customers typically buy 3-4 items per visit.</p>
+                </div>
+            </div>
+
+            <!-- Average Reorder Rate -->
+            <div class="border-l-4 border-orange-500 pl-4 py-2">
+                <h3 class="text-lg font-semibold text-gray-900">
+                    <svg class="w-5 h-5 inline-block mr-2 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                    Average Reorder Rate
+                </h3>
+                <p class="text-gray-700 mt-2">The percentage of products that customers repurchase.</p>
+                <div class="mt-2 bg-orange-50 p-3 rounded">
+                    <p class="text-sm text-gray-700"><strong>What it means:</strong> Loyalty indicator - how often products are bought again.</p>
+                    <p class="text-sm text-gray-700"><strong>Why it matters:</strong> High reorder rate (70%+) = customer loyalty. Low rate (< 30%) = one-time purchases.</p>
+                    <p class="text-sm text-gray-700 mt-1"><strong>Example:</strong> 65% reorder rate = 65% of products are repurchased.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Association Rule Metrics -->
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Association Rule Metrics</h2>
+        
+        <div class="grid gap-6">
+            <!-- Support -->
+            <div class="border-l-4 border-red-500 pl-4 py-2">
+                <h3 class="text-lg font-semibold text-gray-900">
+                    <svg class="w-5 h-5 inline-block mr-2 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+                    </svg>
+                    Support
+                </h3>
+                <p class="text-gray-700 mt-2">The percentage of transactions containing a product pair.</p>
+                <div class="mt-2 bg-red-50 p-3 rounded">
+                    <p class="text-sm text-gray-700"><strong>Formula:</strong> (# transactions with items A and B) / (total transactions) × 100%</p>
+                    <p class="text-sm text-gray-700"><strong>What it means:</strong> How frequently an item set occurs together.</p>
+                    <p class="text-sm text-gray-700"><strong>Why it matters:</strong> 
+                        <ul class="list-disc list-inside text-sm mt-1">
+                            <li>Support > 10%: Very common pattern, high impact potential</li>
+                            <li>Support 5-10%: Common pattern, good for recommendations</li>
+                            <li>Support < 5%: Rare pattern, may be noise</li>
+                        </ul>
+                    </p>
+                    <p class="text-sm text-gray-700 mt-1"><strong>Example:</strong> Support of 8% for (Bread, Butter) = appears in 8% of all transactions.</p>
+                </div>
+            </div>
+
+            <!-- Confidence -->
+            <div class="border-l-4 border-indigo-500 pl-4 py-2">
+                <h3 class="text-lg font-semibold text-gray-900">
+                    <svg class="w-5 h-5 inline-block mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Confidence
+                </h3>
+                <p class="text-gray-700 mt-2">The probability of buying product B given that customer already bought product A.</p>
+                <div class="mt-2 bg-indigo-50 p-3 rounded">
+                    <p class="text-sm text-gray-700"><strong>Formula:</strong> (# transactions with A and B) / (# transactions with A) × 100%</p>
+                    <p class="text-sm text-gray-700"><strong>What it means:</strong> How strong the association is from A to B.</p>
+                    <p class="text-sm text-gray-700"><strong>Why it matters:</strong> 
+                        <ul class="list-disc list-inside text-sm mt-1">
+                            <li>Confidence > 70%: Very strong indicator, great for bundling</li>
+                            <li>Confidence 40-70%: Moderate association, good for cross-selling</li>
+                            <li>Confidence < 40%: Weak association, limited usefulness</li>
+                        </ul>
+                    </p>
+                    <p class="text-sm text-gray-700 mt-1"><strong>Example:</strong> If someone buys Bread, 75% chance they also buy Butter.</p>
+                </div>
+            </div>
+
+            <!-- Lift -->
+            <div class="border-l-4 border-cyan-500 pl-4 py-2">
+                <h3 class="text-lg font-semibold text-gray-900">
+                    <svg class="w-5 h-5 inline-block mr-2 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7H6v10m0 0v4h10v-4m0 0V7m0 0a2 2 0 012-2h.01A2 2 0 0115 7m0 0h2a2 2 0 012 2v4m0 0v4a2 2 0 01-2 2h-2.01A2 2 0 019 20v-4m0 0V7"/>
+                    </svg>
+                    Lift
+                </h3>
+                <p class="text-gray-700 mt-2">How much more likely is product B to be purchased when product A is bought (compared to random chance).</p>
+                <div class="mt-2 bg-cyan-50 p-3 rounded">
+                    <p class="text-sm text-gray-700"><strong>Formula:</strong> Confidence / (% customers who buy B) = How many times more likely</p>
+                    <p class="text-sm text-gray-700"><strong>What it means:</strong> The strength of the rule beyond what would be expected by chance.</p>
+                    <p class="text-sm text-gray-700"><strong>Why it matters:</strong> 
+                        <ul class="list-disc list-inside text-sm mt-1">
+                            <li>Lift > 2.0: Product B is 2x more likely! Excellent for bundling</li>
+                            <li>Lift 1.5-2.0: Meaningful lift, good for recommendations</li>
+                            <li>Lift 1.0-1.5: Slight positive correlation</li>
+                            <li>Lift = 1.0: No relationship (independent)</li>
+                            <li>Lift < 1.0: Negative correlation (customers avoid buying together)</li>
+                        </ul>
+                    </p>
+                    <p class="text-sm text-gray-700 mt-1"><strong>Example:</strong> Lift of 3.0 for (Bread, Butter) means if someone buys Bread, they're 3x more likely to buy Butter than average.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Context Metrics -->
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Context Segmentation Metrics</h2>
+        
+        <div class="grid gap-6">
+            <!-- Time of Day -->
+            <div class="border-l-4 border-yellow-500 pl-4 py-2">
+                <h3 class="text-lg font-semibold text-gray-900">
+                    <svg class="w-5 h-5 inline-block mr-2 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Time of Day
+                </h3>
+                <p class="text-gray-700 mt-2">Breaking down purchases by time segments.</p>
+                <div class="mt-2 bg-yellow-50 p-3 rounded">
+                    <p class="text-sm text-gray-700"><strong>Segments:</strong>
+                        <ul class="list-disc list-inside text-sm mt-1">
+                            <li><strong>Morning:</strong> 5 AM - 12 PM</li>
+                            <li><strong>Afternoon:</strong> 12 PM - 5 PM</li>
+                            <li><strong>Evening:</strong> 5 PM - 10 PM</li>
+                        </ul>
+                    </p>
+                    <p class="text-sm text-gray-700 mt-1"><strong>Why it matters:</strong> Different times have different shopping behaviors (breakfast items vs dinner items).</p>
+                </div>
+            </div>
+
+            <!-- Budget Segment -->
+            <div class="border-l-4 border-pink-500 pl-4 py-2">
+                <h3 class="text-lg font-semibold text-gray-900">
+                    <svg class="w-5 h-5 inline-block mr-2 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Budget Segment
+                </h3>
+                <p class="text-gray-700 mt-2">Breaking down purchases by spending level (calculated from your data).</p>
+                <div class="mt-2 bg-pink-50 p-3 rounded">
+                    <p class="text-sm text-gray-700"><strong>Calculation:</strong> Data-driven percentiles (33rd and 66th) based on your actual transaction values.</p>
+                    <p class="text-sm text-gray-700"><strong>Segments:</strong>
+                        <ul class="list-disc list-inside text-sm mt-1">
+                            <li><strong>Low:</strong> Bottom 33% of spenders</li>
+                            <li><strong>Medium:</strong> Middle 33% of spenders</li>
+                            <li><strong>High:</strong> Top 33% of spenders</li>
+                        </ul>
+                    </p>
+                    <p class="text-sm text-gray-700 mt-1"><strong>Why it matters:</strong> Different customer segments buy different products. High-spenders may buy premium items.</p>
+                </div>
+            </div>
+
+            <!-- Basket Size -->
+            <div class="border-l-4 border-teal-500 pl-4 py-2">
+                <h3 class="text-lg font-semibold text-gray-900">
+                    <svg class="w-5 h-5 inline-block mr-2 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 00.646 3.646 9.003 9.003 0 0015.354 20.354z"/>
+                    </svg>
+                    Basket Size
+                </h3>
+                <p class="text-gray-700 mt-2">Breaking down purchases by number of items in each transaction.</p>
+                <div class="mt-2 bg-teal-50 p-3 rounded">
+                    <p class="text-sm text-gray-700"><strong>Segments:</strong>
+                        <ul class="list-disc list-inside text-sm mt-1">
+                            <li><strong>Small:</strong> 1-3 items per basket</li>
+                            <li><strong>Medium:</strong> 4-8 items per basket</li>
+                            <li><strong>Large:</strong> 9+ items per basket</li>
+                        </ul>
+                    </p>
+                    <p class="text-sm text-gray-700 mt-1"><strong>Why it matters:</strong> Bundle recommendations differ for quick-grab customers vs bulk buyers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Best Practices -->
+    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 mb-6">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">
+            <svg class="w-6 h-6 inline-block mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            How to Use These Metrics
+        </h2>
+        <div class="grid gap-4">
+            <div class="flex gap-3">
+                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <div>
+                    <p class="font-semibold text-gray-900">For Product Bundling:</p>
+                    <p class="text-gray-700 text-sm">Look for rules with Support > 8%, Confidence > 60%, and Lift > 2.0</p>
+                </div>
+            </div>
+            <div class="flex gap-3">
+                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <div>
+                    <p class="font-semibold text-gray-900">For Cross-Selling:</p>
+                    <p class="text-gray-700 text-sm">Focus on high-confidence rules (40-70%) even if support is moderate</p>
+                </div>
+            </div>
+            <div class="flex gap-3">
+                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <div>
+                    <p class="font-semibold text-gray-900">For Customer Loyalty:</p>
+                    <p class="text-gray-700 text-sm">Track reorder rate trends - increasing rate shows growing loyalty</p>
+                </div>
+            </div>
+            <div class="flex gap-3">
+                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <div>
+                    <p class="font-semibold text-gray-900">Context-Based Recommendations:</p>
+                    <p class="text-gray-700 text-sm">Use time/budget/basket-size contexts to recommend specific products at the right moment</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Quality Warning -->
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded">
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            <svg class="w-5 h-5 inline-block mr-2 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Important Note on Data Quality
+        </h3>
+        <p class="text-gray-700 mb-2">The reliability of these metrics depends on your data quality:</p>
+        <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+            <li><strong>Sample Size:</strong> At least 50-100 transactions recommended for reliable patterns (under 30 may show inflated metrics)</li>
+            <li><strong>Time Range:</strong> Include diverse time periods and customer types</li>
+            <li><strong>Product Variety:</strong> More diverse products = more discoverable patterns</li>
+            <li><strong>Regular Updates:</strong> Refresh data periodically as shopping behaviors change seasonally</li>
+        </ul>
+    </div>
+</div>
+
+<style>
+    .border-l-4 {
+        border-left-width: 4px;
+    }
+</style>
+{% endblock %}

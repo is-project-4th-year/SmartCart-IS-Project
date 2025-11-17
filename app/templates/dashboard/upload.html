@@ -1,0 +1,388 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Data - SmartCart{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 px-4 py-4">
+    <div class="max-w-7xl mx-auto">
+        <!-- Flash Messages Section -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="mb-6 rounded-lg border-l-4 px-6 py-4 {% if category == 'danger' %}bg-red-50 border-red-500{% elif category == 'warning' %}bg-yellow-50 border-yellow-500{% elif category == 'success' %}bg-green-50 border-green-500{% else %}bg-blue-50 border-blue-500{% endif %} flex items-start gap-3">
+                        {% if category == 'danger' %}
+                            <svg class="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                            </svg>
+                        {% elif category == 'success' %}
+                            <svg class="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                        {% elif category == 'warning' %}
+                            <svg class="w-6 h-6 text-yellow-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                            </svg>
+                        {% else %}
+                            <svg class="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2z" clip-rule="evenodd"></path>
+                            </svg>
+                        {% endif %}
+                        <div class="flex-1">
+                            <p class="{% if category == 'danger' %}text-red-900{% elif category == 'warning' %}text-yellow-900{% elif category == 'success' %}text-green-900{% else %}text-blue-900{% endif %} font-semibold">
+                                {% if category == 'danger' %}Error{% elif category == 'warning' %}Warning{% elif category == 'success' %}Success{% else %}Info{% endif %}
+                            </p>
+                            <p class="{% if category == 'danger' %}text-red-800{% elif category == 'warning' %}text-yellow-800{% elif category == 'success' %}text-green-800{% else %}text-blue-800{% endif %} text-sm mt-1">{{ message }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Left Column: Upload Form -->
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-5">
+            <form method="POST" enctype="multipart/form-data" novalidate>
+                {{ form.hidden_tag() }}                
+                <!-- File Upload -->
+                <div class="mb-10">
+                    <label class="block text-lg font-bold text-gray-900 mb-5">Upload File</label>
+                    <div class="border-2 border-dashed border-gray-300 rounded-2xl p-12 text-center hover:border-blue-500 hover:bg-blue-50 transition-all duration-300 cursor-pointer bg-gray-50 group" id="dropZone">
+                        {{ form.csv_file(class="hidden", id="csv_file", accept=".csv,.xlsx") }}
+                        <label for="csv_file" class="cursor-pointer block">
+                            <div class="mb-4">
+                                <svg class="w-16 h-16 text-gray-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                </svg>
+                            </div>
+                            <p class="text-gray-900 font-bold text-lg">Drag and drop your CSV or Excel file here</p>
+                            <p class="text-gray-600 text-sm mt-2">or click to browse your files</p>
+                            <p class="text-gray-500 text-xs mt-3">Supported formats: CSV, Excel | Maximum size: 100MB</p>
+                        </label>
+                    </div>
+                    
+                    <!-- File Preview -->
+                    <div id="filePreview" class="hidden mt-4 p-4 bg-green-50 rounded-xl border border-green-200">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2.5 9a6.5 6.5 0 1111.573 2.664A1.5 1.5 0 0015 12h-1a1 1 0 00-1 1v3.5a1.5 1.5 0 01-3 0V15h-1a1 1 0 00-1 1v.5a1.5 1.5 0 01-3 0V12a1 1 0 00-1-1h-1a1.5 1.5 0 010-3z" clip-rule="evenodd"></path>
+                                </svg>
+                                <div>
+                                    <p class="font-semibold text-gray-900" id="fileName"></p>
+                                    <p class="text-sm text-gray-600" id="fileSize"></p>
+                                </div>
+                            </div>
+                            <button type="button" onclick="clearFilePreview()" class="text-red-600 hover:text-red-800 font-medium text-sm">
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Format Type Info -->
+                <div class="mb-10 p-4 bg-blue-50 rounded-xl border border-blue-200">
+                    <div class="flex gap-3">
+                        <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2z" clip-rule="evenodd"></path>
+                        </svg>
+                        <div>
+                            <p class="font-semibold text-gray-900 text-sm">File Format: CSV</p>
+                            <p class="text-xs text-gray-600 mt-1">Use either format: (order_id + product_id) OR (transaction_id + product_name)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Tips -->
+                <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+                    <div class="flex gap-3 p-4 bg-green-50 rounded-xl border border-green-100">
+                        <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <div>
+                            <p class="font-semibold text-gray-900 text-sm">No duplicate headers</p>
+                            <p class="text-xs text-gray-600">Each column name must be unique</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 p-4 bg-green-50 rounded-xl border border-green-100">
+                        <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <div>
+                            <p class="font-semibold text-gray-900 text-sm">Consistent product IDs</p>
+                            <p class="text-xs text-gray-600">Use the same ID format throughout</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 p-4 bg-green-50 rounded-xl border border-green-100">
+                        <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <div>
+                            <p class="font-semibold text-gray-900 text-sm">Include product names</p>
+                            <p class="text-xs text-gray-600">Better insights with descriptive names</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 p-4 bg-green-50 rounded-xl border border-green-100">
+                        <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <div>
+                            <p class="font-semibold text-gray-900 text-sm">Clean data</p>
+                            <p class="text-xs text-gray-600">Remove special characters if possible</p>
+                        </div>
+                    </div>
+                </div> -->
+                
+                <!-- Submit Buttons -->
+                <div class="flex gap-3">
+                    <button type="submit" id="submitBtn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 text-center disabled:opacity-50 disabled:cursor-not-allowed">
+                        <span id="submitText">Upload File</span>
+                        <span id="submitSpinner" class="hidden">
+                            <svg class="inline w-4 h-4 mr-2 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>Processing...
+                        </span>
+                    </button>
+                    <a href="{{ url_for('dashboard.overview') }}" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-900 font-bold py-3 px-6 rounded-xl transition-all duration-200 text-center">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Right Column: Format Guide -->
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-5">
+            <div class="mb-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <h3 class="text-xl font-bold text-gray-900">Format Requirements</h3>
+                </div>
+                
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-sm font-semibold text-gray-900 mb-2">Required Columns (choose one format):</p>
+                        <div class="space-y-3">
+                            <div>
+                                <p class="text-xs font-semibold text-gray-700 mb-2">Format 1: Traditional</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-medium">order_id</span>
+                                    <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-medium">product_id</span>
+                                    <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-medium">product_name</span>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-xs font-semibold text-gray-700 mb-2">Format 2: Transactions</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">transaction_id</span>
+                                    <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">product_name</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <p class="text-sm font-semibold text-gray-900 mb-2">Optional Columns:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">quantity</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">price</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">timestamp</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <h4 class="text-lg font-semibold text-gray-900 mb-3">Sample Data Format</h4>
+                <div class="space-y-3">
+                    <div>
+                        <p class="text-xs font-semibold text-gray-700 mb-2">Format 1: Traditional</p>
+                        <div class="bg-gray-50 rounded-lg p-4 font-mono text-xs text-gray-700 overflow-x-auto border">
+order_id,product_id,product_name,quantity,price<br>
+1001,1,Bread,2,2.5<br>
+1001,2,Milk,1,3.2<br>
+1002,3,Eggs,1,4<br>
+1003,4,Butter,1,5.75
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-700 mb-2">Format 2: Transactions (like your data)</p>
+                        <div class="bg-green-50 rounded-lg p-4 font-mono text-xs text-green-700 overflow-x-auto border border-green-200">
+transaction_id,date,product_name,quantity,total_spent<br>
+7815173,2024-09-05,Bread,4,2944.62<br>
+810554,2024-10-17,Textbooks,2,426.89<br>
+236858,2024-01-18,Cookies,1,1015.39<br>
+5391606,2024-05-18,Cheese,2,1431.78
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="space-y-3">
+                <h4 class="text-lg font-semibold text-gray-900">Quick Tips</h4>
+                <div class="space-y-2">
+                    <div class="flex gap-2 p-3 bg-green-50 rounded-lg border border-green-100">
+                        <svg class="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <div>
+                            <p class="font-medium text-gray-900 text-sm">No duplicate headers</p>
+                            <p class="text-xs text-gray-600">Each column name must be unique</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-2 p-3 bg-green-50 rounded-lg border border-green-100">
+                        <svg class="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <div>
+                            <p class="font-medium text-gray-900 text-sm">Consistent product IDs</p>
+                            <p class="text-xs text-gray-600">Use the same ID format throughout</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-2 p-3 bg-green-50 rounded-lg border border-green-100">
+                        <svg class="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <div>
+                            <p class="font-medium text-gray-900 text-sm">Clean data preferred</p>
+                            <p class="text-xs text-gray-600">Remove special characters if possible</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    // Configuration
+    const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
+    const fileInput = document.getElementById('csv_file');
+    const dropZone = document.getElementById('dropZone');
+    const form = document.querySelector('form');
+    const submitBtn = document.getElementById('submitBtn');
+    const filePreview = document.getElementById('filePreview');
+    
+    // Validate file
+    function validateFile(file) {
+        if (!file) {
+            toastr.error('Please select a file to upload');
+            return false;
+        }
+        
+        // Check file type - allow CSV and Excel
+        const validExtensions = ['.csv', '.xlsx'];
+        const isValidType = validExtensions.some(ext => file.name.toLowerCase().endsWith(ext));
+        if (!isValidType) {
+            toastr.error('Only CSV and Excel files are allowed');
+            return false;
+        }
+        
+        // Check file size
+        if (file.size > MAX_FILE_SIZE) {
+            toastr.error('File size exceeds 100MB limit');
+            return false;
+        }
+        
+        if (file.size === 0) {
+            toastr.error('File is empty');
+            return false;
+        }
+        
+        return true;
+    }
+    
+    // Format file size
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+    }
+    
+    // Show file preview
+    function showFilePreview(file) {
+        document.getElementById('fileName').textContent = file.name;
+        document.getElementById('fileSize').textContent = formatFileSize(file.size);
+        filePreview.classList.remove('hidden');
+    }
+    
+    // Clear file preview
+    function clearFilePreview() {
+        fileInput.value = '';
+        filePreview.classList.add('hidden');
+    }
+    
+    // Handle file selection
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (validateFile(file)) {
+            showFilePreview(file);
+        } else {
+            clearFilePreview();
+        }
+    });
+    
+    // Drag and drop functionality
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+    
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, highlight, false);
+    });
+    
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, unhighlight, false);
+    });
+    
+    function highlight(e) {
+        dropZone.classList.add('border-blue-500', 'bg-blue-50');
+    }
+    
+    function unhighlight(e) {
+        dropZone.classList.remove('border-blue-500', 'bg-blue-50');
+    }
+    
+    dropZone.addEventListener('drop', handleDrop, false);
+    
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        fileInput.files = files;
+        
+        // Trigger change event
+        const event = new Event('change', { bubbles: true });
+        fileInput.dispatchEvent(event);
+    }
+    
+    // Form submission
+    form.addEventListener('submit', function(e) {
+        const file = fileInput.files[0];
+        
+        if (!validateFile(file)) {
+            e.preventDefault();
+            return false;
+        }
+        
+        // Show loading state
+        submitBtn.disabled = true;
+        document.getElementById('submitText').classList.add('hidden');
+        document.getElementById('submitSpinner').classList.remove('hidden');
+        toastr.info('Uploading file... This may take a moment');
+    });
+</script>
+{% endblock %}

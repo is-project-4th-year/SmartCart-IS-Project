@@ -1,0 +1,315 @@
+{% extends "base.html" %}
+
+{% block title %}Product Recommendations - SmartCart{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+    <!-- Page Header -->
+    <div>
+        <h1 class="text-4xl font-bold text-gray-900 flex items-center gap-3">
+            <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+            Product Recommendations
+        </h1>
+        <p class="text-gray-600 mt-2">Discover strongest product associations and cross-selling opportunities</p>
+    </div>
+
+    {% if not upload %}
+        <!-- No Data State -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-12 text-center">
+            <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+            </svg>
+            <p class="text-gray-600 mt-4 text-lg">No data available</p>
+            <p class="text-gray-500 text-sm mt-2">Upload your first sales dataset to discover product associations</p>
+            <a href="{{ url_for('dashboard.upload_data') }}" class="inline-block mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition">
+                Upload Data
+            </a>
+        </div>
+    {% else %}
+        <!-- Filter Section -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                    </svg>
+                    Filter Rules
+                </h3>
+                {% if min_confidence > 0 or min_support > 0 or min_lift > 0 or context_filter != 'all' %}
+                <a href="{{ url_for('dashboard.recommendations') }}" class="text-sm text-blue-600 hover:text-blue-800 font-semibold">Clear Filters</a>
+                {% endif %}
+            </div>
+            
+            <form method="get" class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                <!-- Minimum Confidence -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Min Confidence</label>
+                    <input type="number" name="min_confidence" min="0" max="100" value="{% if min_confidence > 0 %}{{ min_confidence }}{% endif %}" placeholder="0-100" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <p class="text-xs text-gray-500 mt-1">%</p>
+                </div>
+                
+                <!-- Minimum Support -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Min Support</label>
+                    <input type="number" name="min_support" min="0" max="100" value="{% if min_support > 0 %}{{ min_support }}{% endif %}" placeholder="0-100" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <p class="text-xs text-gray-500 mt-1">%</p>
+                </div>
+                
+                <!-- Minimum Lift -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Min Lift</label>
+                    <input type="number" name="min_lift" min="0" max="10" step="0.1" value="{% if min_lift > 0 %}{{ min_lift }}{% endif %}" placeholder="1.0" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <p class="text-xs text-gray-500 mt-1">×</p>
+                </div>
+                
+                <!-- Context Filter -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Context Type</label>
+                    <select name="context" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="all" {% if context_filter == 'all' %}selected{% endif %}>All Rules</option>
+                        <option value="general" {% if context_filter == 'general' %}selected{% endif %}>General</option>
+                        <option value="time" {% if context_filter == 'time' %}selected{% endif %}>Time-based</option>
+                        <option value="budget" {% if context_filter == 'budget' %}selected{% endif %}>Budget Segment</option>
+                        <option value="basket" {% if context_filter == 'basket' %}selected{% endif %}>Basket Size</option>
+                    </select>
+                </div>
+                
+                <!-- Apply Button -->
+                <div class="flex items-end">
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition">
+                        Apply Filters
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Top Association Rules Section -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                    </svg>
+                    Top Association Rules
+                </h2>
+                <div class="flex gap-2">
+                    <a href="{{ url_for('dashboard.glossary') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg font-semibold transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Metric Guide
+                    </a>
+                    {% if upload %}
+                    <a href="{{ url_for('dashboard.network_visualization', upload_id=upload.id) }}" class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-lg font-semibold transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.5a1 1 0 00-.8.4l-3.9 4.8a1 1 0 01-1.6 0l-3.9-4.8A1 1 0 005.5 9H3a2 2 0 00-2 2v4a2 2 0 002 2z"/>
+                        </svg>
+                        Visualize Network
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if rules %}
+                <!-- Rules Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b-2 border-gray-200">
+                                <th class="text-left py-4 px-4 font-semibold text-gray-900 text-sm">Rule</th>
+                                <th class="text-center py-4 px-4 font-semibold text-gray-900 text-sm">Support</th>
+                                <th class="text-center py-4 px-4 font-semibold text-gray-900 text-sm">Confidence</th>
+                                <th class="text-center py-4 px-4 font-semibold text-gray-900 text-sm">Lift</th>
+                                <th class="text-center py-4 px-4 font-semibold text-gray-900 text-sm">Transactions</th>
+                                <th class="text-center py-4 px-4 font-semibold text-gray-900 text-sm">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            {% for rule in rules %}
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="py-4 px-4">
+                                        <div class="flex flex-col gap-1">
+                                            <div class="font-semibold text-gray-900">
+                                                {{ rule.antecedents_text }}
+                                            </div>
+                                            <div class="text-sm text-gray-600 flex items-center gap-2">
+                                                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                                </svg>
+                                                {{ rule.consequents_text }}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4 text-center">
+                                        <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold text-purple-900 bg-purple-100">
+                                            {{ "%.1f"|format(rule.support * 100) }}%
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-4 text-center">
+                                        <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold text-blue-900 bg-blue-100">
+                                            {{ "%.1f"|format(rule.confidence * 100) }}%
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-4 text-center">
+                                        <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold {% if rule.lift > 1.5 %}text-green-900 bg-green-100{% elif rule.lift > 1 %}text-yellow-900 bg-yellow-100{% else %}text-gray-900 bg-gray-100{% endif %}">
+                                            {{ "%.2f"|format(rule.lift) }}x
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-4 text-center">
+                                        <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold text-indigo-900 bg-indigo-100">
+                                            {{ rule.transaction_count }}
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-4 text-center">
+                                        <button onclick="toggleTransactions({{ loop.index0 }})" class="text-blue-600 hover:text-blue-800 font-semibold text-sm transition">
+                                            View
+                                        </button>
+                                    </td>
+                                </tr>
+                                <!-- Sample Transactions Row -->
+                                <tr id="transactions-{{ loop.index0 }}" style="display: none;" class="bg-blue-50">
+                                    <td colspan="6" class="py-4 px-4">
+                                        <div class="space-y-3">
+                                            <h4 class="font-semibold text-gray-900">Sample Transactions</h4>
+                                            <div class="space-y-2">
+                                                {% for transaction in rule.sample_transactions %}
+                                                    <div class="bg-white rounded-lg p-3 border border-gray-200 text-sm">
+                                                        <div class="flex items-center justify-between mb-2">
+                                                            <span class="font-medium text-gray-900">Order: {{ transaction.order_id }}</span>
+                                                            <span class="text-xs text-gray-600">{{ transaction.time_of_day | capitalize }}</span>
+                                                        </div>
+                                                        <div class="text-gray-700 mb-2">
+                                                            <strong>Products:</strong> {{ transaction.products_text }}
+                                                        </div>
+                                                        <div class="flex gap-4 text-xs text-gray-600">
+                                                            <span>Budget: <strong class="text-gray-900">{{ transaction.budget_segment | capitalize }}</strong></span>
+                                                            <span>Basket: <strong class="text-gray-900">{{ transaction.basket_size | capitalize }}</strong></span>
+                                                            <span>Total: <strong class="text-gray-900">KES {{ "%.2f"|format(transaction.total_spent) }}</strong></span>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                                {% if rule.sample_transactions|length == 0 %}
+                                                    <p class="text-gray-600 text-center py-2">No sample transactions available</p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-center py-12">
+                    <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    <p class="text-gray-600 mt-4 text-lg">No association rules found</p>
+                    <p class="text-gray-500 text-sm mt-2">The dataset may be too small or lack product associations. Try uploading more transaction data.</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Metrics Info Card -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Support Card -->
+            <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl border border-purple-200 p-6">
+                <h3 class="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                    <span class="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center text-sm font-bold">1</span>
+                    Support
+                </h3>
+                <p class="text-sm text-gray-700">Percentage of transactions containing this product pair. Higher means more frequent occurrence.</p>
+                <p class="text-xs text-gray-600 mt-2">Example: 5% support = appears in 5 out of 100 transactions</p>
+            </div>
+
+            <!-- Confidence Card -->
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200 p-6">
+                <h3 class="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                    <span class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold">2</span>
+                    Confidence
+                </h3>
+                <p class="text-sm text-gray-700">Likelihood that if first product is bought, second product is also bought. Higher is better.</p>
+                <p class="text-xs text-gray-600 mt-2">Example: 70% confidence = if first product bought, 70% chance second is bought</p>
+            </div>
+
+            <!-- Lift Card -->
+            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200 p-6">
+                <h3 class="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                    <span class="w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center text-sm font-bold">3</span>
+                    Lift
+                </h3>
+                <p class="text-sm text-gray-700">How much more likely the pair occurs together vs. separately. Higher means stronger association.</p>
+                <p class="text-xs text-gray-600 mt-2">Example: 2.0x lift = products are 2x more likely together than random chance</p>
+            </div>
+        </div>
+
+        <!-- More Insights -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Context Breakdown -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Context Breakdown</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-700">General Rules</span>
+                        <span class="font-semibold text-gray-900">{{ general_rules_count }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-700">Time-based Rules</span>
+                        <span class="font-semibold text-gray-900">{{ time_rules_count }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-700">Budget Segment Rules</span>
+                        <span class="font-semibold text-gray-900">{{ budget_rules_count }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-700">Basket Size Rules</span>
+                        <span class="font-semibold text-gray-900">{{ basket_size_rules_count }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommendation Tips -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">How to Use These Rules</h3>
+                <ul class="space-y-3 text-sm text-gray-700">
+                    <li class="flex gap-2">
+                        <span class="text-green-600 font-bold">1.</span>
+                        <span>Use high-confidence rules for product bundling and promotions</span>
+                    </li>
+                    <li class="flex gap-2">
+                        <span class="text-green-600 font-bold">2.</span>
+                        <span>Rules with lift greater than 1.5x are statistically significant</span>
+                    </li>
+                    <li class="flex gap-2">
+                        <span class="text-green-600 font-bold">3.</span>
+                        <span>Support shows which pairs matter for your overall sales volume</span>
+                    </li>
+                    <li class="flex gap-2">
+                        <span class="text-green-600 font-bold">4.</span>
+                        <span>Check sample transactions to validate rules with your domain expertise</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    function toggleTransactions(index) {
+        const row = document.getElementById(`transactions-${index}`);
+        if (row.style.display === 'none') {
+            row.style.display = 'table-row';
+        } else {
+            row.style.display = 'none';
+        }
+    }
+</script>
+
+<style>
+    table {
+        border-collapse: collapse;
+    }
+</style>
+{% endblock %}
