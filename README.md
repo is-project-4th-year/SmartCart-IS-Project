@@ -1,6 +1,6 @@
 # SmartCart
 
-SmartCart is a Flask-based retail analytics assistant that lets merchants upload transaction CSVs, explore AI‑assisted insights, configure spending thresholds, and keep customers informed with OTP‑secured flows. The project is designed for local analysis and **is not deployed to a public environment**.
+SmartCart is a Flask-based retail analytics assistant that lets merchants upload transaction CSVs, explore AI‑assisted insights, configure spending thresholds, and keep customers informed with OTP‑secured flows. 
 
 ## Features
 - OTP-protected authentication with first-time store setup and profile management
