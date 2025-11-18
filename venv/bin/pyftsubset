@@ -1,4 +1,6 @@
-#!/Users/perismakworo/Downloads/v4/venv/bin/python3
+#!/bin/sh
+'''exec' "/Users/perismakworo/Downloads/SmartCart Project/venv/bin/python3" "$0" "$@"
+' '''
 # -*- coding: utf-8 -*-
 import re
 import sys
