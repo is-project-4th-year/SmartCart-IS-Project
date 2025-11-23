@@ -1,0 +1,1249 @@
+transaction_id,date,time_of_day,customer_age,customer_gender,occasion,product_name,category,quantity,unit_price,total_item_price,total_spent
+1,2024-04-22,morning,65,female,daily_needs,Headphones,General,2,741.74,1483.48,370.68
+2,2024-04-10,evening,45,male,daily_needs,Smartphone,General,2,248.01,496.02,340.81
+3,2024-04-12,evening,59,female,daily_needs,USB Cable,General,5,292.63,1463.15,447.72
+3,2024-04-12,morning,62,female,weekend,Monitor,General,2,231.01,462.02,447.72
+4,2024-03-15,morning,42,male,weekend,Microphone,General,3,611.65,1834.95,422.85
+5,2024-03-30,afternoon,23,female,holiday,Screen Protector,General,3,585.81,1757.43,381.83
+6,2024-02-06,afternoon,23,male,daily_needs,Mouse,General,3,464.34,1393.02,433.64
+6,2024-02-06,morning,41,female,daily_needs,Phone Case,General,3,707.78,2123.34,433.64
+7,2024-04-28,evening,58,male,holiday,Router,General,2,180.13,360.26,251.78
+8,2024-04-22,evening,38,male,daily_needs,Microphone,General,1,808.94,808.94,260.47
+8,2024-04-22,morning,31,female,daily_needs,Phone Case,General,4,407.72,1630.88,260.47
+9,2024-04-23,morning,34,male,daily_needs,Router,General,5,548.2,2741.0,398.81
+9,2024-04-23,afternoon,75,female,weekend,Headphones,General,2,519.34,1038.68,398.81
+9,2024-04-23,morning,66,male,daily_needs,Tablet,General,2,796.24,1592.48,398.81
+9,2024-04-23,afternoon,56,male,weekend,Mouse,General,5,996.2,4981.0,398.81
+10,2024-04-08,evening,73,male,holiday,Router,General,1,688.08,688.08,314.79
+10,2024-04-08,afternoon,67,female,daily_needs,Monitor,General,4,174.99,699.96,314.79
+10,2024-04-08,morning,79,female,holiday,Webcam,General,2,517.53,1035.06,314.79
+11,2024-02-14,evening,50,male,daily_needs,Keyboard,General,2,548.59,1097.18,411.45
+11,2024-02-14,evening,76,male,holiday,Keyboard,General,4,39.09,156.36,411.45
+11,2024-02-14,afternoon,74,female,daily_needs,Laptop,General,2,880.45,1760.9,411.45
+12,2024-02-11,evening,49,male,holiday,Webcam,General,2,145.82,291.64,290.11
+13,2024-04-11,afternoon,51,female,daily_needs,LED Light,General,5,760.16,3800.8,375.95
+13,2024-04-11,evening,37,female,holiday,Phone Case,General,3,449.34,1348.02,375.95
+14,2024-04-07,morning,33,male,daily_needs,Keyboard,General,1,596.54,596.54,192.05
+14,2024-04-07,morning,18,male,holiday,Phone Case,General,1,244.36,244.36,192.05
+14,2024-04-07,morning,73,female,daily_needs,Charger,General,2,292.91,585.82,192.05
+14,2024-04-07,afternoon,31,male,holiday,LED Light,General,5,584.69,2923.45,192.05
+15,2024-03-03,afternoon,30,male,daily_needs,Phone Case,General,4,367.21,1468.84,264.44
+15,2024-03-03,evening,21,male,daily_needs,Mouse,General,3,804.58,2413.74,264.44
+15,2024-03-03,morning,33,male,daily_needs,Charger,General,4,157.38,629.52,264.44
+15,2024-03-03,morning,35,female,daily_needs,Microphone,General,1,454.27,454.27,264.44
+16,2024-04-11,morning,59,male,daily_needs,LED Light,General,2,182.98,365.96,294.26
+17,2024-02-28,morning,28,female,daily_needs,Mouse,General,3,927.99,2783.97,414.05
+17,2024-02-28,afternoon,45,female,daily_needs,Headphones,General,3,233.35,700.05,414.05
+17,2024-02-28,morning,55,male,holiday,Keyboard,General,1,69.14,69.14,414.05
+17,2024-02-28,afternoon,50,male,daily_needs,Charger,General,1,854.32,854.32,414.05
+18,2024-02-09,evening,73,male,weekend,Smartphone,General,5,261.29,1306.45,337.81
+19,2024-04-20,afternoon,60,female,weekend,Headphones,General,3,253.91,761.73,258.31
+20,2024-04-26,afternoon,38,male,daily_needs,USB Cable,General,5,998.49,4992.45,498.44
+20,2024-04-26,morning,52,male,holiday,Monitor,General,2,934.59,1869.18,498.44
+20,2024-04-26,morning,74,male,weekend,Monitor,General,2,449.42,898.84,498.44
+21,2024-04-10,evening,80,male,holiday,Microphone,General,5,313.39,1566.95,365.36
+21,2024-04-10,morning,34,male,daily_needs,Router,General,5,172.34,861.7,365.36
+21,2024-04-10,afternoon,56,male,holiday,Keyboard,General,2,693.75,1387.5,365.36
+22,2024-03-05,afternoon,75,male,daily_needs,Phone Case,General,4,832.76,3331.04,117.63
+22,2024-03-05,afternoon,67,male,holiday,Monitor,General,2,746.41,1492.82,117.63
+22,2024-03-05,evening,63,female,holiday,Laptop,General,1,93.74,93.74,117.63
+22,2024-03-05,evening,75,male,holiday,Laptop,General,3,590.86,1772.58,117.63
+23,2024-02-19,morning,20,female,weekend,LED Light,General,1,900.95,900.95,184.03
+23,2024-02-19,morning,60,male,weekend,Webcam,General,5,886.45,4432.25,184.03
+23,2024-02-19,afternoon,80,male,daily_needs,Microphone,General,2,976.68,1953.36,184.03
+23,2024-02-19,morning,74,female,daily_needs,Tablet,General,3,786.74,2360.22,184.03
+24,2024-03-24,afternoon,28,male,weekend,Microphone,General,1,861.42,861.42,188.97
+24,2024-03-24,afternoon,40,female,daily_needs,Headphones,General,1,666.83,666.83,188.97
+25,2024-03-23,afternoon,73,male,weekend,Keyboard,General,5,411.68,2058.4,492.46
+25,2024-03-23,evening,39,male,daily_needs,LED Light,General,3,195.0,585.0,492.46
+25,2024-03-23,afternoon,20,male,holiday,Mouse,General,3,733.97,2201.91,492.46
+26,2024-03-12,evening,80,male,weekend,LED Light,General,5,206.28,1031.4,117.75
+26,2024-03-12,afternoon,18,male,weekend,Mouse,General,1,949.9,949.9,117.75
+26,2024-03-12,afternoon,57,female,holiday,Microphone,General,1,725.36,725.36,117.75
+26,2024-03-12,afternoon,50,female,holiday,Mouse,General,3,414.35,1243.05,117.75
+27,2024-03-09,morning,44,female,holiday,Router,General,2,623.2,1246.4,220.38
+27,2024-03-09,evening,71,male,weekend,Monitor,General,2,441.29,882.58,220.38
+28,2024-04-15,afternoon,46,female,holiday,Headphones,General,5,483.72,2418.6,460.47
+28,2024-04-15,evening,28,male,weekend,Charger,General,5,348.48,1742.4,460.47
+28,2024-04-15,morning,61,female,daily_needs,Webcam,General,2,164.41,328.82,460.47
+29,2024-02-06,afternoon,57,male,weekend,Mouse,General,5,210.55,1052.75,378.54
+29,2024-02-06,afternoon,43,male,daily_needs,Phone Case,General,1,894.81,894.81,378.54
+30,2024-02-14,morning,29,female,daily_needs,Charger,General,2,919.12,1838.24,148.54
+30,2024-02-14,morning,69,female,holiday,Charger,General,5,603.54,3017.7,148.54
+30,2024-02-14,afternoon,57,female,holiday,USB Cable,General,2,748.78,1497.56,148.54
+30,2024-02-14,afternoon,46,female,daily_needs,Microphone,General,3,770.5,2311.5,148.54
+31,2024-04-07,evening,33,female,weekend,Smartphone,General,3,249.8,749.4,234.34
+31,2024-04-07,evening,23,male,daily_needs,Headphones,General,4,700.07,2800.28,234.34
+31,2024-04-07,evening,31,male,weekend,Mouse,General,3,551.76,1655.28,234.34
+31,2024-04-07,afternoon,21,male,weekend,Mouse,General,5,947.14,4735.7,234.34
+32,2024-02-03,afternoon,18,female,weekend,Webcam,General,4,856.38,3425.52,481.37
+32,2024-02-03,afternoon,52,male,weekend,Headphones,General,3,447.12,1341.36,481.37
+32,2024-02-03,morning,42,female,holiday,Phone Case,General,4,729.7,2918.8,481.37
+32,2024-02-03,afternoon,76,male,holiday,Charger,General,1,908.79,908.79,481.37
+33,2024-04-16,morning,59,female,daily_needs,Microphone,General,4,198.09,792.36,204.06
+34,2024-03-13,afternoon,38,female,weekend,Monitor,General,4,267.23,1068.92,132.76
+34,2024-03-13,morning,65,male,weekend,Headphones,General,1,785.61,785.61,132.76
+35,2024-04-24,morning,78,male,daily_needs,Microphone,General,1,628.91,628.91,195.42
+36,2024-04-01,evening,78,male,weekend,Router,General,3,771.56,2314.68,167.12
+37,2024-04-18,morning,79,female,daily_needs,Screen Protector,General,1,930.31,930.31,330.32
+38,2024-03-20,evening,30,male,holiday,Router,General,2,119.86,239.72,408.99
+38,2024-03-20,evening,56,male,holiday,Webcam,General,1,360.26,360.26,408.99
+38,2024-03-20,afternoon,60,female,daily_needs,Charger,General,3,32.4,97.2,408.99
+38,2024-03-20,afternoon,70,female,daily_needs,Mouse,General,3,642.87,1928.61,408.99
+39,2024-03-30,afternoon,29,female,holiday,Webcam,General,5,779.15,3895.75,285.95
+39,2024-03-30,evening,55,female,weekend,Microphone,General,2,834.12,1668.24,285.95
+40,2024-02-12,afternoon,33,female,holiday,Screen Protector,General,4,349.67,1398.68,297.72
+40,2024-02-12,afternoon,29,female,daily_needs,Keyboard,General,3,353.53,1060.59,297.72
+40,2024-02-12,evening,62,female,holiday,Laptop,General,5,949.1,4745.5,297.72
+41,2024-02-11,evening,44,female,holiday,Webcam,General,2,696.8,1393.6,358.36
+41,2024-02-11,afternoon,46,male,daily_needs,Monitor,General,2,416.31,832.62,358.36
+42,2024-03-03,evening,55,female,weekend,Charger,General,5,356.88,1784.4,498.65
+42,2024-03-03,evening,39,female,holiday,USB Cable,General,3,320.49,961.47,498.65
+42,2024-03-03,morning,25,male,weekend,Smartphone,General,5,951.86,4759.3,498.65
+43,2024-04-29,morning,31,female,weekend,Router,General,5,977.07,4885.35,309.85
+43,2024-04-29,afternoon,80,male,daily_needs,Monitor,General,2,373.66,747.32,309.85
+44,2024-03-10,evening,52,male,weekend,Laptop,General,1,562.29,562.29,378.97
+45,2024-02-17,morning,73,male,holiday,Monitor,General,4,489.14,1956.56,236.28
+45,2024-02-17,morning,34,female,daily_needs,Microphone,General,1,412.69,412.69,236.28
+45,2024-02-17,morning,54,male,daily_needs,Tablet,General,5,950.14,4750.7,236.28
+45,2024-02-17,morning,33,male,holiday,Webcam,General,4,614.19,2456.76,236.28
+46,2024-04-20,evening,42,female,weekend,Monitor,General,5,990.23,4951.15,222.15
+46,2024-04-20,evening,21,male,daily_needs,Phone Case,General,2,279.35,558.7,222.15
+47,2024-02-11,morning,29,male,daily_needs,Laptop,General,4,461.49,1845.96,337.52
+47,2024-02-11,afternoon,20,male,weekend,Router,General,3,708.93,2126.79,337.52
+48,2024-03-30,evening,32,female,holiday,Screen Protector,General,2,436.64,873.28,317.82
+49,2024-04-23,afternoon,70,male,daily_needs,Laptop,General,2,796.78,1593.56,338.02
+49,2024-04-23,evening,76,female,weekend,Smartphone,General,4,694.9,2779.6,338.02
+50,2024-04-30,afternoon,50,female,weekend,Smartphone,General,5,59.06,295.3,272.81
+50,2024-04-30,afternoon,56,female,daily_needs,Smartphone,General,2,962.67,1925.34,272.81
+50,2024-04-30,evening,55,male,holiday,Microphone,General,3,584.72,1754.16,272.81
+50,2024-04-30,morning,48,female,weekend,Tablet,General,5,447.17,2235.85,272.81
+51,2024-04-03,afternoon,40,female,weekend,Keyboard,General,1,860.58,860.58,231.92
+52,2024-04-29,afternoon,60,female,holiday,Laptop,General,4,106.3,425.2,200.96
+52,2024-04-29,morning,80,female,holiday,Microphone,General,1,664.51,664.51,200.96
+52,2024-04-29,evening,47,female,daily_needs,Headphones,General,5,374.54,1872.7,200.96
+52,2024-04-29,afternoon,58,female,daily_needs,Headphones,General,3,558.24,1674.72,200.96
+53,2024-03-08,evening,49,male,daily_needs,Phone Case,General,5,803.33,4016.65,383.91
+53,2024-03-08,afternoon,53,male,holiday,Mouse,General,1,240.21,240.21,383.91
+53,2024-03-08,morning,47,male,holiday,Microphone,General,2,508.41,1016.82,383.91
+53,2024-03-08,evening,36,female,weekend,Microphone,General,4,980.64,3922.56,383.91
+54,2024-03-03,evening,27,female,daily_needs,LED Light,General,5,518.08,2590.4,451.73
+54,2024-03-03,morning,35,female,weekend,LED Light,General,5,281.83,1409.15,451.73
+54,2024-03-03,morning,36,female,holiday,Screen Protector,General,4,867.96,3471.84,451.73
+54,2024-03-03,afternoon,52,female,weekend,Keyboard,General,5,767.62,3838.1,451.73
+55,2024-03-20,afternoon,73,male,holiday,Headphones,General,5,395.31,1976.55,442.41
+55,2024-03-20,afternoon,20,female,holiday,USB Cable,General,4,398.36,1593.44,442.41
+55,2024-03-20,evening,68,male,weekend,Laptop,General,2,512.25,1024.5,442.41
+55,2024-03-20,evening,39,male,weekend,Smartphone,General,5,912.23,4561.15,442.41
+56,2024-02-02,afternoon,73,male,daily_needs,USB Cable,General,3,351.79,1055.37,377.08
+56,2024-02-02,evening,23,female,holiday,Microphone,General,5,392.41,1962.05,377.08
+57,2024-03-12,evening,20,male,daily_needs,Phone Case,General,3,997.48,2992.44,398.71
+57,2024-03-12,afternoon,80,male,holiday,Router,General,1,454.8,454.8,398.71
+57,2024-03-12,evening,37,male,daily_needs,Keyboard,General,1,307.5,307.5,398.71
+57,2024-03-12,afternoon,45,male,daily_needs,Charger,General,4,574.61,2298.44,398.71
+58,2024-02-24,morning,23,female,holiday,Phone Case,General,2,507.71,1015.42,333.26
+58,2024-02-24,morning,47,female,weekend,Monitor,General,1,900.93,900.93,333.26
+59,2024-03-31,evening,52,male,daily_needs,USB Cable,General,3,987.9,2963.7,219.66
+59,2024-03-31,afternoon,62,female,weekend,Microphone,General,3,215.23,645.69,219.66
+59,2024-03-31,afternoon,72,female,daily_needs,Headphones,General,4,580.48,2321.92,219.66
+60,2024-04-14,evening,36,male,holiday,Mouse,General,3,27.94,83.82,446.03
+60,2024-04-14,evening,80,male,holiday,Router,General,4,836.18,3344.72,446.03
+60,2024-04-14,afternoon,67,male,holiday,Webcam,General,3,234.62,703.86,446.03
+61,2024-02-25,evening,66,male,holiday,Smartphone,General,1,322.75,322.75,276.33
+61,2024-02-25,evening,41,male,daily_needs,LED Light,General,3,340.18,1020.54,276.33
+61,2024-02-25,afternoon,29,male,daily_needs,Webcam,General,5,878.93,4394.65,276.33
+62,2024-03-18,morning,34,female,weekend,Router,General,3,808.15,2424.45,287.33
+62,2024-03-18,morning,27,male,holiday,Router,General,4,967.92,3871.68,287.33
+62,2024-03-18,evening,41,male,weekend,Laptop,General,3,545.84,1637.52,287.33
+63,2024-03-30,evening,65,female,holiday,Mouse,General,3,126.18,378.54,193.53
+63,2024-03-30,morning,57,female,holiday,Headphones,General,1,642.7,642.7,193.53
+63,2024-03-30,afternoon,76,female,holiday,Mouse,General,1,156.98,156.98,193.53
+64,2024-02-05,afternoon,25,male,daily_needs,LED Light,General,5,152.95,764.75,281.46
+64,2024-02-05,evening,78,female,holiday,Router,General,2,887.71,1775.42,281.46
+64,2024-02-05,evening,24,female,holiday,Mouse,General,3,52.06,156.18,281.46
+65,2024-03-19,afternoon,46,male,weekend,Smartphone,General,3,553.58,1660.74,491.14
+65,2024-03-19,afternoon,21,female,weekend,Headphones,General,1,950.03,950.03,491.14
+66,2024-03-30,evening,31,male,daily_needs,Webcam,General,3,258.7,776.1,150.37
+67,2024-04-13,morning,71,male,holiday,Headphones,General,2,341.99,683.98,159.02
+67,2024-04-13,evening,18,female,daily_needs,Tablet,General,5,265.64,1328.2,159.02
+68,2024-02-23,evening,73,male,daily_needs,Laptop,General,3,794.18,2382.54,195.17
+69,2024-03-13,morning,34,male,daily_needs,Router,General,4,535.56,2142.24,398.27
+70,2024-04-01,afternoon,50,male,weekend,Charger,General,2,946.51,1893.02,117.35
+70,2024-04-01,evening,51,female,weekend,Phone Case,General,1,79.61,79.61,117.35
+70,2024-04-01,afternoon,72,female,weekend,Phone Case,General,1,500.46,500.46,117.35
+70,2024-04-01,afternoon,22,male,weekend,Screen Protector,General,2,84.37,168.74,117.35
+71,2024-03-07,afternoon,56,female,weekend,Charger,General,5,441.6,2208.0,417.24
+71,2024-03-07,morning,72,male,weekend,USB Cable,General,2,425.54,851.08,417.24
+71,2024-03-07,afternoon,43,female,holiday,Smartphone,General,3,438.23,1314.69,417.24
+72,2024-04-26,afternoon,79,male,holiday,LED Light,General,4,85.79,343.16,432.71
+72,2024-04-26,morning,45,male,holiday,Router,General,3,815.53,2446.59,432.71
+72,2024-04-26,evening,21,female,holiday,Smartphone,General,4,366.53,1466.12,432.71
+73,2024-04-26,evening,21,female,holiday,Monitor,General,3,121.53,364.59,302.97
+73,2024-04-26,morning,60,female,daily_needs,Microphone,General,1,363.11,363.11,302.97
+73,2024-04-26,evening,41,male,weekend,Screen Protector,General,2,811.08,1622.16,302.97
+73,2024-04-26,evening,80,male,holiday,LED Light,General,3,48.37,145.11,302.97
+74,2024-03-06,afternoon,40,male,daily_needs,Microphone,General,2,574.99,1149.98,260.31
+74,2024-03-06,morning,65,male,daily_needs,Router,General,5,230.83,1154.15,260.31
+74,2024-03-06,afternoon,47,female,daily_needs,Keyboard,General,3,727.16,2181.48,260.31
+75,2024-04-13,morning,27,male,holiday,Laptop,General,1,286.66,286.66,364.78
+76,2024-04-03,afternoon,35,male,holiday,Smartphone,General,3,441.32,1323.96,213.3
+76,2024-04-03,evening,55,female,holiday,Phone Case,General,3,64.51,193.53,213.3
+76,2024-04-03,afternoon,56,male,daily_needs,Headphones,General,3,946.42,2839.26,213.3
+76,2024-04-03,morning,66,female,weekend,Keyboard,General,1,27.58,27.58,213.3
+77,2024-03-27,morning,42,male,holiday,Charger,General,3,90.63,271.89,444.71
+77,2024-03-27,morning,45,male,weekend,LED Light,General,1,864.87,864.87,444.71
+78,2024-04-14,evening,43,female,weekend,Smartphone,General,4,40.44,161.76,229.91
+78,2024-04-14,evening,47,female,daily_needs,Mouse,General,1,258.45,258.45,229.91
+78,2024-04-14,evening,43,male,weekend,Microphone,General,3,750.89,2252.67,229.91
+78,2024-04-14,morning,39,male,daily_needs,Charger,General,1,539.99,539.99,229.91
+79,2024-02-25,afternoon,64,male,daily_needs,Smartphone,General,2,270.85,541.7,169.4
+79,2024-02-25,morning,66,male,daily_needs,Webcam,General,4,474.67,1898.68,169.4
+79,2024-02-25,evening,66,female,holiday,LED Light,General,5,650.13,3250.65,169.4
+80,2024-04-20,evening,38,male,weekend,Smartphone,General,4,453.36,1813.44,221.13
+80,2024-04-20,afternoon,55,male,weekend,Charger,General,1,324.2,324.2,221.13
+80,2024-04-20,afternoon,20,male,weekend,Microphone,General,3,95.2,285.6,221.13
+81,2024-02-12,afternoon,55,male,weekend,LED Light,General,5,658.8,3294.0,228.61
+81,2024-02-12,afternoon,50,male,daily_needs,USB Cable,General,1,814.75,814.75,228.61
+81,2024-02-12,afternoon,80,male,holiday,Phone Case,General,2,58.36,116.72,228.61
+81,2024-02-12,evening,46,female,holiday,Charger,General,5,175.57,877.85,228.61
+82,2024-03-19,afternoon,44,female,holiday,Screen Protector,General,1,793.44,793.44,358.92
+82,2024-03-19,morning,39,male,holiday,Phone Case,General,4,298.46,1193.84,358.92
+82,2024-03-19,evening,72,male,weekend,Smartphone,General,5,670.34,3351.7,358.92
+83,2024-03-16,evening,62,female,daily_needs,Screen Protector,General,1,323.39,323.39,250.67
+83,2024-03-16,afternoon,70,male,holiday,Router,General,5,111.58,557.9,250.67
+83,2024-03-16,evening,45,female,daily_needs,Keyboard,General,3,196.66,589.98,250.67
+84,2024-02-28,afternoon,30,male,daily_needs,Tablet,General,1,309.88,309.88,415.25
+84,2024-02-28,evening,67,male,holiday,Keyboard,General,5,148.43,742.15,415.25
+84,2024-02-28,afternoon,27,male,daily_needs,Microphone,General,5,812.86,4064.3,415.25
+85,2024-02-22,morning,44,female,holiday,Router,General,2,970.2,1940.4,344.24
+85,2024-02-22,evening,68,female,daily_needs,Charger,General,2,323.28,646.56,344.24
+85,2024-02-22,afternoon,75,male,weekend,Phone Case,General,5,984.75,4923.75,344.24
+85,2024-02-22,afternoon,67,female,weekend,Charger,General,5,430.29,2151.45,344.24
+86,2024-02-21,evening,26,female,daily_needs,Phone Case,General,4,876.63,3506.52,321.82
+86,2024-02-21,morning,63,male,weekend,Smartphone,General,2,287.34,574.68,321.82
+87,2024-04-06,afternoon,23,male,weekend,LED Light,General,3,931.86,2795.58,265.96
+87,2024-04-06,afternoon,50,female,daily_needs,Mouse,General,1,387.41,387.41,265.96
+88,2024-02-04,morning,71,female,daily_needs,Tablet,General,1,301.14,301.14,431.9
+88,2024-02-04,evening,71,male,holiday,USB Cable,General,4,623.04,2492.16,431.9
+88,2024-02-04,morning,19,female,daily_needs,Microphone,General,2,557.83,1115.66,431.9
+89,2024-04-18,morning,67,female,daily_needs,Monitor,General,1,66.79,66.79,267.93
+89,2024-04-18,evening,47,male,daily_needs,Microphone,General,4,604.8,2419.2,267.93
+89,2024-04-18,morning,58,male,holiday,Tablet,General,3,440.65,1321.95,267.93
+89,2024-04-18,evening,40,male,holiday,Mouse,General,2,671.08,1342.16,267.93
+90,2024-02-11,morning,79,male,weekend,Microphone,General,4,62.66,250.64,254.75
+90,2024-02-11,afternoon,34,male,weekend,Webcam,General,1,357.91,357.91,254.75
+90,2024-02-11,evening,60,male,holiday,Router,General,3,150.74,452.22,254.75
+91,2024-03-17,evening,29,female,holiday,USB Cable,General,2,815.27,1630.54,125.24
+91,2024-03-17,afternoon,20,female,daily_needs,Laptop,General,2,888.07,1776.14,125.24
+91,2024-03-17,afternoon,77,female,holiday,Mouse,General,5,483.93,2419.65,125.24
+92,2024-02-05,afternoon,40,male,holiday,Keyboard,General,3,141.99,425.97,247.21
+92,2024-02-05,afternoon,65,female,weekend,Keyboard,General,2,506.28,1012.56,247.21
+93,2024-04-04,evening,35,male,holiday,Mouse,General,1,442.0,442.0,498.04
+93,2024-04-04,morning,52,female,weekend,Smartphone,General,1,341.36,341.36,498.04
+93,2024-04-04,afternoon,37,female,holiday,Router,General,4,183.31,733.24,498.04
+94,2024-03-28,afternoon,20,female,holiday,Mouse,General,3,646.68,1940.04,416.59
+94,2024-03-28,morning,22,female,weekend,Charger,General,2,953.73,1907.46,416.59
+94,2024-03-28,morning,72,female,daily_needs,Tablet,General,1,251.28,251.28,416.59
+95,2024-04-23,afternoon,42,male,holiday,Tablet,General,4,949.85,3799.4,248.81
+95,2024-04-23,morning,54,male,holiday,Keyboard,General,4,328.1,1312.4,248.81
+95,2024-04-23,afternoon,33,male,daily_needs,Router,General,2,509.06,1018.12,248.81
+96,2024-03-21,afternoon,67,female,holiday,USB Cable,General,2,996.44,1992.88,214.23
+97,2024-04-03,morning,26,male,weekend,Tablet,General,4,997.32,3989.28,424.21
+97,2024-04-03,afternoon,60,female,holiday,Smartphone,General,5,551.33,2756.65,424.21
+98,2024-03-10,evening,63,male,weekend,Charger,General,2,138.94,277.88,180.39
+98,2024-03-10,morning,33,female,daily_needs,Keyboard,General,5,580.83,2904.15,180.39
+99,2024-03-31,evening,74,male,daily_needs,Monitor,General,4,999.6,3998.4,387.55
+99,2024-03-31,evening,44,female,holiday,Smartphone,General,2,972.93,1945.86,387.55
+100,2024-04-23,afternoon,47,female,daily_needs,LED Light,General,5,647.0,3235.0,172.79
+101,2024-02-17,evening,76,male,daily_needs,Charger,General,2,318.04,636.08,164.79
+101,2024-02-17,evening,32,female,holiday,LED Light,General,3,849.02,2547.06,164.79
+101,2024-02-17,afternoon,30,female,daily_needs,Phone Case,General,3,622.14,1866.42,164.79
+101,2024-02-17,morning,50,male,holiday,Screen Protector,General,2,187.78,375.56,164.79
+102,2024-04-20,evening,20,male,daily_needs,Laptop,General,5,279.36,1396.8,184.32
+102,2024-04-20,evening,44,male,weekend,LED Light,General,5,303.88,1519.4,184.32
+102,2024-04-20,afternoon,48,male,holiday,Mouse,General,3,464.47,1393.41,184.32
+103,2024-04-29,morning,46,female,weekend,USB Cable,General,2,353.39,706.78,157.47
+104,2024-03-12,afternoon,26,female,holiday,Charger,General,1,332.73,332.73,286.59
+104,2024-03-12,afternoon,46,male,daily_needs,Smartphone,General,1,304.41,304.41,286.59
+104,2024-03-12,afternoon,73,female,daily_needs,Microphone,General,2,817.21,1634.42,286.59
+105,2024-04-14,morning,66,male,weekend,Charger,General,4,508.78,2035.12,223.42
+105,2024-04-14,morning,23,female,holiday,USB Cable,General,2,230.84,461.68,223.42
+105,2024-04-14,afternoon,21,male,weekend,USB Cable,General,5,884.69,4423.45,223.42
+106,2024-04-24,afternoon,52,male,daily_needs,Mouse,General,2,884.81,1769.62,391.0
+106,2024-04-24,afternoon,41,male,weekend,Laptop,General,5,570.58,2852.9,391.0
+106,2024-04-24,afternoon,53,female,daily_needs,Mouse,General,5,461.35,2306.75,391.0
+106,2024-04-24,evening,35,male,daily_needs,Smartphone,General,4,385.73,1542.92,391.0
+107,2024-03-15,morning,30,female,holiday,Laptop,General,1,58.14,58.14,385.44
+107,2024-03-15,afternoon,51,female,daily_needs,Screen Protector,General,5,156.99,784.95,385.44
+107,2024-03-15,evening,38,male,weekend,Screen Protector,General,3,601.85,1805.55,385.44
+108,2024-04-05,evening,54,female,weekend,Microphone,General,1,380.99,380.99,369.52
+108,2024-04-05,afternoon,55,female,holiday,Microphone,General,1,604.97,604.97,369.52
+108,2024-04-05,afternoon,79,male,holiday,Laptop,General,5,490.84,2454.2,369.52
+108,2024-04-05,evening,58,female,daily_needs,Microphone,General,2,50.94,101.88,369.52
+109,2024-04-30,morning,19,female,weekend,Mouse,General,2,424.7,849.4,181.56
+110,2024-04-05,evening,64,male,holiday,Tablet,General,5,223.19,1115.95,230.02
+110,2024-04-05,evening,48,female,weekend,Tablet,General,4,913.88,3655.52,230.02
+110,2024-04-05,afternoon,52,female,holiday,Webcam,General,3,617.88,1853.64,230.02
+110,2024-04-05,morning,79,male,weekend,Charger,General,3,240.37,721.11,230.02
+111,2024-03-10,evening,31,female,weekend,USB Cable,General,3,569.28,1707.84,473.79
+111,2024-03-10,evening,35,female,daily_needs,Screen Protector,General,5,392.1,1960.5,473.79
+111,2024-03-10,afternoon,70,female,daily_needs,Monitor,General,1,301.88,301.88,473.79
+112,2024-02-11,afternoon,59,female,holiday,USB Cable,General,2,218.03,436.06,315.43
+112,2024-02-11,evening,62,female,daily_needs,Smartphone,General,5,746.07,3730.35,315.43
+112,2024-02-11,morning,33,male,holiday,LED Light,General,5,241.16,1205.8,315.43
+113,2024-03-01,morning,44,female,holiday,USB Cable,General,1,687.57,687.57,154.99
+114,2024-04-11,afternoon,59,female,weekend,Phone Case,General,2,760.79,1521.58,214.9
+114,2024-04-11,afternoon,59,male,daily_needs,Phone Case,General,5,247.58,1237.9,214.9
+115,2024-02-05,afternoon,74,male,daily_needs,Microphone,General,4,792.2,3168.8,174.52
+115,2024-02-05,evening,79,female,daily_needs,Laptop,General,3,576.6,1729.8,174.52
+116,2024-02-14,afternoon,47,female,daily_needs,Microphone,General,5,478.66,2393.3,177.12
+116,2024-02-14,morning,39,male,holiday,USB Cable,General,3,724.23,2172.69,177.12
+116,2024-02-14,morning,65,female,weekend,Screen Protector,General,2,191.99,383.98,177.12
+117,2024-04-22,afternoon,50,female,daily_needs,Mouse,General,1,201.09,201.09,156.24
+117,2024-04-22,afternoon,77,male,daily_needs,Monitor,General,4,250.81,1003.24,156.24
+117,2024-04-22,afternoon,79,female,weekend,Screen Protector,General,5,31.21,156.05,156.24
+117,2024-04-22,evening,41,male,daily_needs,Phone Case,General,1,476.09,476.09,156.24
+118,2024-02-21,evening,50,female,holiday,Smartphone,General,3,380.19,1140.57,188.34
+118,2024-02-21,morning,48,male,weekend,Router,General,5,386.15,1930.75,188.34
+118,2024-02-21,evening,53,female,holiday,Webcam,General,2,766.62,1533.24,188.34
+118,2024-02-21,evening,66,male,holiday,USB Cable,General,5,709.69,3548.45,188.34
+119,2024-02-10,morning,71,male,holiday,Charger,General,2,181.25,362.5,441.79
+120,2024-03-28,evening,31,female,daily_needs,LED Light,General,5,456.57,2282.85,122.25
+121,2024-02-17,afternoon,54,male,holiday,USB Cable,General,3,728.81,2186.43,258.38
+121,2024-02-17,morning,65,male,holiday,Smartphone,General,1,435.22,435.22,258.38
+121,2024-02-17,evening,22,male,daily_needs,LED Light,General,4,51.1,204.4,258.38
+121,2024-02-17,afternoon,29,male,holiday,Router,General,4,386.97,1547.88,258.38
+122,2024-03-20,afternoon,42,male,holiday,Phone Case,General,5,150.33,751.65,444.11
+122,2024-03-20,morning,29,female,holiday,Tablet,General,2,838.13,1676.26,444.11
+122,2024-03-20,morning,80,female,weekend,Phone Case,General,5,435.65,2178.25,444.11
+122,2024-03-20,afternoon,70,male,daily_needs,USB Cable,General,3,172.02,516.06,444.11
+123,2024-02-25,morning,69,female,holiday,Webcam,General,1,255.85,255.85,126.92
+124,2024-04-17,afternoon,56,male,daily_needs,Router,General,1,414.22,414.22,193.74
+125,2024-02-28,morning,50,female,daily_needs,Microphone,General,5,332.53,1662.65,339.17
+126,2024-04-27,morning,37,male,holiday,Charger,General,2,425.29,850.58,210.06
+126,2024-04-27,evening,78,male,holiday,Phone Case,General,4,564.73,2258.92,210.06
+126,2024-04-27,morning,80,female,holiday,Phone Case,General,4,790.09,3160.36,210.06
+127,2024-03-12,afternoon,27,female,weekend,Tablet,General,5,484.05,2420.25,439.74
+127,2024-03-12,afternoon,72,male,weekend,LED Light,General,1,571.14,571.14,439.74
+127,2024-03-12,afternoon,53,male,weekend,Headphones,General,3,219.27,657.81,439.74
+127,2024-03-12,evening,23,female,weekend,Smartphone,General,5,730.09,3650.45,439.74
+128,2024-02-25,afternoon,42,male,daily_needs,Headphones,General,5,729.82,3649.1,323.54
+129,2024-04-02,afternoon,37,male,daily_needs,LED Light,General,2,962.84,1925.68,146.93
+129,2024-04-02,afternoon,76,male,holiday,Screen Protector,General,2,408.7,817.4,146.93
+130,2024-03-02,afternoon,42,female,holiday,Phone Case,General,3,322.25,966.75,243.86
+130,2024-03-02,afternoon,47,male,holiday,USB Cable,General,3,916.04,2748.12,243.86
+130,2024-03-02,afternoon,38,female,daily_needs,Screen Protector,General,2,746.43,1492.86,243.86
+131,2024-02-03,evening,77,female,weekend,Tablet,General,2,343.27,686.54,251.94
+131,2024-02-03,morning,49,female,weekend,Webcam,General,4,967.18,3868.72,251.94
+131,2024-02-03,evening,65,female,weekend,Tablet,General,3,185.88,557.64,251.94
+132,2024-04-10,morning,76,male,holiday,Laptop,General,1,946.28,946.28,367.29
+132,2024-04-10,morning,44,male,holiday,Headphones,General,1,713.03,713.03,367.29
+132,2024-04-10,morning,31,female,weekend,Laptop,General,5,644.97,3224.85,367.29
+132,2024-04-10,evening,76,female,holiday,USB Cable,General,1,26.48,26.48,367.29
+133,2024-04-11,morning,19,female,holiday,Monitor,General,1,512.17,512.17,379.14
+133,2024-04-11,afternoon,69,male,daily_needs,LED Light,General,1,533.9,533.9,379.14
+133,2024-04-11,morning,30,female,weekend,Monitor,General,4,97.44,389.76,379.14
+133,2024-04-11,afternoon,47,male,holiday,Headphones,General,3,690.36,2071.08,379.14
+134,2024-02-11,morning,43,female,weekend,Charger,General,4,74.99,299.96,103.78
+135,2024-02-22,afternoon,72,female,holiday,Webcam,General,3,574.54,1723.62,443.18
+136,2024-02-13,morning,31,female,weekend,Laptop,General,1,690.74,690.74,212.15
+137,2024-04-10,morning,77,female,daily_needs,Headphones,General,5,161.31,806.55,428.28
+138,2024-03-22,afternoon,28,male,holiday,Microphone,General,4,683.49,2733.96,316.22
+139,2024-03-21,evening,64,male,holiday,Router,General,3,72.62,217.86,274.84
+139,2024-03-21,morning,39,female,weekend,Laptop,General,3,787.88,2363.64,274.84
+140,2024-03-29,morning,40,female,weekend,Tablet,General,5,667.46,3337.3,134.28
+140,2024-03-29,evening,36,male,holiday,Smartphone,General,1,282.61,282.61,134.28
+140,2024-03-29,afternoon,63,male,holiday,Mouse,General,3,373.49,1120.47,134.28
+140,2024-03-29,morning,18,female,weekend,Keyboard,General,3,120.19,360.57,134.28
+141,2024-02-12,afternoon,46,female,daily_needs,Laptop,General,1,366.84,366.84,137.23
+141,2024-02-12,evening,68,female,weekend,Laptop,General,3,425.53,1276.59,137.23
+142,2024-02-11,evening,51,male,holiday,Mouse,General,2,156.06,312.12,220.45
+142,2024-02-11,afternoon,27,male,daily_needs,Mouse,General,3,432.68,1298.04,220.45
+143,2024-04-02,afternoon,34,male,holiday,Phone Case,General,4,601.93,2407.72,178.22
+144,2024-02-14,afternoon,18,female,weekend,Microphone,General,5,392.29,1961.45,444.88
+144,2024-02-14,afternoon,39,female,holiday,Screen Protector,General,2,314.43,628.86,444.88
+145,2024-04-18,afternoon,38,male,weekend,Keyboard,General,3,740.18,2220.54,353.16
+145,2024-04-18,evening,68,male,weekend,Mouse,General,3,820.16,2460.48,353.16
+146,2024-03-22,morning,77,male,holiday,Charger,General,2,688.08,1376.16,320.04
+146,2024-03-22,evening,47,male,weekend,Webcam,General,3,834.66,2503.98,320.04
+146,2024-03-22,morning,70,female,holiday,USB Cable,General,2,640.67,1281.34,320.04
+147,2024-03-02,evening,27,female,weekend,Smartphone,General,4,990.89,3963.56,291.69
+147,2024-03-02,afternoon,52,female,holiday,Laptop,General,3,707.6,2122.8,291.69
+147,2024-03-02,evening,56,male,daily_needs,Webcam,General,2,664.45,1328.9,291.69
+148,2024-03-17,evening,57,male,holiday,Phone Case,General,4,967.47,3869.88,232.64
+148,2024-03-17,afternoon,24,male,daily_needs,Monitor,General,2,520.46,1040.92,232.64
+149,2024-04-07,afternoon,41,female,weekend,Webcam,General,5,696.63,3483.15,160.3
+149,2024-04-07,morning,48,male,weekend,Mouse,General,1,133.75,133.75,160.3
+150,2024-02-19,afternoon,39,female,daily_needs,Charger,General,4,361.33,1445.32,139.05
+150,2024-02-19,evening,62,female,weekend,Smartphone,General,3,63.79,191.37,139.05
+150,2024-02-19,evening,25,male,weekend,Phone Case,General,1,683.6,683.6,139.05
+151,2024-02-22,evening,29,male,weekend,Charger,General,4,959.29,3837.16,192.74
+151,2024-02-22,afternoon,58,male,daily_needs,Phone Case,General,4,407.67,1630.68,192.74
+152,2024-04-19,afternoon,55,female,weekend,Laptop,General,2,221.67,443.34,400.93
+152,2024-04-19,morning,54,male,holiday,Tablet,General,3,339.47,1018.41,400.93
+153,2024-03-30,afternoon,60,female,holiday,Phone Case,General,3,605.03,1815.09,344.52
+154,2024-04-16,afternoon,40,female,holiday,Tablet,General,3,920.31,2760.93,336.07
+155,2024-04-27,afternoon,25,male,weekend,Smartphone,General,2,385.84,771.68,156.54
+155,2024-04-27,afternoon,44,male,holiday,Mouse,General,4,202.04,808.16,156.54
+156,2024-04-22,evening,28,female,weekend,Tablet,General,2,328.29,656.58,280.4
+156,2024-04-22,morning,73,female,daily_needs,USB Cable,General,2,211.23,422.46,280.4
+157,2024-03-21,afternoon,61,female,weekend,Router,General,4,498.93,1995.72,133.07
+157,2024-03-21,morning,68,male,weekend,Laptop,General,3,240.35,721.05,133.07
+157,2024-03-21,afternoon,28,female,holiday,Router,General,4,558.73,2234.92,133.07
+157,2024-03-21,morning,54,male,weekend,Webcam,General,5,826.82,4134.1,133.07
+158,2024-03-18,evening,46,male,weekend,Smartphone,General,2,311.75,623.5,499.73
+159,2024-03-29,afternoon,73,male,weekend,Microphone,General,1,780.12,780.12,194.78
+159,2024-03-29,evening,55,female,holiday,Screen Protector,General,4,182.66,730.64,194.78
+159,2024-03-29,morning,68,male,daily_needs,Webcam,General,1,578.67,578.67,194.78
+160,2024-04-09,evening,52,male,weekend,Router,General,3,303.55,910.65,206.94
+160,2024-04-09,evening,75,male,daily_needs,Webcam,General,4,920.39,3681.56,206.94
+160,2024-04-09,afternoon,73,male,holiday,Microphone,General,2,264.68,529.36,206.94
+161,2024-03-13,evening,43,female,daily_needs,Screen Protector,General,3,635.26,1905.78,250.07
+161,2024-03-13,morning,58,male,weekend,Charger,General,3,700.81,2102.43,250.07
+162,2024-03-19,afternoon,38,male,holiday,Smartphone,General,4,642.14,2568.56,378.92
+162,2024-03-19,morning,68,female,daily_needs,Mouse,General,2,504.82,1009.64,378.92
+162,2024-03-19,afternoon,71,female,weekend,Charger,General,5,147.98,739.9,378.92
+162,2024-03-19,afternoon,68,female,holiday,Webcam,General,1,65.02,65.02,378.92
+163,2024-04-21,morning,25,male,weekend,USB Cable,General,1,992.0,992.0,271.12
+163,2024-04-21,evening,76,male,holiday,Monitor,General,2,876.93,1753.86,271.12
+163,2024-04-21,afternoon,23,female,weekend,Smartphone,General,3,671.22,2013.66,271.12
+163,2024-04-21,evening,28,male,weekend,Phone Case,General,3,731.47,2194.41,271.12
+164,2024-03-01,evening,23,male,daily_needs,Headphones,General,4,96.38,385.52,337.47
+164,2024-03-01,evening,61,female,daily_needs,Laptop,General,3,820.77,2462.31,337.47
+164,2024-03-01,afternoon,62,male,weekend,Smartphone,General,2,395.41,790.82,337.47
+164,2024-03-01,evening,69,male,daily_needs,Keyboard,General,3,883.37,2650.11,337.47
+165,2024-02-18,morning,59,male,daily_needs,Charger,General,5,28.31,141.55,360.01
+165,2024-02-18,afternoon,40,male,holiday,Router,General,2,921.5,1843.0,360.01
+165,2024-02-18,evening,61,female,daily_needs,Smartphone,General,1,157.21,157.21,360.01
+165,2024-02-18,morning,55,female,weekend,Mouse,General,3,795.26,2385.78,360.01
+166,2024-03-03,evening,23,male,holiday,Screen Protector,General,5,726.76,3633.8,213.97
+166,2024-03-03,evening,19,female,daily_needs,Charger,General,5,519.33,2596.65,213.97
+166,2024-03-03,evening,43,female,holiday,Laptop,General,2,504.99,1009.98,213.97
+167,2024-02-15,afternoon,58,male,holiday,LED Light,General,1,987.14,987.14,473.57
+167,2024-02-15,morning,42,female,weekend,Charger,General,2,767.47,1534.94,473.57
+168,2024-02-10,evening,22,male,weekend,Headphones,General,1,924.13,924.13,479.47
+169,2024-03-22,evening,63,female,weekend,Router,General,4,100.78,403.12,314.63
+169,2024-03-22,evening,27,female,daily_needs,Monitor,General,1,521.08,521.08,314.63
+169,2024-03-22,morning,80,male,holiday,Keyboard,General,4,594.71,2378.84,314.63
+170,2024-04-24,afternoon,62,female,holiday,Microphone,General,2,76.75,153.5,134.49
+171,2024-03-27,afternoon,57,male,weekend,Phone Case,General,2,137.05,274.1,383.16
+172,2024-04-30,morning,49,female,holiday,Charger,General,3,183.62,550.86,150.77
+173,2024-03-06,morning,39,female,weekend,Charger,General,1,277.69,277.69,490.02
+174,2024-04-21,afternoon,47,female,daily_needs,USB Cable,General,5,183.54,917.7,162.92
+175,2024-02-14,morning,65,male,daily_needs,Microphone,General,1,259.66,259.66,288.71
+176,2024-03-21,morning,77,male,holiday,Webcam,General,4,240.03,960.12,199.31
+176,2024-03-21,evening,38,female,daily_needs,Screen Protector,General,3,137.01,411.03,199.31
+177,2024-04-27,morning,32,male,weekend,Smartphone,General,4,868.71,3474.84,409.41
+178,2024-03-11,morning,53,female,daily_needs,Keyboard,General,2,305.76,611.52,413.8
+178,2024-03-11,evening,57,male,weekend,Keyboard,General,5,972.42,4862.1,413.8
+178,2024-03-11,morning,64,male,daily_needs,Laptop,General,4,43.43,173.72,413.8
+179,2024-04-10,evening,71,male,weekend,Laptop,General,4,852.03,3408.12,390.89
+179,2024-04-10,morning,31,male,weekend,USB Cable,General,1,973.11,973.11,390.89
+179,2024-04-10,morning,63,female,daily_needs,Laptop,General,2,899.34,1798.68,390.89
+180,2024-04-07,evening,75,female,weekend,Router,General,1,589.16,589.16,302.17
+180,2024-04-07,evening,70,female,daily_needs,Screen Protector,General,5,81.04,405.2,302.17
+180,2024-04-07,evening,79,male,daily_needs,Monitor,General,3,853.9,2561.7,302.17
+180,2024-04-07,afternoon,62,female,weekend,USB Cable,General,3,248.94,746.82,302.17
+181,2024-02-26,evening,24,male,daily_needs,Tablet,General,4,476.73,1906.92,262.61
+181,2024-02-26,evening,40,male,weekend,Monitor,General,4,279.71,1118.84,262.61
+182,2024-02-16,morning,69,female,holiday,Router,General,5,59.52,297.6,434.37
+183,2024-03-13,morning,63,male,weekend,Mouse,General,5,67.97,339.85,219.54
+183,2024-03-13,morning,19,female,weekend,Charger,General,5,264.86,1324.3,219.54
+184,2024-03-31,morning,25,male,daily_needs,Microphone,General,2,148.1,296.2,429.47
+185,2024-03-19,evening,55,female,daily_needs,Laptop,General,1,213.8,213.8,358.39
+186,2024-02-17,afternoon,25,male,weekend,Laptop,General,2,925.65,1851.3,273.26
+187,2024-03-22,morning,42,female,daily_needs,Keyboard,General,2,910.14,1820.28,209.99
+187,2024-03-22,afternoon,74,male,daily_needs,Screen Protector,General,5,624.64,3123.2,209.99
+187,2024-03-22,evening,36,female,weekend,LED Light,General,5,489.45,2447.25,209.99
+187,2024-03-22,morning,35,female,daily_needs,Mouse,General,2,649.8,1299.6,209.99
+188,2024-04-08,evening,69,male,weekend,Webcam,General,3,490.09,1470.27,412.57
+188,2024-04-08,afternoon,76,female,weekend,Monitor,General,2,45.54,91.08,412.57
+189,2024-04-17,morning,75,female,daily_needs,Webcam,General,4,538.84,2155.36,406.74
+189,2024-04-17,morning,80,male,daily_needs,Headphones,General,2,281.2,562.4,406.74
+190,2024-02-08,evening,72,female,weekend,LED Light,General,2,192.58,385.16,337.01
+190,2024-02-08,evening,62,female,holiday,Laptop,General,3,948.61,2845.83,337.01
+191,2024-04-13,evening,78,male,weekend,Charger,General,3,192.05,576.15,115.19
+191,2024-04-13,morning,32,male,daily_needs,Charger,General,4,20.67,82.68,115.19
+192,2024-04-19,morning,39,male,weekend,Laptop,General,1,164.76,164.76,381.88
+192,2024-04-19,morning,67,male,holiday,Microphone,General,3,961.35,2884.05,381.88
+193,2024-03-19,evening,24,female,weekend,Keyboard,General,2,976.34,1952.68,392.94
+193,2024-03-19,afternoon,68,female,holiday,Keyboard,General,2,713.04,1426.08,392.94
+193,2024-03-19,evening,62,female,daily_needs,Phone Case,General,5,818.17,4090.85,392.94
+193,2024-03-19,afternoon,37,female,daily_needs,Tablet,General,1,949.81,949.81,392.94
+194,2024-04-14,evening,20,male,holiday,Keyboard,General,5,236.48,1182.4,326.22
+194,2024-04-14,afternoon,27,female,holiday,Smartphone,General,2,359.87,719.74,326.22
+194,2024-04-14,afternoon,28,male,holiday,Phone Case,General,3,457.7,1373.1,326.22
+194,2024-04-14,afternoon,31,male,holiday,Smartphone,General,3,271.52,814.56,326.22
+195,2024-02-14,morning,42,female,holiday,Mouse,General,2,886.86,1773.72,297.23
+196,2024-03-20,evening,42,male,weekend,Webcam,General,5,657.95,3289.75,374.86
+196,2024-03-20,morning,46,male,daily_needs,Monitor,General,1,332.34,332.34,374.86
+196,2024-03-20,morning,22,female,daily_needs,LED Light,General,4,177.69,710.76,374.86
+197,2024-02-10,afternoon,56,female,holiday,Laptop,General,4,943.59,3774.36,166.0
+198,2024-03-27,morning,24,female,daily_needs,Headphones,General,4,703.25,2813.0,388.82
+198,2024-03-27,evening,52,female,holiday,Monitor,General,3,252.8,758.4,388.82
+199,2024-02-07,evening,53,female,daily_needs,Laptop,General,3,23.74,71.22,135.05
+199,2024-02-07,evening,58,female,daily_needs,Smartphone,General,1,222.81,222.81,135.05
+199,2024-02-07,evening,36,male,weekend,Microphone,General,1,322.19,322.19,135.05
+199,2024-02-07,afternoon,48,female,holiday,Monitor,General,1,649.03,649.03,135.05
+200,2024-03-21,afternoon,74,female,weekend,Tablet,General,4,63.72,254.88,275.9
+200,2024-03-21,afternoon,32,female,holiday,Laptop,General,2,757.19,1514.38,275.9
+201,2024-04-26,morning,60,female,holiday,Mouse,General,5,242.96,1214.8,124.39
+202,2024-03-21,evening,61,female,holiday,LED Light,General,2,486.74,973.48,131.58
+202,2024-03-21,evening,20,male,daily_needs,Webcam,General,4,189.42,757.68,131.58
+202,2024-03-21,morning,80,male,daily_needs,Tablet,General,1,434.91,434.91,131.58
+202,2024-03-21,evening,45,male,holiday,Tablet,General,5,272.73,1363.65,131.58
+203,2024-02-09,afternoon,53,female,holiday,Keyboard,General,3,529.29,1587.87,466.86
+204,2024-02-02,morning,44,male,daily_needs,Screen Protector,General,5,591.02,2955.1,485.93
+204,2024-02-02,morning,77,male,holiday,Webcam,General,1,790.03,790.03,485.93
+204,2024-02-02,evening,74,female,weekend,Monitor,General,4,661.69,2646.76,485.93
+204,2024-02-02,evening,56,female,daily_needs,Tablet,General,3,414.91,1244.73,485.93
+205,2024-04-20,morning,43,female,holiday,Headphones,General,1,750.83,750.83,468.33
+205,2024-04-20,afternoon,19,female,weekend,Monitor,General,3,845.99,2537.97,468.33
+205,2024-04-20,evening,61,male,daily_needs,Tablet,General,3,974.74,2924.22,468.33
+205,2024-04-20,afternoon,67,female,weekend,Router,General,4,612.88,2451.52,468.33
+206,2024-02-12,afternoon,31,female,holiday,USB Cable,General,5,869.85,4349.25,428.41
+206,2024-02-12,evening,68,male,daily_needs,Monitor,General,5,415.32,2076.6,428.41
+207,2024-04-08,morning,30,male,daily_needs,Headphones,General,1,467.32,467.32,467.21
+208,2024-02-26,afternoon,70,female,holiday,Mouse,General,1,687.55,687.55,196.78
+208,2024-02-26,afternoon,56,female,daily_needs,Microphone,General,4,595.14,2380.56,196.78
+208,2024-02-26,afternoon,40,male,weekend,Router,General,1,299.37,299.37,196.78
+209,2024-03-21,morning,72,male,daily_needs,Phone Case,General,2,684.14,1368.28,207.63
+210,2024-03-24,evening,18,female,daily_needs,Phone Case,General,2,609.12,1218.24,103.39
+211,2024-03-04,evening,79,female,weekend,LED Light,General,4,854.55,3418.2,283.6
+211,2024-03-04,morning,47,female,holiday,Charger,General,5,409.21,2046.05,283.6
+211,2024-03-04,morning,18,female,holiday,Phone Case,General,5,616.87,3084.35,283.6
+212,2024-03-10,afternoon,22,female,weekend,Phone Case,General,3,864.26,2592.78,204.46
+213,2024-04-24,morning,27,male,daily_needs,Webcam,General,5,416.02,2080.1,227.83
+213,2024-04-24,morning,64,male,holiday,USB Cable,General,3,274.24,822.72,227.83
+213,2024-04-24,afternoon,43,female,holiday,Laptop,General,5,713.91,3569.55,227.83
+214,2024-04-14,afternoon,64,male,holiday,Charger,General,4,908.4,3633.6,368.75
+214,2024-04-14,evening,37,male,holiday,LED Light,General,5,197.51,987.55,368.75
+215,2024-02-13,morning,65,female,holiday,Webcam,General,5,767.66,3838.3,173.23
+215,2024-02-13,evening,75,female,holiday,Smartphone,General,2,368.18,736.36,173.23
+215,2024-02-13,evening,73,female,weekend,Webcam,General,3,384.25,1152.75,173.23
+215,2024-02-13,evening,36,female,daily_needs,USB Cable,General,1,869.07,869.07,173.23
+216,2024-04-15,afternoon,74,male,holiday,Smartphone,General,4,539.24,2156.96,265.24
+217,2024-02-20,morning,39,female,holiday,LED Light,General,4,160.36,641.44,444.96
+217,2024-02-20,morning,67,male,weekend,Keyboard,General,2,327.15,654.3,444.96
+218,2024-02-08,afternoon,35,male,daily_needs,Screen Protector,General,2,499.79,999.58,405.43
+219,2024-02-12,evening,45,female,weekend,Mouse,General,4,395.65,1582.6,115.09
+219,2024-02-12,morning,64,female,daily_needs,LED Light,General,3,761.71,2285.13,115.09
+220,2024-04-08,morning,61,male,holiday,Router,General,2,241.74,483.48,450.79
+220,2024-04-08,afternoon,26,male,weekend,Charger,General,5,319.99,1599.95,450.79
+221,2024-02-09,afternoon,78,female,weekend,Router,General,5,604.44,3022.2,235.13
+222,2024-04-28,afternoon,75,female,weekend,Webcam,General,2,181.59,363.18,462.76
+222,2024-04-28,afternoon,19,male,daily_needs,Router,General,2,226.97,453.94,462.76
+223,2024-02-03,morning,41,male,weekend,LED Light,General,3,775.82,2327.46,349.25
+223,2024-02-03,evening,21,male,holiday,Microphone,General,1,67.27,67.27,349.25
+224,2024-02-15,afternoon,42,male,holiday,Monitor,General,4,707.83,2831.32,182.2
+224,2024-02-15,evening,58,male,weekend,Mouse,General,1,669.23,669.23,182.2
+224,2024-02-15,afternoon,57,male,weekend,Microphone,General,1,521.35,521.35,182.2
+224,2024-02-15,evening,25,female,daily_needs,Webcam,General,1,507.78,507.78,182.2
+225,2024-04-18,afternoon,71,male,weekend,Router,General,4,309.44,1237.76,115.76
+225,2024-04-18,afternoon,76,male,holiday,LED Light,General,4,343.99,1375.96,115.76
+226,2024-02-01,evening,23,male,holiday,Phone Case,General,4,166.16,664.64,136.03
+227,2024-04-06,evening,64,male,weekend,Phone Case,General,2,467.62,935.24,490.92
+228,2024-03-05,morning,24,male,daily_needs,Microphone,General,3,373.01,1119.03,370.71
+228,2024-03-05,afternoon,65,male,daily_needs,Microphone,General,1,29.48,29.48,370.71
+228,2024-03-05,morning,60,male,weekend,Keyboard,General,4,955.99,3823.96,370.71
+228,2024-03-05,afternoon,74,male,weekend,Microphone,General,3,199.21,597.63,370.71
+229,2024-03-23,afternoon,35,female,holiday,Microphone,General,4,803.9,3215.6,359.54
+229,2024-03-23,morning,25,male,holiday,Router,General,1,981.94,981.94,359.54
+229,2024-03-23,morning,24,female,holiday,USB Cable,General,5,684.83,3424.15,359.54
+229,2024-03-23,morning,57,female,weekend,Screen Protector,General,1,865.32,865.32,359.54
+230,2024-02-17,afternoon,25,female,weekend,Laptop,General,1,276.38,276.38,225.7
+230,2024-02-17,evening,73,male,holiday,Microphone,General,3,528.72,1586.16,225.7
+230,2024-02-17,evening,62,male,weekend,Phone Case,General,2,492.29,984.58,225.7
+230,2024-02-17,evening,61,female,daily_needs,Microphone,General,5,894.22,4471.1,225.7
+231,2024-04-19,morning,59,male,holiday,Microphone,General,4,854.83,3419.32,447.77
+232,2024-02-10,afternoon,33,female,weekend,Laptop,General,5,238.25,1191.25,357.33
+232,2024-02-10,afternoon,70,male,daily_needs,USB Cable,General,4,805.24,3220.96,357.33
+232,2024-02-10,afternoon,23,female,weekend,Keyboard,General,1,981.06,981.06,357.33
+232,2024-02-10,evening,59,male,daily_needs,Mouse,General,4,55.12,220.48,357.33
+233,2024-04-11,morning,68,female,holiday,Charger,General,2,661.5,1323.0,282.48
+234,2024-03-15,morning,70,male,weekend,Keyboard,General,5,772.07,3860.35,339.98
+234,2024-03-15,evening,60,female,holiday,USB Cable,General,1,115.49,115.49,339.98
+234,2024-03-15,evening,32,male,weekend,Keyboard,General,3,556.74,1670.22,339.98
+235,2024-03-19,morning,75,male,weekend,Tablet,General,4,124.82,499.28,344.34
+236,2024-02-25,afternoon,31,female,daily_needs,Router,General,3,125.61,376.83,265.79
+237,2024-04-22,afternoon,47,male,weekend,Laptop,General,5,741.49,3707.45,321.29
+238,2024-03-27,evening,67,male,holiday,Screen Protector,General,2,735.88,1471.76,151.35
+238,2024-03-27,afternoon,60,female,holiday,LED Light,General,4,430.29,1721.16,151.35
+238,2024-03-27,evening,76,male,weekend,Mouse,General,3,971.08,2913.24,151.35
+238,2024-03-27,afternoon,69,male,daily_needs,Mouse,General,5,706.01,3530.05,151.35
+239,2024-04-06,evening,53,female,holiday,Router,General,5,639.93,3199.65,180.36
+239,2024-04-06,evening,63,female,holiday,Keyboard,General,2,981.71,1963.42,180.36
+239,2024-04-06,evening,80,male,holiday,Charger,General,3,716.15,2148.45,180.36
+240,2024-03-17,evening,54,female,holiday,Router,General,5,300.21,1501.05,438.92
+240,2024-03-17,morning,51,male,daily_needs,Mouse,General,2,72.0,144.0,438.92
+240,2024-03-17,morning,30,female,daily_needs,Monitor,General,3,163.5,490.5,438.92
+240,2024-03-17,morning,62,female,daily_needs,Webcam,General,5,51.66,258.3,438.92
+241,2024-03-29,evening,73,male,holiday,Phone Case,General,5,401.11,2005.55,304.37
+242,2024-04-30,evening,60,male,weekend,Mouse,General,4,957.57,3830.28,490.33
+242,2024-04-30,afternoon,79,male,daily_needs,Router,General,3,219.03,657.09,490.33
+242,2024-04-30,afternoon,71,male,holiday,Router,General,3,760.01,2280.03,490.33
+243,2024-04-10,evening,79,male,weekend,USB Cable,General,2,983.78,1967.56,129.79
+243,2024-04-10,morning,65,male,weekend,Laptop,General,4,293.53,1174.12,129.79
+244,2024-03-05,morning,55,female,daily_needs,Keyboard,General,4,715.5,2862.0,161.92
+244,2024-03-05,morning,77,female,holiday,Laptop,General,5,846.28,4231.4,161.92
+245,2024-03-10,evening,53,female,daily_needs,Webcam,General,3,534.89,1604.67,482.8
+245,2024-03-10,evening,22,male,weekend,Charger,General,5,415.35,2076.75,482.8
+245,2024-03-10,afternoon,32,male,holiday,Keyboard,General,3,373.58,1120.74,482.8
+245,2024-03-10,morning,78,female,holiday,Microphone,General,1,132.43,132.43,482.8
+246,2024-03-16,morning,75,male,daily_needs,Phone Case,General,3,393.75,1181.25,418.48
+246,2024-03-16,morning,42,female,holiday,Router,General,3,44.21,132.63,418.48
+246,2024-03-16,evening,70,female,holiday,Webcam,General,5,456.65,2283.25,418.48
+246,2024-03-16,morning,36,male,weekend,Charger,General,1,949.25,949.25,418.48
+247,2024-02-22,evening,22,male,holiday,Phone Case,General,2,867.65,1735.3,269.68
+248,2024-02-14,evening,71,female,holiday,Microphone,General,1,751.95,751.95,161.5
+248,2024-02-14,afternoon,63,female,daily_needs,Smartphone,General,1,73.18,73.18,161.5
+249,2024-03-04,evening,70,male,weekend,Mouse,General,4,462.1,1848.4,261.78
+250,2024-03-12,afternoon,61,male,holiday,Laptop,General,5,81.97,409.85,398.38
+251,2024-02-06,afternoon,77,male,weekend,Webcam,General,3,614.43,1843.29,212.61
+252,2024-03-28,afternoon,70,male,weekend,Tablet,General,5,235.47,1177.35,398.7
+252,2024-03-28,evening,36,male,weekend,Phone Case,General,3,958.24,2874.72,398.7
+252,2024-03-28,morning,53,male,daily_needs,Laptop,General,1,581.26,581.26,398.7
+252,2024-03-28,afternoon,52,male,weekend,Headphones,General,3,227.5,682.5,398.7
+253,2024-04-23,morning,29,male,holiday,Microphone,General,3,210.44,631.32,172.54
+253,2024-04-23,evening,72,male,holiday,USB Cable,General,5,91.68,458.4,172.54
+254,2024-04-26,afternoon,24,male,holiday,Screen Protector,General,4,952.51,3810.04,242.86
+255,2024-04-26,morning,36,male,daily_needs,Keyboard,General,4,461.63,1846.52,346.54
+255,2024-04-26,afternoon,62,male,holiday,Screen Protector,General,3,811.55,2434.65,346.54
+256,2024-03-26,morning,38,male,daily_needs,Router,General,4,291.15,1164.6,243.79
+256,2024-03-26,evening,64,female,weekend,USB Cable,General,4,371.57,1486.28,243.79
+257,2024-03-11,evening,24,male,holiday,Screen Protector,General,1,844.96,844.96,443.49
+257,2024-03-11,morning,75,male,weekend,Router,General,1,732.88,732.88,443.49
+257,2024-03-11,morning,72,male,holiday,Screen Protector,General,4,773.82,3095.28,443.49
+257,2024-03-11,morning,76,male,holiday,Monitor,General,5,896.11,4480.55,443.49
+258,2024-04-10,evening,67,male,weekend,Mouse,General,2,893.61,1787.22,335.84
+258,2024-04-10,afternoon,26,female,holiday,Charger,General,1,408.85,408.85,335.84
+258,2024-04-10,evening,18,male,holiday,Phone Case,General,2,762.06,1524.12,335.84
+258,2024-04-10,morning,46,male,daily_needs,Screen Protector,General,5,666.23,3331.15,335.84
+259,2024-02-19,afternoon,20,male,weekend,Headphones,General,1,279.07,279.07,193.61
+259,2024-02-19,evening,31,female,weekend,USB Cable,General,4,883.92,3535.68,193.61
+259,2024-02-19,morning,80,female,daily_needs,Router,General,5,640.9,3204.5,193.61
+259,2024-02-19,afternoon,71,female,holiday,Charger,General,5,190.37,951.85,193.61
+260,2024-04-24,afternoon,55,male,holiday,Monitor,General,4,973.22,3892.88,189.16
+260,2024-04-24,afternoon,40,female,weekend,Webcam,General,4,889.43,3557.72,189.16
+260,2024-04-24,morning,50,male,weekend,Tablet,General,2,95.55,191.1,189.16
+260,2024-04-24,evening,35,male,daily_needs,Tablet,General,2,374.98,749.96,189.16
+261,2024-02-16,afternoon,69,female,holiday,Smartphone,General,4,681.72,2726.88,291.61
+261,2024-02-16,evening,28,female,daily_needs,Headphones,General,1,145.33,145.33,291.61
+262,2024-04-16,morning,58,male,holiday,Tablet,General,1,183.01,183.01,468.98
+262,2024-04-16,evening,79,female,holiday,Screen Protector,General,1,880.94,880.94,468.98
+263,2024-04-25,morning,31,female,holiday,USB Cable,General,4,187.16,748.64,432.15
+263,2024-04-25,evening,27,male,holiday,Phone Case,General,5,279.23,1396.15,432.15
+263,2024-04-25,evening,61,female,weekend,Screen Protector,General,5,87.47,437.35,432.15
+264,2024-03-20,morning,24,male,daily_needs,Charger,General,5,690.68,3453.4,430.61
+264,2024-03-20,evening,24,male,weekend,LED Light,General,5,607.82,3039.1,430.61
+264,2024-03-20,evening,50,male,daily_needs,USB Cable,General,2,903.95,1807.9,430.61
+264,2024-03-20,evening,70,male,holiday,Phone Case,General,4,531.6,2126.4,430.61
+265,2024-03-19,evening,51,female,daily_needs,Webcam,General,4,793.76,3175.04,252.49
+266,2024-04-16,afternoon,26,female,weekend,Webcam,General,2,911.88,1823.76,133.53
+267,2024-04-17,afternoon,30,male,holiday,Router,General,1,586.43,586.43,147.13
+267,2024-04-17,morning,42,male,holiday,Webcam,General,3,420.67,1262.01,147.13
+267,2024-04-17,morning,27,female,holiday,Screen Protector,General,3,276.08,828.24,147.13
+267,2024-04-17,evening,45,female,holiday,Monitor,General,4,759.87,3039.48,147.13
+268,2024-03-24,morning,41,female,weekend,Monitor,General,5,357.47,1787.35,382.2
+268,2024-03-24,evening,26,male,holiday,Headphones,General,4,787.45,3149.8,382.2
+268,2024-03-24,morning,24,male,holiday,Mouse,General,3,804.84,2414.52,382.2
+268,2024-03-24,evening,62,male,daily_needs,Mouse,General,1,808.28,808.28,382.2
+269,2024-02-19,evening,45,male,daily_needs,Monitor,General,2,383.42,766.84,343.61
+269,2024-02-19,evening,42,female,holiday,Phone Case,General,5,300.74,1503.7,343.61
+269,2024-02-19,evening,21,male,holiday,USB Cable,General,4,30.5,122.0,343.61
+269,2024-02-19,evening,77,female,daily_needs,Laptop,General,5,520.34,2601.7,343.61
+270,2024-04-30,evening,28,male,weekend,Headphones,General,1,976.13,976.13,134.74
+270,2024-04-30,afternoon,67,female,weekend,Phone Case,General,4,417.34,1669.36,134.74
+271,2024-02-26,evening,63,male,daily_needs,Charger,General,3,731.62,2194.86,323.65
+272,2024-04-15,afternoon,79,female,daily_needs,Screen Protector,General,2,465.66,931.32,261.58
+272,2024-04-15,morning,34,male,weekend,Charger,General,1,567.46,567.46,261.58
+272,2024-04-15,evening,36,female,daily_needs,Webcam,General,5,957.58,4787.9,261.58
+273,2024-04-09,evening,46,female,holiday,USB Cable,General,2,762.32,1524.64,484.5
+273,2024-04-09,afternoon,61,female,holiday,Microphone,General,1,492.33,492.33,484.5
+273,2024-04-09,afternoon,22,female,holiday,Webcam,General,2,683.37,1366.74,484.5
+274,2024-03-01,afternoon,79,female,holiday,Charger,General,1,706.8,706.8,205.34
+274,2024-03-01,afternoon,23,female,holiday,Router,General,3,94.51,283.53,205.34
+274,2024-03-01,morning,48,female,weekend,Headphones,General,5,283.69,1418.45,205.34
+275,2024-04-28,afternoon,65,male,daily_needs,Router,General,2,875.29,1750.58,182.71
+275,2024-04-28,morning,71,male,holiday,Keyboard,General,2,783.36,1566.72,182.71
+276,2024-02-16,evening,79,female,holiday,Laptop,General,5,958.83,4794.15,439.2
+277,2024-03-19,afternoon,75,female,weekend,Tablet,General,5,294.66,1473.3,188.84
+277,2024-03-19,evening,26,male,holiday,Webcam,General,4,488.75,1955.0,188.84
+277,2024-03-19,evening,20,female,weekend,Microphone,General,2,468.05,936.1,188.84
+278,2024-02-16,afternoon,62,male,daily_needs,Phone Case,General,2,391.84,783.68,140.3
+278,2024-02-16,afternoon,57,female,daily_needs,Charger,General,3,252.4,757.2,140.3
+278,2024-02-16,afternoon,79,female,weekend,Tablet,General,4,435.46,1741.84,140.3
+278,2024-02-16,afternoon,62,female,weekend,Microphone,General,4,294.04,1176.16,140.3
+279,2024-02-24,evening,61,male,daily_needs,Router,General,3,808.01,2424.03,322.14
+279,2024-02-24,afternoon,30,male,holiday,Tablet,General,4,809.55,3238.2,322.14
+280,2024-02-23,afternoon,26,female,weekend,Monitor,General,3,570.9,1712.7,327.13
+280,2024-02-23,afternoon,24,male,daily_needs,Headphones,General,3,487.01,1461.03,327.13
+280,2024-02-23,evening,24,female,holiday,Keyboard,General,3,373.74,1121.22,327.13
+280,2024-02-23,evening,53,female,weekend,Laptop,General,4,138.81,555.24,327.13
+281,2024-04-27,evening,54,male,weekend,Keyboard,General,3,679.73,2039.19,295.0
+281,2024-04-27,evening,46,male,weekend,Screen Protector,General,3,474.48,1423.44,295.0
+282,2024-02-19,evening,69,female,weekend,Phone Case,General,5,580.2,2901.0,439.56
+282,2024-02-19,morning,23,male,weekend,Headphones,General,3,330.54,991.62,439.56
+283,2024-03-09,evening,59,female,weekend,LED Light,General,4,785.35,3141.4,475.51
+283,2024-03-09,evening,55,female,weekend,Tablet,General,2,857.13,1714.26,475.51
+283,2024-03-09,morning,64,male,holiday,Monitor,General,1,226.36,226.36,475.51
+284,2024-03-22,morning,22,female,holiday,Laptop,General,1,775.52,775.52,309.59
+285,2024-02-11,afternoon,57,male,daily_needs,Phone Case,General,4,323.18,1292.72,198.96
+286,2024-03-08,evening,26,male,holiday,Microphone,General,2,48.0,96.0,365.42
+286,2024-03-08,afternoon,73,female,weekend,Microphone,General,5,936.16,4680.8,365.42
+286,2024-03-08,evening,46,male,holiday,Charger,General,2,599.01,1198.02,365.42
+286,2024-03-08,afternoon,58,female,holiday,Phone Case,General,5,323.47,1617.35,365.42
+287,2024-03-16,evening,32,male,weekend,Monitor,General,3,423.96,1271.88,162.29
+287,2024-03-16,morning,18,male,weekend,Monitor,General,4,544.4,2177.6,162.29
+287,2024-03-16,evening,77,female,weekend,Monitor,General,1,770.55,770.55,162.29
+287,2024-03-16,afternoon,56,male,daily_needs,Charger,General,3,204.8,614.4,162.29
+288,2024-04-12,afternoon,33,male,holiday,Router,General,4,831.86,3327.44,188.24
+288,2024-04-12,morning,45,male,holiday,Webcam,General,5,811.42,4057.1,188.24
+288,2024-04-12,evening,35,female,holiday,Router,General,5,812.63,4063.15,188.24
+288,2024-04-12,afternoon,30,male,daily_needs,Tablet,General,3,128.15,384.45,188.24
+289,2024-03-30,afternoon,62,female,daily_needs,Keyboard,General,1,169.11,169.11,487.89
+289,2024-03-30,morning,29,male,weekend,Monitor,General,2,720.89,1441.78,487.89
+289,2024-03-30,evening,18,male,daily_needs,Tablet,General,1,503.71,503.71,487.89
+289,2024-03-30,afternoon,44,female,weekend,Keyboard,General,4,703.0,2812.0,487.89
+290,2024-02-05,morning,71,male,daily_needs,Monitor,General,4,89.96,359.84,288.06
+290,2024-02-05,morning,75,female,weekend,Microphone,General,1,139.52,139.52,288.06
+290,2024-02-05,evening,33,female,weekend,Headphones,General,1,215.2,215.2,288.06
+291,2024-02-13,afternoon,42,female,weekend,Tablet,General,1,749.83,749.83,319.83
+291,2024-02-13,morning,34,female,holiday,Monitor,General,2,373.22,746.44,319.83
+292,2024-02-07,morning,33,female,weekend,Laptop,General,2,798.5,1597.0,333.88
+292,2024-02-07,afternoon,68,male,daily_needs,Laptop,General,5,787.81,3939.05,333.88
+293,2024-04-01,afternoon,67,male,daily_needs,Tablet,General,4,109.57,438.28,347.46
+293,2024-04-01,evening,21,male,weekend,Phone Case,General,2,707.3,1414.6,347.46
+294,2024-02-14,afternoon,32,female,holiday,Webcam,General,3,809.41,2428.23,275.49
+294,2024-02-14,morning,19,female,weekend,Router,General,2,265.68,531.36,275.49
+295,2024-02-06,evening,46,female,holiday,Router,General,4,205.98,823.92,174.65
+295,2024-02-06,afternoon,38,female,weekend,Microphone,General,5,916.18,4580.9,174.65
+295,2024-02-06,evening,28,male,holiday,Tablet,General,4,309.76,1239.04,174.65
+295,2024-02-06,afternoon,52,female,weekend,Laptop,General,5,391.46,1957.3,174.65
+296,2024-02-24,evening,72,female,holiday,Headphones,General,3,726.58,2179.74,363.32
+297,2024-04-09,morning,51,female,holiday,Tablet,General,5,297.47,1487.35,263.92
+297,2024-04-09,afternoon,25,male,holiday,Phone Case,General,1,62.9,62.9,263.92
+297,2024-04-09,morning,29,male,daily_needs,Smartphone,General,4,207.78,831.12,263.92
+297,2024-04-09,morning,54,female,holiday,USB Cable,General,5,631.49,3157.45,263.92
+298,2024-04-16,morning,41,male,holiday,Router,General,1,32.82,32.82,468.41
+298,2024-04-16,evening,49,male,weekend,Webcam,General,1,373.71,373.71,468.41
+298,2024-04-16,evening,78,female,weekend,Webcam,General,1,827.17,827.17,468.41
+299,2024-03-06,evening,22,female,daily_needs,Headphones,General,5,115.18,575.9,390.07
+300,2024-04-09,morning,30,male,holiday,Phone Case,General,2,567.26,1134.52,323.26
+300,2024-04-09,evening,24,female,holiday,USB Cable,General,4,885.17,3540.68,323.26
+300,2024-04-09,morning,68,male,holiday,Mouse,General,5,350.76,1753.8,323.26
+300,2024-04-09,morning,52,female,weekend,LED Light,General,3,559.08,1677.24,323.26
+301,2024-03-13,afternoon,66,female,holiday,Keyboard,General,5,255.91,1279.55,318.25
+301,2024-03-13,afternoon,67,female,weekend,USB Cable,General,4,960.63,3842.52,318.25
+301,2024-03-13,morning,64,male,weekend,Screen Protector,General,1,527.26,527.26,318.25
+302,2024-03-10,afternoon,32,male,weekend,Laptop,General,3,920.73,2762.19,304.51
+303,2024-04-14,morning,20,female,weekend,Tablet,General,2,279.69,559.38,455.85
+303,2024-04-14,morning,32,female,weekend,Smartphone,General,5,411.8,2059.0,455.85
+304,2024-02-28,evening,38,female,daily_needs,USB Cable,General,5,823.12,4115.6,138.15
+305,2024-04-23,morning,64,female,daily_needs,Webcam,General,1,923.43,923.43,233.76
+305,2024-04-23,afternoon,44,male,daily_needs,Router,General,5,930.08,4650.4,233.76
+305,2024-04-23,evening,67,female,daily_needs,Monitor,General,5,60.36,301.8,233.76
+306,2024-04-10,afternoon,50,male,daily_needs,Laptop,General,4,971.62,3886.48,401.14
+306,2024-04-10,evening,50,male,daily_needs,Mouse,General,3,790.64,2371.92,401.14
+307,2024-02-19,afternoon,23,female,holiday,Router,General,1,557.19,557.19,205.02
+307,2024-02-19,afternoon,50,female,holiday,Tablet,General,2,491.3,982.6,205.02
+308,2024-02-26,afternoon,59,male,holiday,Screen Protector,General,5,261.32,1306.6,128.66
+308,2024-02-26,afternoon,38,male,daily_needs,Phone Case,General,4,435.07,1740.28,128.66
+308,2024-02-26,afternoon,30,female,weekend,Screen Protector,General,1,774.29,774.29,128.66
+308,2024-02-26,morning,40,female,holiday,Tablet,General,4,63.98,255.92,128.66
+309,2024-03-01,evening,41,male,holiday,Microphone,General,1,130.12,130.12,121.82
+309,2024-03-01,evening,77,male,weekend,Laptop,General,3,699.92,2099.76,121.82
+310,2024-02-15,afternoon,48,male,weekend,Headphones,General,5,227.64,1138.2,318.57
+310,2024-02-15,afternoon,53,female,holiday,Router,General,2,701.17,1402.34,318.57
+310,2024-02-15,evening,19,female,holiday,LED Light,General,5,62.61,313.05,318.57
+311,2024-02-22,afternoon,30,female,daily_needs,USB Cable,General,1,85.27,85.27,364.15
+312,2024-04-25,morning,19,female,holiday,Mouse,General,2,980.2,1960.4,303.42
+312,2024-04-25,evening,24,female,weekend,Microphone,General,5,540.93,2704.65,303.42
+312,2024-04-25,morning,30,female,holiday,LED Light,General,1,58.96,58.96,303.42
+313,2024-04-08,afternoon,49,female,holiday,Tablet,General,1,359.84,359.84,240.77
+313,2024-04-08,evening,37,male,holiday,Monitor,General,1,633.28,633.28,240.77
+313,2024-04-08,afternoon,74,male,holiday,Monitor,General,2,168.67,337.34,240.77
+314,2024-03-22,morning,64,female,holiday,Phone Case,General,5,875.25,4376.25,374.61
+314,2024-03-22,afternoon,33,male,weekend,Monitor,General,5,342.7,1713.5,374.61
+315,2024-04-10,morning,59,male,holiday,Charger,General,2,865.34,1730.68,223.6
+315,2024-04-10,evening,75,male,weekend,LED Light,General,2,663.11,1326.22,223.6
+316,2024-04-13,afternoon,22,male,daily_needs,Keyboard,General,2,732.54,1465.08,406.17
+316,2024-04-13,afternoon,79,female,weekend,USB Cable,General,3,168.92,506.76,406.17
+317,2024-02-25,morning,29,male,holiday,Screen Protector,General,3,613.49,1840.47,344.94
+318,2024-04-17,morning,61,male,weekend,Smartphone,General,4,151.4,605.6,438.46
+318,2024-04-17,afternoon,63,female,daily_needs,Microphone,General,4,501.62,2006.48,438.46
+319,2024-02-18,morning,32,male,weekend,Webcam,General,1,926.93,926.93,480.08
+319,2024-02-18,morning,65,male,daily_needs,Smartphone,General,2,928.56,1857.12,480.08
+320,2024-03-28,evening,38,female,daily_needs,Mouse,General,4,780.69,3122.76,343.17
+320,2024-03-28,afternoon,64,female,weekend,Screen Protector,General,5,601.93,3009.65,343.17
+320,2024-03-28,evening,59,male,holiday,Smartphone,General,4,467.76,1871.04,343.17
+320,2024-03-28,morning,74,male,holiday,Charger,General,4,984.15,3936.6,343.17
+321,2024-02-06,evening,66,male,daily_needs,Monitor,General,4,410.08,1640.32,221.82
+321,2024-02-06,afternoon,47,male,weekend,Monitor,General,5,920.65,4603.25,221.82
+321,2024-02-06,evening,51,male,weekend,Microphone,General,4,108.63,434.52,221.82
+321,2024-02-06,evening,25,male,holiday,LED Light,General,5,152.6,763.0,221.82
+322,2024-03-24,afternoon,19,male,weekend,Screen Protector,General,2,884.9,1769.8,136.07
+322,2024-03-24,afternoon,62,male,holiday,Router,General,1,109.37,109.37,136.07
+322,2024-03-24,evening,46,female,daily_needs,Charger,General,4,732.34,2929.36,136.07
+323,2024-04-06,afternoon,53,female,daily_needs,Webcam,General,2,914.01,1828.02,326.2
+323,2024-04-06,evening,73,male,daily_needs,Microphone,General,2,195.29,390.58,326.2
+324,2024-02-07,afternoon,37,female,weekend,Phone Case,General,2,135.2,270.4,152.63
+324,2024-02-07,morning,18,female,daily_needs,USB Cable,General,4,858.3,3433.2,152.63
+324,2024-02-07,evening,69,male,holiday,LED Light,General,4,253.12,1012.48,152.63
+324,2024-02-07,evening,60,female,weekend,Mouse,General,4,97.82,391.28,152.63
+325,2024-04-17,morning,74,female,holiday,Phone Case,General,5,823.72,4118.6,183.06
+326,2024-02-24,morning,59,female,daily_needs,Tablet,General,1,673.66,673.66,435.21
+326,2024-02-24,afternoon,39,male,daily_needs,Smartphone,General,4,993.86,3975.44,435.21
+327,2024-02-21,evening,60,male,weekend,Router,General,5,372.98,1864.9,114.34
+327,2024-02-21,afternoon,38,female,weekend,Microphone,General,1,763.27,763.27,114.34
+327,2024-02-21,evening,22,female,weekend,Tablet,General,1,700.73,700.73,114.34
+328,2024-03-07,evening,44,male,holiday,Headphones,General,5,77.02,385.1,328.55
+328,2024-03-07,evening,51,male,weekend,Router,General,5,935.21,4676.05,328.55
+328,2024-03-07,evening,36,female,holiday,Microphone,General,3,274.47,823.41,328.55
+329,2024-04-14,morning,57,female,holiday,Router,General,4,502.65,2010.6,171.96
+329,2024-04-14,evening,32,female,daily_needs,Laptop,General,1,43.51,43.51,171.96
+329,2024-04-14,evening,68,male,holiday,Microphone,General,2,803.57,1607.14,171.96
+330,2024-03-25,morning,39,female,holiday,Webcam,General,2,31.07,62.14,180.47
+330,2024-03-25,afternoon,34,male,weekend,Monitor,General,5,558.99,2794.95,180.47
+330,2024-03-25,morning,25,female,weekend,Mouse,General,5,623.67,3118.35,180.47
+330,2024-03-25,morning,71,male,daily_needs,Keyboard,General,3,923.83,2771.49,180.47
+331,2024-04-02,morning,59,male,weekend,Tablet,General,4,894.22,3576.88,314.79
+331,2024-04-02,afternoon,47,female,holiday,Laptop,General,5,313.36,1566.8,314.79
+331,2024-04-02,evening,61,female,holiday,Charger,General,1,224.1,224.1,314.79
+331,2024-04-02,evening,39,female,daily_needs,Tablet,General,3,843.92,2531.76,314.79
+332,2024-03-15,evening,52,male,holiday,Screen Protector,General,4,203.63,814.52,146.74
+332,2024-03-15,afternoon,63,female,holiday,Laptop,General,3,425.59,1276.77,146.74
+332,2024-03-15,afternoon,74,male,weekend,USB Cable,General,3,231.82,695.46,146.74
+332,2024-03-15,afternoon,29,male,weekend,Webcam,General,1,782.23,782.23,146.74
+333,2024-02-12,evening,19,female,holiday,Tablet,General,2,353.31,706.62,293.39
+333,2024-02-12,evening,37,female,daily_needs,Webcam,General,1,825.7,825.7,293.39
+333,2024-02-12,evening,61,male,daily_needs,Router,General,1,470.18,470.18,293.39
+333,2024-02-12,evening,73,male,daily_needs,Monitor,General,1,693.31,693.31,293.39
+334,2024-04-17,afternoon,47,male,daily_needs,Charger,General,3,42.03,126.09,403.4
+335,2024-04-22,afternoon,30,male,weekend,Monitor,General,5,332.77,1663.85,276.45
+335,2024-04-22,morning,35,male,daily_needs,Monitor,General,1,34.95,34.95,276.45
+336,2024-04-20,morning,52,female,holiday,Keyboard,General,3,158.73,476.19,381.74
+337,2024-03-08,morning,22,female,holiday,LED Light,General,3,549.77,1649.31,120.29
+337,2024-03-08,morning,48,male,daily_needs,Mouse,General,1,104.4,104.4,120.29
+338,2024-03-22,evening,56,female,holiday,Keyboard,General,3,345.69,1037.07,179.26
+338,2024-03-22,evening,69,male,weekend,Screen Protector,General,2,111.06,222.12,179.26
+339,2024-04-30,morning,47,female,holiday,Phone Case,General,4,481.13,1924.52,478.98
+339,2024-04-30,morning,73,female,weekend,Mouse,General,2,705.62,1411.24,478.98
+339,2024-04-30,evening,39,female,weekend,USB Cable,General,1,84.06,84.06,478.98
+339,2024-04-30,morning,40,female,weekend,Microphone,General,2,296.61,593.22,478.98
+340,2024-03-16,evening,24,female,holiday,Webcam,General,1,339.35,339.35,359.78
+340,2024-03-16,afternoon,52,female,weekend,Screen Protector,General,4,253.8,1015.2,359.78
+341,2024-03-03,afternoon,42,male,weekend,Headphones,General,5,442.53,2212.65,492.08
+341,2024-03-03,evening,68,female,holiday,Router,General,2,189.62,379.24,492.08
+342,2024-04-26,evening,77,female,daily_needs,Screen Protector,General,5,473.65,2368.25,322.04
+343,2024-03-28,afternoon,79,female,daily_needs,Screen Protector,General,1,691.8,691.8,338.56
+343,2024-03-28,afternoon,38,female,holiday,Phone Case,General,1,108.72,108.72,338.56
+344,2024-02-18,morning,60,male,weekend,Charger,General,3,402.18,1206.54,331.17
+345,2024-02-26,evening,74,female,weekend,Screen Protector,General,3,920.13,2760.39,474.67
+345,2024-02-26,evening,80,female,daily_needs,Screen Protector,General,1,619.26,619.26,474.67
+346,2024-04-06,morning,72,female,daily_needs,Keyboard,General,5,968.54,4842.7,100.34
+346,2024-04-06,evening,70,female,daily_needs,Microphone,General,3,868.37,2605.11,100.34
+346,2024-04-06,morning,45,female,holiday,Keyboard,General,4,417.91,1671.64,100.34
+346,2024-04-06,afternoon,52,male,holiday,Tablet,General,4,156.29,625.16,100.34
+347,2024-04-12,afternoon,71,female,daily_needs,Monitor,General,2,151.59,303.18,128.7
+347,2024-04-12,morning,27,female,holiday,Mouse,General,2,102.97,205.94,128.7
+347,2024-04-12,evening,69,female,weekend,LED Light,General,5,931.7,4658.5,128.7
+347,2024-04-12,evening,29,female,holiday,Mouse,General,5,823.67,4118.35,128.7
+348,2024-03-21,morning,29,female,holiday,Laptop,General,5,508.19,2540.95,392.37
+348,2024-03-21,evening,50,female,weekend,LED Light,General,5,584.83,2924.15,392.37
+348,2024-03-21,morning,80,male,holiday,USB Cable,General,3,130.9,392.7,392.37
+349,2024-04-02,morning,64,female,weekend,Charger,General,1,532.89,532.89,344.03
+350,2024-03-03,evening,65,male,holiday,Phone Case,General,5,802.14,4010.7,225.0
+350,2024-03-03,morning,75,female,holiday,Webcam,General,1,479.49,479.49,225.0
+350,2024-03-03,evening,75,female,holiday,Router,General,3,432.6,1297.8,225.0
+350,2024-03-03,afternoon,36,male,daily_needs,Router,General,5,754.44,3772.2,225.0
+351,2024-04-13,morning,58,female,holiday,Tablet,General,5,70.59,352.95,496.15
+351,2024-04-13,evening,57,male,weekend,USB Cable,General,1,144.28,144.28,496.15
+351,2024-04-13,morning,72,female,weekend,Tablet,General,5,295.35,1476.75,496.15
+352,2024-03-04,evening,25,male,holiday,Router,General,2,665.97,1331.94,247.91
+353,2024-02-23,evening,33,female,daily_needs,Webcam,General,5,864.77,4323.85,237.14
+353,2024-02-23,morning,79,male,holiday,LED Light,General,2,840.86,1681.72,237.14
+353,2024-02-23,afternoon,67,female,daily_needs,Phone Case,General,4,731.48,2925.92,237.14
+354,2024-02-22,evening,64,female,daily_needs,Phone Case,General,3,760.37,2281.11,146.4
+354,2024-02-22,morning,47,female,weekend,Monitor,General,4,751.23,3004.92,146.4
+355,2024-04-09,afternoon,61,female,weekend,Monitor,General,2,539.83,1079.66,273.89
+355,2024-04-09,afternoon,77,female,weekend,Phone Case,General,3,962.53,2887.59,273.89
+356,2024-04-28,morning,76,female,weekend,Screen Protector,General,3,348.27,1044.81,206.84
+357,2024-02-13,evening,55,female,weekend,Webcam,General,2,739.63,1479.26,335.49
+357,2024-02-13,morning,51,female,holiday,Router,General,2,327.0,654.0,335.49
+357,2024-02-13,morning,61,male,daily_needs,Laptop,General,4,115.74,462.96,335.49
+358,2024-02-14,afternoon,32,female,weekend,Headphones,General,1,43.23,43.23,136.78
+358,2024-02-14,evening,60,male,holiday,Phone Case,General,1,713.91,713.91,136.78
+358,2024-02-14,morning,23,male,weekend,Phone Case,General,5,807.14,4035.7,136.78
+358,2024-02-14,morning,75,male,holiday,Tablet,General,3,308.68,926.04,136.78
+359,2024-04-25,evening,47,female,weekend,Router,General,3,272.19,816.57,412.29
+360,2024-03-07,afternoon,42,female,daily_needs,Monitor,General,3,194.37,583.11,127.76
+361,2024-02-26,morning,59,female,daily_needs,Tablet,General,5,773.33,3866.65,187.35
+361,2024-02-26,evening,24,female,holiday,Monitor,General,1,54.16,54.16,187.35
+361,2024-02-26,morning,54,female,weekend,Laptop,General,4,165.88,663.52,187.35
+361,2024-02-26,evening,18,male,holiday,Mouse,General,3,168.58,505.74,187.35
+362,2024-03-14,evening,18,female,weekend,Mouse,General,4,847.17,3388.68,412.37
+362,2024-03-14,morning,52,male,daily_needs,Mouse,General,4,138.78,555.12,412.37
+362,2024-03-14,evening,77,female,weekend,Phone Case,General,3,412.6,1237.8,412.37
+362,2024-03-14,evening,79,male,weekend,Charger,General,3,98.85,296.55,412.37
+363,2024-03-30,evening,30,male,holiday,Laptop,General,4,667.52,2670.08,219.55
+363,2024-03-30,afternoon,75,male,holiday,Router,General,3,496.77,1490.31,219.55
+363,2024-03-30,evening,46,male,daily_needs,Laptop,General,2,44.86,89.72,219.55
+364,2024-04-16,afternoon,42,male,holiday,Phone Case,General,3,509.69,1529.07,485.98
+364,2024-04-16,afternoon,79,male,daily_needs,Keyboard,General,1,350.96,350.96,485.98
+365,2024-02-06,morning,31,female,holiday,Microphone,General,5,165.97,829.85,331.74
+365,2024-02-06,morning,20,male,weekend,Phone Case,General,1,481.8,481.8,331.74
+365,2024-02-06,evening,20,male,holiday,Phone Case,General,2,34.08,68.16,331.74
+365,2024-02-06,evening,21,female,daily_needs,USB Cable,General,5,187.28,936.4,331.74
+366,2024-04-16,morning,25,female,holiday,Webcam,General,5,236.16,1180.8,421.78
+367,2024-03-26,evening,61,female,weekend,Smartphone,General,5,554.97,2774.85,228.64
+367,2024-03-26,morning,66,male,holiday,Tablet,General,3,81.96,245.88,228.64
+367,2024-03-26,afternoon,27,female,daily_needs,Router,General,3,562.34,1687.02,228.64
+368,2024-03-28,evening,20,male,daily_needs,Webcam,General,5,388.61,1943.05,163.1
+368,2024-03-28,afternoon,23,male,daily_needs,Tablet,General,1,712.61,712.61,163.1
+369,2024-04-16,afternoon,62,female,holiday,Tablet,General,2,160.23,320.46,208.38
+369,2024-04-16,afternoon,44,male,daily_needs,Screen Protector,General,1,604.35,604.35,208.38
+369,2024-04-16,evening,49,male,holiday,Microphone,General,3,360.9,1082.7,208.38
+370,2024-02-01,morning,25,male,holiday,Keyboard,General,5,517.39,2586.95,285.69
+370,2024-02-01,evening,60,male,weekend,Laptop,General,2,130.43,260.86,285.69
+371,2024-02-20,afternoon,29,male,holiday,LED Light,General,1,72.95,72.95,245.68
+371,2024-02-20,morning,45,female,weekend,Screen Protector,General,4,62.45,249.8,245.68
+371,2024-02-20,evening,21,male,daily_needs,Webcam,General,1,495.36,495.36,245.68
+371,2024-02-20,morning,22,male,holiday,USB Cable,General,5,588.17,2940.85,245.68
+372,2024-03-25,evening,61,female,daily_needs,Webcam,General,1,339.61,339.61,139.23
+372,2024-03-25,evening,44,male,weekend,LED Light,General,2,92.06,184.12,139.23
+373,2024-04-15,morning,74,female,daily_needs,Headphones,General,5,465.89,2329.45,254.93
+373,2024-04-15,morning,47,male,holiday,Keyboard,General,3,218.17,654.51,254.93
+373,2024-04-15,morning,20,male,weekend,Tablet,General,1,854.62,854.62,254.93
+373,2024-04-15,afternoon,44,male,weekend,Headphones,General,3,611.56,1834.68,254.93
+374,2024-04-22,evening,80,male,daily_needs,Mouse,General,5,499.43,2497.15,498.27
+374,2024-04-22,evening,48,female,weekend,Laptop,General,4,741.46,2965.84,498.27
+375,2024-03-03,afternoon,45,male,holiday,Tablet,General,5,900.29,4501.45,267.11
+375,2024-03-03,morning,20,female,holiday,Webcam,General,5,52.95,264.75,267.11
+376,2024-04-08,afternoon,69,male,weekend,USB Cable,General,2,101.43,202.86,401.23
+376,2024-04-08,evening,64,female,daily_needs,Tablet,General,3,309.87,929.61,401.23
+376,2024-04-08,evening,23,male,weekend,Phone Case,General,3,178.57,535.71,401.23
+376,2024-04-08,afternoon,72,male,weekend,USB Cable,General,2,876.72,1753.44,401.23
+377,2024-03-23,afternoon,58,female,holiday,Phone Case,General,1,863.17,863.17,128.28
+377,2024-03-23,evening,39,male,weekend,Mouse,General,3,704.09,2112.27,128.28
+378,2024-04-19,evening,23,female,holiday,LED Light,General,1,524.44,524.44,464.0
+378,2024-04-19,afternoon,74,male,daily_needs,Mouse,General,3,476.05,1428.15,464.0
+379,2024-02-06,afternoon,29,male,holiday,Router,General,2,155.64,311.28,233.97
+379,2024-02-06,evening,25,female,holiday,Webcam,General,5,873.71,4368.55,233.97
+379,2024-02-06,evening,31,male,weekend,Keyboard,General,3,513.49,1540.47,233.97
+380,2024-03-26,morning,22,female,weekend,USB Cable,General,4,511.42,2045.68,431.82
+380,2024-03-26,afternoon,63,female,weekend,Screen Protector,General,3,803.91,2411.73,431.82
+380,2024-03-26,evening,69,male,daily_needs,LED Light,General,4,105.56,422.24,431.82
+381,2024-03-22,afternoon,79,male,daily_needs,Tablet,General,3,129.78,389.34,159.18
+381,2024-03-22,morning,73,male,holiday,Phone Case,General,1,307.31,307.31,159.18
+382,2024-04-28,afternoon,40,female,weekend,Router,General,1,305.69,305.69,125.18
+382,2024-04-28,morning,71,female,weekend,Screen Protector,General,3,662.65,1987.95,125.18
+383,2024-03-13,evening,60,female,weekend,Monitor,General,5,149.32,746.6,415.74
+383,2024-03-13,morning,68,female,daily_needs,USB Cable,General,3,971.31,2913.93,415.74
+383,2024-03-13,morning,27,female,weekend,USB Cable,General,2,626.26,1252.52,415.74
+383,2024-03-13,morning,63,female,daily_needs,Tablet,General,2,178.03,356.06,415.74
+384,2024-02-15,afternoon,54,male,weekend,Monitor,General,3,200.81,602.43,324.99
+385,2024-02-05,afternoon,27,female,weekend,Charger,General,2,542.97,1085.94,148.6
+385,2024-02-05,morning,43,female,daily_needs,USB Cable,General,3,172.93,518.79,148.6
+385,2024-02-05,evening,52,female,holiday,Router,General,3,484.43,1453.29,148.6
+386,2024-03-09,evening,64,female,weekend,Router,General,1,737.01,737.01,460.07
+386,2024-03-09,morning,61,male,weekend,Laptop,General,4,625.17,2500.68,460.07
+387,2024-02-29,afternoon,23,female,daily_needs,Screen Protector,General,2,591.76,1183.52,188.86
+387,2024-02-29,afternoon,30,male,daily_needs,Charger,General,4,683.52,2734.08,188.86
+387,2024-02-29,morning,80,female,daily_needs,USB Cable,General,3,611.11,1833.33,188.86
+387,2024-02-29,evening,78,male,holiday,Keyboard,General,4,164.99,659.96,188.86
+388,2024-03-26,afternoon,41,male,weekend,Keyboard,General,3,321.92,965.76,278.23
+388,2024-03-26,evening,23,male,holiday,LED Light,General,4,746.7,2986.8,278.23
+388,2024-03-26,afternoon,69,female,weekend,Tablet,General,4,734.03,2936.12,278.23
+389,2024-03-25,evening,56,male,daily_needs,Headphones,General,3,485.12,1455.36,447.01
+389,2024-03-25,afternoon,22,female,daily_needs,Laptop,General,4,646.03,2584.12,447.01
+390,2024-03-06,morning,53,female,holiday,Screen Protector,General,2,215.27,430.54,432.91
+390,2024-03-06,afternoon,53,female,daily_needs,Microphone,General,3,837.89,2513.67,432.91
+390,2024-03-06,afternoon,49,female,daily_needs,Laptop,General,1,170.94,170.94,432.91
+390,2024-03-06,afternoon,79,female,daily_needs,Phone Case,General,3,428.81,1286.43,432.91
+391,2024-04-03,morning,25,female,weekend,Smartphone,General,5,750.65,3753.25,332.43
+391,2024-04-03,evening,45,female,holiday,Phone Case,General,4,974.77,3899.08,332.43
+392,2024-02-16,evening,64,male,weekend,Tablet,General,5,77.34,386.7,227.87
+392,2024-02-16,evening,26,female,daily_needs,Laptop,General,3,373.94,1121.82,227.87
+392,2024-02-16,evening,76,female,daily_needs,Monitor,General,3,539.02,1617.06,227.87
+393,2024-02-10,evening,29,male,holiday,Webcam,General,2,552.84,1105.68,448.98
+393,2024-02-10,evening,69,female,weekend,Phone Case,General,3,113.92,341.76,448.98
+394,2024-04-15,morning,18,male,holiday,Monitor,General,3,783.23,2349.69,264.8
+394,2024-04-15,morning,24,male,daily_needs,Charger,General,2,834.94,1669.88,264.8
+394,2024-04-15,evening,57,male,weekend,USB Cable,General,1,134.23,134.23,264.8
+395,2024-02-17,afternoon,40,female,holiday,Keyboard,General,2,820.7,1641.4,455.89
+396,2024-04-17,morning,63,female,daily_needs,Router,General,1,237.91,237.91,442.73
+396,2024-04-17,morning,62,male,weekend,Tablet,General,2,147.61,295.22,442.73
+396,2024-04-17,morning,45,male,daily_needs,Laptop,General,4,762.19,3048.76,442.73
+397,2024-02-06,morning,20,male,weekend,Smartphone,General,3,62.42,187.26,220.66
+397,2024-02-06,morning,66,male,daily_needs,LED Light,General,5,221.29,1106.45,220.66
+398,2024-02-26,evening,40,male,daily_needs,Tablet,General,3,949.82,2849.46,239.13
+398,2024-02-26,morning,72,male,holiday,Screen Protector,General,1,117.12,117.12,239.13
+399,2024-04-15,evening,31,male,weekend,Tablet,General,5,24.24,121.2,390.14
+400,2024-02-28,afternoon,62,male,weekend,Phone Case,General,1,197.23,197.23,241.93
+400,2024-02-28,afternoon,45,male,holiday,Headphones,General,4,130.59,522.36,241.93
+400,2024-02-28,afternoon,25,female,daily_needs,Charger,General,2,505.9,1011.8,241.93
+400,2024-02-28,afternoon,63,female,holiday,Router,General,1,100.6,100.6,241.93
+401,2024-04-04,afternoon,36,female,holiday,Router,General,3,693.31,2079.93,436.44
+402,2024-02-29,afternoon,72,female,daily_needs,Microphone,General,1,896.86,896.86,420.97
+402,2024-02-29,evening,41,male,daily_needs,Phone Case,General,4,678.65,2714.6,420.97
+402,2024-02-29,afternoon,46,male,daily_needs,Tablet,General,4,412.61,1650.44,420.97
+402,2024-02-29,evening,80,male,holiday,LED Light,General,2,83.42,166.84,420.97
+403,2024-02-26,morning,56,female,daily_needs,Headphones,General,4,730.7,2922.8,211.41
+403,2024-02-26,evening,67,female,holiday,Mouse,General,3,486.31,1458.93,211.41
+403,2024-02-26,evening,78,female,weekend,Charger,General,3,164.43,493.29,211.41
+404,2024-03-30,morning,34,female,weekend,Headphones,General,2,49.13,98.26,395.12
+405,2024-02-09,evening,19,male,weekend,Screen Protector,General,3,169.68,509.04,348.79
+405,2024-02-09,morning,66,male,holiday,Webcam,General,5,772.22,3861.1,348.79
+405,2024-02-09,afternoon,30,female,holiday,USB Cable,General,4,514.7,2058.8,348.79
+405,2024-02-09,evening,39,male,daily_needs,Mouse,General,1,395.96,395.96,348.79
+406,2024-03-12,afternoon,47,male,daily_needs,Tablet,General,5,666.22,3331.1,411.75
+406,2024-03-12,evening,28,female,weekend,Tablet,General,3,721.41,2164.23,411.75
+406,2024-03-12,afternoon,66,male,holiday,Phone Case,General,4,666.88,2667.52,411.75
+406,2024-03-12,evening,52,female,weekend,Charger,General,2,516.55,1033.1,411.75
+407,2024-03-22,afternoon,55,female,holiday,Phone Case,General,3,771.14,2313.42,213.78
+407,2024-03-22,morning,19,male,daily_needs,Microphone,General,3,361.9,1085.7,213.78
+407,2024-03-22,evening,55,male,holiday,Keyboard,General,4,115.4,461.6,213.78
+408,2024-03-16,afternoon,40,male,holiday,Headphones,General,2,249.93,499.86,224.84
+408,2024-03-16,morning,76,male,weekend,Smartphone,General,3,186.38,559.14,224.84
+408,2024-03-16,evening,38,male,weekend,Phone Case,General,4,576.69,2306.76,224.84
+409,2024-03-25,morning,62,female,holiday,Laptop,General,3,390.18,1170.54,256.12
+409,2024-03-25,evening,24,female,daily_needs,Router,General,2,349.25,698.5,256.12
+409,2024-03-25,evening,69,female,daily_needs,Screen Protector,General,3,376.07,1128.21,256.12
+410,2024-03-27,afternoon,58,male,holiday,Headphones,General,3,279.85,839.55,218.93
+410,2024-03-27,evening,43,male,holiday,Router,General,1,723.35,723.35,218.93
+411,2024-04-15,evening,39,female,daily_needs,Screen Protector,General,5,485.76,2428.8,183.9
+412,2024-02-10,evening,69,female,weekend,Phone Case,General,5,327.09,1635.45,265.73
+412,2024-02-10,afternoon,57,female,holiday,Webcam,General,5,196.99,984.95,265.73
+412,2024-02-10,morning,58,male,holiday,USB Cable,General,2,667.59,1335.18,265.73
+413,2024-03-31,evening,52,female,holiday,Router,General,1,531.82,531.82,245.71
+413,2024-03-31,morning,33,male,holiday,Phone Case,General,3,847.24,2541.72,245.71
+413,2024-03-31,afternoon,38,male,holiday,Headphones,General,4,281.6,1126.4,245.71
+414,2024-03-08,afternoon,61,male,weekend,Headphones,General,1,166.96,166.96,111.08
+414,2024-03-08,afternoon,47,female,holiday,Mouse,General,4,653.98,2615.92,111.08
+415,2024-02-05,morning,35,male,daily_needs,Monitor,General,3,665.5,1996.5,170.39
+415,2024-02-05,morning,79,female,daily_needs,Laptop,General,1,327.63,327.63,170.39
+416,2024-03-10,afternoon,75,female,holiday,Phone Case,General,1,408.96,408.96,435.92
+417,2024-02-18,morning,54,male,holiday,Phone Case,General,5,950.68,4753.4,472.62
+417,2024-02-18,afternoon,49,male,daily_needs,Screen Protector,General,1,777.73,777.73,472.62
+418,2024-03-12,evening,65,female,holiday,Router,General,2,936.79,1873.58,187.2
+418,2024-03-12,morning,29,male,weekend,USB Cable,General,4,269.22,1076.88,187.2
+418,2024-03-12,evening,21,female,holiday,Keyboard,General,1,330.16,330.16,187.2
+419,2024-03-26,evening,33,female,daily_needs,Keyboard,General,4,721.36,2885.44,428.55
+419,2024-03-26,morning,59,male,holiday,Phone Case,General,1,696.87,696.87,428.55
+419,2024-03-26,evening,33,female,holiday,Mouse,General,3,646.17,1938.51,428.55
+419,2024-03-26,evening,41,male,holiday,Microphone,General,2,860.49,1720.98,428.55
+420,2024-03-21,afternoon,77,female,weekend,Smartphone,General,2,311.47,622.94,443.77
+421,2024-02-21,evening,38,female,daily_needs,Monitor,General,1,826.73,826.73,476.2
+421,2024-02-21,afternoon,65,female,weekend,Router,General,4,879.23,3516.92,476.2
+421,2024-02-21,morning,70,male,holiday,Monitor,General,5,85.04,425.2,476.2
+421,2024-02-21,afternoon,56,female,weekend,Router,General,1,766.74,766.74,476.2
+422,2024-04-23,evening,46,male,daily_needs,Mouse,General,2,635.73,1271.46,225.49
+422,2024-04-23,morning,25,male,daily_needs,Charger,General,2,850.02,1700.04,225.49
+423,2024-04-28,afternoon,46,female,holiday,Tablet,General,3,190.01,570.03,337.21
+423,2024-04-28,afternoon,69,female,daily_needs,Smartphone,General,4,380.25,1521.0,337.21
+423,2024-04-28,afternoon,74,female,holiday,Headphones,General,1,949.15,949.15,337.21
+423,2024-04-28,evening,59,male,daily_needs,USB Cable,General,2,276.55,553.1,337.21
+424,2024-02-22,afternoon,57,female,holiday,Monitor,General,2,107.28,214.56,247.17
+425,2024-04-13,morning,63,female,weekend,Microphone,General,4,136.14,544.56,385.43
+426,2024-02-25,afternoon,65,female,weekend,Tablet,General,4,859.21,3436.84,340.03
+426,2024-02-25,afternoon,64,male,weekend,Tablet,General,4,796.61,3186.44,340.03
+426,2024-02-25,morning,36,female,daily_needs,Screen Protector,General,4,909.18,3636.72,340.03
+427,2024-03-19,morning,18,female,daily_needs,Microphone,General,3,974.91,2924.73,259.02
+427,2024-03-19,morning,63,female,holiday,Mouse,General,5,271.1,1355.5,259.02
+427,2024-03-19,morning,53,male,daily_needs,Keyboard,General,2,481.51,963.02,259.02
+427,2024-03-19,afternoon,56,male,daily_needs,Monitor,General,5,627.26,3136.3,259.02
+428,2024-03-10,evening,41,male,holiday,Laptop,General,5,195.78,978.9,167.95
+428,2024-03-10,afternoon,77,female,weekend,Tablet,General,1,330.97,330.97,167.95
+428,2024-03-10,evening,45,male,weekend,Smartphone,General,3,63.28,189.84,167.95
+428,2024-03-10,morning,49,female,holiday,Keyboard,General,4,297.27,1189.08,167.95
+429,2024-03-05,evening,38,female,daily_needs,Keyboard,General,4,768.4,3073.6,160.51
+429,2024-03-05,evening,58,female,daily_needs,Headphones,General,2,73.48,146.96,160.51
+429,2024-03-05,morning,20,female,weekend,Tablet,General,4,447.7,1790.8,160.51
+430,2024-04-04,afternoon,40,female,weekend,USB Cable,General,1,848.92,848.92,446.75
+431,2024-02-16,morning,31,female,daily_needs,Microphone,General,2,754.94,1509.88,429.03
+431,2024-02-16,evening,75,male,holiday,Laptop,General,5,771.51,3857.55,429.03
+431,2024-02-16,morning,44,male,daily_needs,Webcam,General,4,683.37,2733.48,429.03
+432,2024-03-14,afternoon,61,male,weekend,Keyboard,General,5,930.57,4652.85,142.43
+433,2024-03-13,morning,23,female,holiday,Phone Case,General,4,464.97,1859.88,482.08
+433,2024-03-13,evening,60,male,weekend,Laptop,General,5,951.88,4759.4,482.08
+434,2024-03-13,morning,73,male,holiday,Monitor,General,3,802.18,2406.54,397.52
+434,2024-03-13,evening,78,female,daily_needs,Mouse,General,3,194.45,583.35,397.52
+435,2024-03-23,morning,72,male,daily_needs,Mouse,General,4,299.24,1196.96,401.02
+436,2024-04-24,morning,37,female,weekend,Router,General,3,905.66,2716.98,341.41
+436,2024-04-24,afternoon,60,male,weekend,Charger,General,2,499.83,999.66,341.41
+437,2024-03-21,afternoon,54,female,daily_needs,Webcam,General,4,814.77,3259.08,345.55
+437,2024-03-21,afternoon,58,female,daily_needs,Laptop,General,5,354.91,1774.55,345.55
+437,2024-03-21,afternoon,61,male,holiday,Phone Case,General,2,932.05,1864.1,345.55
+437,2024-03-21,evening,58,male,weekend,USB Cable,General,4,97.6,390.4,345.55
+438,2024-04-02,morning,80,male,holiday,LED Light,General,3,844.71,2534.13,309.24
+438,2024-04-02,afternoon,54,male,holiday,Smartphone,General,1,523.15,523.15,309.24
+438,2024-04-02,evening,45,female,daily_needs,USB Cable,General,5,816.57,4082.85,309.24
+439,2024-03-17,evening,23,male,daily_needs,Router,General,4,195.96,783.84,172.88
+439,2024-03-17,afternoon,20,male,weekend,LED Light,General,3,327.67,983.01,172.88
+439,2024-03-17,evening,47,female,holiday,Webcam,General,3,354.51,1063.53,172.88
+440,2024-02-24,morning,23,female,holiday,Smartphone,General,4,543.69,2174.76,102.34
+440,2024-02-24,morning,18,male,holiday,USB Cable,General,4,697.97,2791.88,102.34
+441,2024-04-25,afternoon,57,female,holiday,Phone Case,General,4,808.55,3234.2,135.05
+441,2024-04-25,morning,18,male,daily_needs,Microphone,General,1,702.11,702.11,135.05
+441,2024-04-25,morning,72,male,daily_needs,USB Cable,General,2,656.75,1313.5,135.05
+441,2024-04-25,afternoon,71,male,daily_needs,Monitor,General,4,165.2,660.8,135.05
+442,2024-03-26,morning,28,male,holiday,Router,General,4,964.59,3858.36,288.6
+443,2024-03-29,morning,36,female,daily_needs,Keyboard,General,1,120.61,120.61,439.05
+443,2024-03-29,afternoon,80,female,weekend,Router,General,5,603.92,3019.6,439.05
+444,2024-04-11,morning,49,female,weekend,Charger,General,5,730.12,3650.6,474.11
+444,2024-04-11,afternoon,32,male,holiday,Laptop,General,4,584.88,2339.52,474.11
+444,2024-04-11,evening,22,female,holiday,Mouse,General,4,134.6,538.4,474.11
+445,2024-04-20,afternoon,62,female,daily_needs,Tablet,General,3,731.68,2195.04,287.7
+445,2024-04-20,afternoon,32,male,holiday,LED Light,General,3,923.3,2769.9,287.7
+445,2024-04-20,evening,60,female,daily_needs,LED Light,General,3,728.54,2185.62,287.7
+446,2024-03-21,evening,59,female,weekend,Webcam,General,2,629.41,1258.82,212.98
+446,2024-03-21,evening,23,female,daily_needs,Tablet,General,2,173.19,346.38,212.98
+446,2024-03-21,afternoon,24,female,weekend,Monitor,General,2,225.24,450.48,212.98
+446,2024-03-21,morning,19,female,weekend,Keyboard,General,2,191.22,382.44,212.98
+447,2024-04-05,morning,39,female,daily_needs,Screen Protector,General,2,138.27,276.54,189.64
+448,2024-03-05,afternoon,67,male,holiday,Monitor,General,2,856.34,1712.68,449.48
+448,2024-03-05,evening,60,male,holiday,Laptop,General,4,803.01,3212.04,449.48
+448,2024-03-05,morning,80,male,holiday,Screen Protector,General,1,827.14,827.14,449.48
+449,2024-02-06,morning,58,male,daily_needs,LED Light,General,3,173.89,521.67,216.85
+450,2024-03-28,evening,73,male,daily_needs,Phone Case,General,3,347.92,1043.76,155.11
+450,2024-03-28,morning,46,female,daily_needs,Headphones,General,4,354.49,1417.96,155.11
+450,2024-03-28,evening,28,male,weekend,Keyboard,General,4,373.43,1493.72,155.11
+450,2024-03-28,evening,33,male,holiday,Mouse,General,2,155.23,310.46,155.11
+451,2024-03-26,afternoon,75,female,holiday,Webcam,General,3,944.87,2834.61,277.03
+451,2024-03-26,morning,63,male,daily_needs,Keyboard,General,3,413.62,1240.86,277.03
+451,2024-03-26,morning,45,male,weekend,Webcam,General,1,666.97,666.97,277.03
+451,2024-03-26,evening,27,male,holiday,Router,General,5,973.21,4866.05,277.03
+452,2024-03-25,evening,62,female,holiday,Router,General,3,911.05,2733.15,103.16
+452,2024-03-25,afternoon,75,male,holiday,Mouse,General,4,651.0,2604.0,103.16
+452,2024-03-25,evening,57,female,holiday,Keyboard,General,4,779.89,3119.56,103.16
+452,2024-03-25,afternoon,23,male,holiday,Keyboard,General,4,730.6,2922.4,103.16
+453,2024-02-17,morning,23,female,holiday,Keyboard,General,2,42.95,85.9,456.13
+453,2024-02-17,evening,55,female,daily_needs,Microphone,General,3,731.98,2195.94,456.13
+453,2024-02-17,evening,25,male,weekend,Monitor,General,5,367.38,1836.9,456.13
+454,2024-02-07,afternoon,37,male,weekend,Keyboard,General,2,809.28,1618.56,495.6
+455,2024-04-13,afternoon,37,female,holiday,Webcam,General,5,678.99,3394.95,385.74
+455,2024-04-13,evening,65,male,daily_needs,Keyboard,General,5,590.72,2953.6,385.74
+456,2024-03-18,morning,27,female,weekend,Smartphone,General,1,80.95,80.95,455.4
+456,2024-03-18,afternoon,31,female,daily_needs,Keyboard,General,5,414.7,2073.5,455.4
+456,2024-03-18,evening,51,female,weekend,Screen Protector,General,4,643.73,2574.92,455.4
+456,2024-03-18,afternoon,62,female,holiday,Mouse,General,2,161.46,322.92,455.4
+457,2024-02-17,evening,47,male,holiday,Charger,General,5,135.7,678.5,185.06
+457,2024-02-17,afternoon,20,male,holiday,Keyboard,General,1,609.57,609.57,185.06
+457,2024-02-17,afternoon,25,male,weekend,Screen Protector,General,3,59.48,178.44,185.06
+457,2024-02-17,morning,25,female,weekend,Keyboard,General,3,308.1,924.3,185.06
+458,2024-02-04,morning,68,female,daily_needs,LED Light,General,3,891.28,2673.84,186.23
+458,2024-02-04,evening,49,male,daily_needs,Charger,General,3,86.21,258.63,186.23
+459,2024-02-06,afternoon,54,female,holiday,USB Cable,General,3,785.72,2357.16,290.09
+459,2024-02-06,evening,71,male,daily_needs,Charger,General,4,766.45,3065.8,290.09
+459,2024-02-06,evening,46,male,holiday,Keyboard,General,1,803.82,803.82,290.09
+459,2024-02-06,evening,57,female,weekend,Headphones,General,4,352.22,1408.88,290.09
+460,2024-02-06,evening,35,male,daily_needs,Router,General,1,580.55,580.55,418.46
+460,2024-02-06,evening,37,male,holiday,Charger,General,1,208.58,208.58,418.46
+460,2024-02-06,evening,52,male,holiday,Charger,General,2,755.55,1511.1,418.46
+460,2024-02-06,evening,75,male,daily_needs,Phone Case,General,5,196.15,980.75,418.46
+461,2024-02-03,morning,33,female,daily_needs,Webcam,General,5,614.72,3073.6,260.72
+461,2024-02-03,morning,49,male,weekend,Mouse,General,2,426.64,853.28,260.72
+461,2024-02-03,evening,38,female,weekend,Smartphone,General,1,980.19,980.19,260.72
+462,2024-04-10,afternoon,27,male,weekend,Webcam,General,1,171.14,171.14,480.87
+462,2024-04-10,evening,28,male,holiday,Keyboard,General,2,46.63,93.26,480.87
+463,2024-02-08,afternoon,24,female,daily_needs,Mouse,General,3,272.78,818.34,476.63
+463,2024-02-08,morning,21,male,daily_needs,Webcam,General,5,594.31,2971.55,476.63
+463,2024-02-08,afternoon,50,female,daily_needs,Monitor,General,1,331.97,331.97,476.63
+464,2024-04-11,morning,48,male,weekend,Phone Case,General,2,915.46,1830.92,107.45
+464,2024-04-11,evening,79,male,daily_needs,Webcam,General,5,658.52,3292.6,107.45
+464,2024-04-11,morning,37,female,weekend,Smartphone,General,5,219.39,1096.95,107.45
+464,2024-04-11,morning,41,male,daily_needs,Charger,General,4,962.13,3848.52,107.45
+465,2024-04-12,morning,18,female,holiday,Monitor,General,2,20.53,41.06,473.4
+465,2024-04-12,afternoon,35,female,holiday,Mouse,General,3,845.59,2536.77,473.4
+465,2024-04-12,morning,55,female,daily_needs,Tablet,General,5,571.82,2859.1,473.4
+465,2024-04-12,afternoon,23,female,holiday,Smartphone,General,2,730.57,1461.14,473.4
+466,2024-03-07,morning,57,female,holiday,Keyboard,General,3,980.05,2940.15,383.1
+466,2024-03-07,afternoon,33,female,weekend,Headphones,General,4,959.81,3839.24,383.1
+466,2024-03-07,afternoon,19,male,holiday,LED Light,General,1,616.61,616.61,383.1
+466,2024-03-07,morning,75,male,holiday,Tablet,General,4,564.67,2258.68,383.1
+467,2024-04-30,afternoon,52,male,holiday,Phone Case,General,1,547.88,547.88,457.03
+467,2024-04-30,evening,46,male,weekend,Microphone,General,4,830.92,3323.68,457.03
+467,2024-04-30,afternoon,42,male,holiday,Laptop,General,1,473.44,473.44,457.03
+467,2024-04-30,morning,46,male,daily_needs,Router,General,1,763.25,763.25,457.03
+468,2024-04-28,morning,23,female,holiday,Headphones,General,2,980.52,1961.04,486.92
+468,2024-04-28,morning,35,female,holiday,Router,General,5,224.9,1124.5,486.92
+468,2024-04-28,morning,80,female,daily_needs,Microphone,General,3,577.72,1733.16,486.92
+469,2024-04-04,evening,30,male,daily_needs,Screen Protector,General,2,751.05,1502.1,150.97
+469,2024-04-04,evening,72,male,holiday,Router,General,3,208.01,624.03,150.97
+470,2024-04-27,evening,61,female,holiday,Charger,General,4,21.92,87.68,270.85
+471,2024-04-27,afternoon,45,female,weekend,Smartphone,General,5,477.25,2386.25,244.59
+472,2024-02-06,morning,35,female,holiday,USB Cable,General,3,25.06,75.18,177.84
+472,2024-02-06,morning,74,male,holiday,Headphones,General,4,958.62,3834.48,177.84
+473,2024-03-03,morning,39,female,daily_needs,Phone Case,General,1,47.32,47.32,272.78
+473,2024-03-03,morning,55,female,weekend,Headphones,General,1,484.1,484.1,272.78
+474,2024-03-15,afternoon,51,male,daily_needs,Webcam,General,5,627.18,3135.9,405.64
+475,2024-04-21,evening,25,male,daily_needs,LED Light,General,1,389.85,389.85,456.03
+475,2024-04-21,evening,22,male,daily_needs,LED Light,General,4,73.69,294.76,456.03
+475,2024-04-21,evening,58,female,daily_needs,Smartphone,General,1,568.07,568.07,456.03
+475,2024-04-21,afternoon,72,female,weekend,Smartphone,General,5,756.92,3784.6,456.03
+476,2024-03-01,afternoon,42,female,weekend,LED Light,General,5,626.85,3134.25,235.85
+477,2024-04-27,afternoon,51,female,holiday,Headphones,General,1,120.64,120.64,338.07
+478,2024-02-09,evening,26,female,weekend,Mouse,General,4,730.13,2920.52,277.85
+478,2024-02-09,morning,26,male,daily_needs,Tablet,General,3,592.83,1778.49,277.85
+479,2024-04-06,afternoon,55,male,daily_needs,USB Cable,General,3,611.26,1833.78,216.43
+479,2024-04-06,morning,51,male,daily_needs,Headphones,General,5,822.8,4114.0,216.43
+479,2024-04-06,evening,72,male,weekend,Keyboard,General,2,976.98,1953.96,216.43
+480,2024-04-22,morning,39,male,holiday,USB Cable,General,4,607.77,2431.08,232.46
+480,2024-04-22,evening,54,female,holiday,Monitor,General,4,342.05,1368.2,232.46
+481,2024-02-14,morning,49,male,daily_needs,Phone Case,General,2,699.36,1398.72,286.61
+481,2024-02-14,morning,33,female,holiday,Webcam,General,3,811.13,2433.39,286.61
+481,2024-02-14,afternoon,31,female,daily_needs,Microphone,General,1,375.56,375.56,286.61
+481,2024-02-14,morning,40,male,holiday,Smartphone,General,2,304.76,609.52,286.61
+482,2024-02-25,morning,80,male,daily_needs,Headphones,General,3,190.66,571.98,454.15
+482,2024-02-25,evening,29,female,holiday,Headphones,General,2,212.07,424.14,454.15
+482,2024-02-25,morning,71,female,daily_needs,Laptop,General,2,391.34,782.68,454.15
+483,2024-02-15,morning,37,female,daily_needs,Keyboard,General,3,667.69,2003.07,476.46
+483,2024-02-15,evening,74,female,holiday,Smartphone,General,1,161.54,161.54,476.46
+483,2024-02-15,morning,68,male,daily_needs,Charger,General,4,700.47,2801.88,476.46
+484,2024-03-12,evening,33,male,holiday,Screen Protector,General,2,857.35,1714.7,217.67
+484,2024-03-12,morning,38,male,daily_needs,Phone Case,General,3,875.39,2626.17,217.67
+484,2024-03-12,evening,79,female,daily_needs,Router,General,1,788.97,788.97,217.67
+484,2024-03-12,evening,57,male,daily_needs,Charger,General,4,756.28,3025.12,217.67
+485,2024-04-23,afternoon,51,female,daily_needs,Keyboard,General,3,534.97,1604.91,293.32
+485,2024-04-23,afternoon,48,female,holiday,Mouse,General,5,656.74,3283.7,293.32
+485,2024-04-23,morning,32,male,weekend,Microphone,General,2,407.98,815.96,293.32
+486,2024-03-11,afternoon,54,male,weekend,Monitor,General,5,103.06,515.3,400.65
+486,2024-03-11,afternoon,46,female,daily_needs,Screen Protector,General,1,475.95,475.95,400.65
+486,2024-03-11,evening,39,female,weekend,USB Cable,General,4,420.77,1683.08,400.65
+486,2024-03-11,afternoon,38,female,weekend,Laptop,General,2,452.85,905.7,400.65
+487,2024-03-05,afternoon,75,male,weekend,Microphone,General,5,522.54,2612.7,357.46
+488,2024-03-07,morning,25,male,weekend,Laptop,General,5,216.3,1081.5,178.66
+488,2024-03-07,afternoon,34,female,holiday,Microphone,General,3,206.83,620.49,178.66
+489,2024-04-18,evening,65,female,daily_needs,Webcam,General,3,296.21,888.63,238.65
+489,2024-04-18,afternoon,78,female,holiday,Webcam,General,1,482.56,482.56,238.65
+490,2024-04-06,afternoon,32,male,holiday,Router,General,2,484.95,969.9,306.33
+490,2024-04-06,evening,66,female,holiday,Microphone,General,4,353.85,1415.4,306.33
+491,2024-02-11,morning,45,female,daily_needs,USB Cable,General,4,855.89,3423.56,112.04
+491,2024-02-11,morning,54,male,weekend,Router,General,1,509.8,509.8,112.04
+491,2024-02-11,evening,71,female,weekend,Headphones,General,4,437.2,1748.8,112.04
+492,2024-03-23,afternoon,55,male,holiday,Webcam,General,1,923.7,923.7,161.48
+492,2024-03-23,afternoon,54,female,weekend,Headphones,General,4,82.44,329.76,161.48
+492,2024-03-23,afternoon,30,female,daily_needs,Keyboard,General,5,962.7,4813.5,161.48
+493,2024-04-22,morning,28,male,holiday,Charger,General,2,51.42,102.84,375.61
+493,2024-04-22,afternoon,19,male,daily_needs,Smartphone,General,4,298.14,1192.56,375.61
+493,2024-04-22,morning,36,male,weekend,Laptop,General,3,528.16,1584.48,375.61
+494,2024-02-22,afternoon,43,male,daily_needs,Tablet,General,5,430.04,2150.2,397.26
+494,2024-02-22,afternoon,79,male,daily_needs,Microphone,General,2,323.56,647.12,397.26
+494,2024-02-22,evening,60,female,daily_needs,Screen Protector,General,5,940.37,4701.85,397.26
+495,2024-04-16,evening,63,female,weekend,Headphones,General,1,991.26,991.26,278.29
+495,2024-04-16,afternoon,56,male,holiday,Keyboard,General,5,881.65,4408.25,278.29
+496,2024-03-30,evening,20,male,weekend,Phone Case,General,4,359.85,1439.4,437.06
+496,2024-03-30,afternoon,43,male,weekend,Headphones,General,2,901.97,1803.94,437.06
+496,2024-03-30,evening,45,female,weekend,LED Light,General,2,704.55,1409.1,437.06
+496,2024-03-30,morning,43,male,daily_needs,LED Light,General,2,288.3,576.6,437.06
+497,2024-04-21,evening,76,male,holiday,Router,General,2,910.56,1821.12,264.51
+497,2024-04-21,evening,25,female,daily_needs,Webcam,General,1,514.31,514.31,264.51
+497,2024-04-21,afternoon,44,female,daily_needs,Monitor,General,2,515.94,1031.88,264.51
+498,2024-03-31,morning,58,female,weekend,Keyboard,General,4,858.66,3434.64,258.67
+499,2024-02-02,morning,63,male,weekend,Phone Case,General,4,495.06,1980.24,127.29
+499,2024-02-02,evening,60,male,holiday,USB Cable,General,2,481.37,962.74,127.29
+499,2024-02-02,afternoon,71,male,daily_needs,Microphone,General,1,614.85,614.85,127.29
+500,2024-02-23,morning,52,female,daily_needs,Smartphone,General,1,683.84,683.84,161.4
+500,2024-02-23,afternoon,29,male,holiday,Laptop,General,5,231.84,1159.2,161.4
+500,2024-02-23,evening,21,male,weekend,Router,General,3,455.11,1365.33,161.4

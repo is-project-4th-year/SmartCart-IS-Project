@@ -2,6 +2,20 @@
 
 SmartCart is a Flask-based retail analytics assistant that lets merchants upload transaction CSVs, explore AI‑assisted insights, configure spending thresholds, and keep customers informed with OTP‑secured flows. 
 
+## Plain-English Pitch
+- **What it does**: Upload your store receipts as CSVs and SmartCart instantly spots which items are bought together, the typical shopper budget, and when people shop most.
+- **Who it is for**: Store owners who want data guidance without learning analytics tools.
+- **Why it’s panel-friendly**: One upload gives you simple KPI cards, busiest shopping moments, budget and shopper mix callouts, plus contextual market basket rules (age/budget/time) for quick storytelling.
+
+## Demo Flow for a Panel
+1. **Login & Upload** – Log in with OTP, go to “Upload Data,” and send up one of the sample CSVs in `/datasets`.
+2. **Process & Thresholds** – Accept the suggested thresholds (or keep defaults) so the engine can categorize budgets and baskets.
+3. **Retailer Dashboard** – Open the dashboard to show:
+   - KPI cards for sales, top products, busiest shopping moment, budget sweet spot, and leading shopper group.
+   - Auto-generated talking points (“Most shoppers buy…”, “Peak spend happens at…”).
+4. **Market Basket Contexts** – Open “Market Basket (Age/Budget/Time)” to highlight deeper context-specific rules if the panel wants detail.
+5. **Wrap-Up** – Mention that retailers can email OTPs, configure alerts, and drill into full dashboards later, but the simple pages already answer “what should I stock together and when.”
+
 ## Features
 - OTP-protected authentication with first-time store setup and profile management
 - Dashboard that surfaces KPIs, customer segments, and association-rule driven recommendations

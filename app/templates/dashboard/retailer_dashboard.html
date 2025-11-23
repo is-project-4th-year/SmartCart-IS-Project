@@ -141,9 +141,21 @@
         <div class="stat-card bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-lg">
             <div class="flex items-start justify-between">
                 <div>
-                    <p class="text-gray-600 text-sm font-medium"> Peak Hours</p>
-                    <p class="text-2xl font-bold text-gray-900 mt-3">{{ peak_hour if peak_hour else "—" }}</p>
-                    <p class="text-xs text-gray-500 mt-2">When most sales happen</p>
+                    <p class="text-gray-600 text-sm font-medium">Busiest Shopping Moment</p>
+                    <p class="text-2xl font-bold text-gray-900 mt-3">
+                        {% if busiest_moment %}
+                            {{ busiest_moment.label }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </p>
+                    <p class="text-xs text-gray-500 mt-2">
+                        {% if busiest_moment %}
+                            {{ busiest_moment.count }} orders · {{ "%.1f"|format(busiest_moment.percent) }}% of traffic
+                        {% else %}
+                            When most sales happen
+                        {% endif %}
+                    </p>
                 </div>
                 <div class="flex-shrink-0">
                     <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-orange-100">
@@ -157,7 +169,7 @@
     </div>
 
     <!-- Additional Insights -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         <!-- Average Transaction Value Card -->
         <div class="stat-card bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-lg">
             <div class="flex items-start justify-between">
@@ -206,6 +218,95 @@
                     <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-cyan-100">
                         <svg class="h-6 w-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m0 0l8 4m-8-4v10l8 4m0-10l8 4m-8-4v10M8 11l4 2m4-2l-4 2m0 0l4 2m-8-2l4-2"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Common Budget Range Card -->
+        <div class="stat-card bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-lg">
+            <div class="flex items-start justify-between">
+                <div>
+                    <p class="text-gray-600 text-sm font-medium">Common Budget Range</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-3">
+                        {% if common_budget_range %}
+                            {{ common_budget_range.label }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </p>
+                    <p class="text-xs text-gray-500 mt-2">
+                        {% if common_budget_range %}
+                            {{ common_budget_range.count }} baskets · {{ "%.1f"|format(common_budget_range.percent) }}%
+                        {% else %}
+                            Typical spend band
+                        {% endif %}
+                    </p>
+                    {% if budget_thresholds %}
+                        <p class="text-xs text-gray-400 mt-1">Low ≤ KES {{ "%.0f"|format(budget_thresholds.get('low', 0)) }} · Medium ≤ KES {{ "%.0f"|format(budget_thresholds.get('medium', 0)) }}</p>
+                    {% endif %}
+                </div>
+                <div class="flex-shrink-0">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-emerald-100">
+                        <svg class="h-6 w-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Leading Shopper Group Card -->
+        <div class="stat-card bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-lg">
+            <div class="flex items-start justify-between">
+                <div>
+                    <p class="text-gray-600 text-sm font-medium">Leading Shopper Group</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-3">
+                        {% if leading_shopper_group %}
+                            {{ leading_shopper_group.label }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </p>
+                    <p class="text-xs text-gray-500 mt-2">
+                        {% if leading_shopper_group %}
+                            {{ leading_shopper_group.count }} orders · {{ "%.1f"|format(leading_shopper_group.percent) }}% of shoppers
+                        {% else %}
+                            Dominant age band in your data
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="flex-shrink-0">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-amber-100">
+                        <svg class="h-6 w-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.856-1.487M15 10a3 3 0 11-6 0 3 3 0 016 0zM6 20h12a6 6 0 00-6-6 6 6 0 00-6 6z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Budget Thresholds Card -->
+        <div class="stat-card bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-lg">
+            <div class="flex items-start justify-between">
+                <div>
+                    <p class="text-gray-600 text-sm font-medium">Budget Thresholds</p>
+                    {% if budget_thresholds %}
+                        <p class="text-xl font-bold text-gray-900 mt-3">Low ≤ KES {{ "%.0f"|format(budget_thresholds.get('low', 0)) }}</p>
+                        <p class="text-xl font-bold text-gray-900">Medium ≤ KES {{ "%.0f"|format(budget_thresholds.get('medium', 0)) }}</p>
+                        <p class="text-xs text-gray-500 mt-2">Auto-set from the latest upload</p>
+                    {% else %}
+                        <p class="text-2xl font-bold text-gray-900 mt-3">—</p>
+                        <p class="text-xs text-gray-500 mt-2">Set thresholds to segment spend</p>
+                    {% endif %}
+                </div>
+                <div class="flex-shrink-0">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-slate-100">
+                        <svg class="h-6 w-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
                 </div>
@@ -400,8 +501,16 @@
             <h3 class="text-xl font-semibold text-gray-900">Quick Insights & Recommendations</h3>
         </div>
         <div class="space-y-3 text-gray-700">
-            {% if peak_hour %}
-            <p><strong>Best Shopping Times:</strong> Most purchases happen during the {{ peak_hour }} period. Plan promotions and ensure staff availability during these peak hours.</p>
+            {% if busiest_moment %}
+            <p><strong>Best Shopping Times:</strong> {{ busiest_moment.label }} drives {{ "%.1f"|format(busiest_moment.percent) }}% of sales ({{ busiest_moment.count }} orders). Plan promos and staffing for this window.</p>
+            {% endif %}
+
+            {% if common_budget_range %}
+            <p><strong>Budget Sweet Spot:</strong> {{ common_budget_range.label }} baskets dominate ({{ "%.1f"|format(common_budget_range.percent) }}%). Feature bundles and add-ons in this price band.</p>
+            {% endif %}
+
+            {% if leading_shopper_group %}
+            <p><strong>Shopper Spotlight:</strong> {{ leading_shopper_group.label }} shoppers lead ({{ "%.1f"|format(leading_shopper_group.percent) }}% of orders). Merchandise hero products and offers that resonate with them.</p>
             {% endif %}
 
             {% if top_products %}

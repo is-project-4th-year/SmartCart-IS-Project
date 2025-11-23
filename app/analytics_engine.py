@@ -220,6 +220,69 @@ class RetailAnalyticsEngine:
         logger.info(f"Budget thresholds: Low=${p33:.2f}, Medium=${p66:.2f}")
         logger.info(f"Budget distribution - Low: {low_count}, Medium: {medium_count}, High: {high_count}")
     
+    def _attach_order_totals(self, sales_df: pd.DataFrame, order_stats: pd.DataFrame) -> pd.DataFrame:
+        """Attach best available order total metric to grouped stats"""
+        df = sales_df.copy()
+        amount_column = None
+        
+        if 'total_spent' in df.columns:
+            amount_column = 'total_spent'
+            agg_method = 'max'
+        elif 'total_item_price' in df.columns:
+            amount_column = 'total_item_price'
+            agg_method = 'sum'
+        elif 'quantity' in df.columns and 'unit_price' in df.columns:
+            df['__line_total'] = df['quantity'].astype(float) * df['unit_price'].astype(float)
+            amount_column = '__line_total'
+            agg_method = 'sum'
+        
+        if amount_column:
+            amount_df = df.groupby('order_id')[amount_column].agg(agg_method).reset_index()
+            amount_df.rename(columns={amount_column: 'total_spent'}, inplace=True)
+            order_stats = order_stats.merge(amount_df, on='order_id', how='left')
+        else:
+            order_stats['total_spent'] = np.random.uniform(10, 200, len(order_stats))
+        
+        order_stats['total_spent'] = order_stats['total_spent'].fillna(order_stats['total_spent'].median())
+        return order_stats
+    
+    def _attach_time_context(self, sales_df: pd.DataFrame, order_ids: pd.Series) -> pd.DataFrame:
+        """Build time context dataframe"""
+        if 'time_of_day' in sales_df.columns:
+            time_info = sales_df.groupby('order_id')['time_of_day'].first().reset_index()
+            time_info['time_of_day'] = time_info['time_of_day'].fillna('afternoon')
+            if 'date' in sales_df.columns:
+                order_dates = sales_df.groupby('order_id')['date'].first().reset_index()
+                order_dates['day_of_week'] = pd.to_datetime(order_dates['date'], errors='coerce').dt.day_name().fillna('Unknown')
+                time_info = time_info.merge(order_dates[['order_id', 'day_of_week']], on='order_id', how='left')
+            else:
+                time_info['day_of_week'] = 'Unknown'
+        elif 'timestamp' in sales_df.columns:
+            time_info = sales_df.groupby('order_id')['timestamp'].first().reset_index()
+            time_info['timestamp'] = pd.to_datetime(time_info['timestamp'], errors='coerce')
+            time_info['hour'] = time_info['timestamp'].dt.hour.fillna(12)
+            time_info['time_of_day'] = time_info['hour'].apply(self._categorize_time_of_day)
+            time_info['day_of_week'] = time_info['timestamp'].dt.day_name().fillna('Unknown')
+        else:
+            time_info = pd.DataFrame({'order_id': order_ids})
+            time_info['time_of_day'] = np.random.choice(['morning', 'afternoon', 'evening'], len(time_info))
+            time_info['day_of_week'] = np.random.choice(
+                ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                len(time_info)
+            )
+        
+        return time_info
+    
+    def _attach_age_context(self, sales_df: pd.DataFrame, order_ids: pd.Series) -> pd.DataFrame:
+        """Create age group context for each order if possible"""
+        if 'customer_age' in sales_df.columns:
+            age_info = sales_df.groupby('order_id')['customer_age'].median().reset_index()
+            age_info['age_group'] = age_info['customer_age'].apply(self._categorize_age)
+        else:
+            age_info = pd.DataFrame({'order_id': order_ids, 'age_group': 'adult'})
+        
+        return age_info
+    
     def prepare_transactions_with_context(self, sales_df: pd.DataFrame) -> List[Dict]:
         """Prepare transactions with contextual information"""
         logger.info("Preparing transactions with enhanced context")
@@ -236,30 +299,23 @@ class RetailAnalyticsEngine:
         }).reset_index()
         order_stats.rename(columns={'product_id': 'item_count'}, inplace=True)
         
-        # Add synthetic context for demonstration
-        order_stats['total_spent'] = np.random.uniform(10, 200, len(order_stats))
-        
+        # Calculate order totals when possible, fallback to synthetic data for demos
+        order_stats = self._attach_order_totals(sales_df, order_stats)
+
         # Calculate budget thresholds dynamically
         self._calculate_budget_thresholds(order_stats['total_spent'])
         
         # Add time context
-        if 'timestamp' in sales_df.columns:
-            time_info = sales_df.groupby('order_id')['timestamp'].first().reset_index()
-            time_info['timestamp'] = pd.to_datetime(time_info['timestamp'], errors='coerce')
-            time_info['hour'] = time_info['timestamp'].dt.hour.fillna(12)
-            time_info['time_of_day'] = time_info['hour'].apply(self._categorize_time_of_day)
-            time_info['day_of_week'] = time_info['timestamp'].dt.day_name().fillna('Unknown')
-        else:
-            time_info = pd.DataFrame({'order_id': order_stats['order_id']})
-            time_info['time_of_day'] = np.random.choice(['morning', 'afternoon', 'evening'], len(time_info))
-            time_info['day_of_week'] = np.random.choice(
-                ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-                len(time_info)
-            )
+        time_info = self._attach_time_context(sales_df, order_stats['order_id'])
+
+        # Add demographic context
+        age_info = self._attach_age_context(sales_df, order_stats['order_id'])
         
         # Merge everything
         context_df = order_products.merge(order_stats, on='order_id')
         context_df = context_df.merge(time_info[['order_id', 'time_of_day', 'day_of_week']], on='order_id')
+        context_df = context_df.merge(age_info[['order_id', 'age_group']], on='order_id', how='left')
+        context_df['age_group'] = context_df['age_group'].fillna('adult')
         
         # Apply categorization
         context_df['budget_segment'] = context_df['total_spent'].apply(self._categorize_budget)
@@ -275,6 +331,7 @@ class RetailAnalyticsEngine:
                     'budget': row['budget_segment'],
                     'time_of_day': row['time_of_day'],
                     'day_of_week': row['day_of_week'],
+                    'age_group': row['age_group'],
                     'basket_size': row['basket_size'],
                     'total_spent': row['total_spent'],
                     'item_count': row['item_count']
@@ -298,6 +355,7 @@ class RetailAnalyticsEngine:
                     'budget': 'medium',
                     'time_of_day': 'afternoon',
                     'day_of_week': 'Unknown',
+                    'age_group': 'adult',
                     'basket_size': 'small',
                     'total_spent': 50,
                     'item_count': len(row['product_id'])
@@ -406,8 +464,9 @@ class RetailAnalyticsEngine:
     def _generate_context_rules(self, min_support: float, min_confidence: float, min_lift: float = 1.0) -> None:
         """Generate context-specific rules with configured thresholds"""
         contexts = [
-            ('time_of_day', ['morning', 'afternoon', 'evening']),
+            ('time_of_day', ['morning', 'afternoon', 'evening', 'night']),
             ('budget', ['low', 'medium', 'high']),
+            ('age_group', ['teen', 'young_adult', 'adult', 'senior']),
             ('basket_size', ['small', 'medium', 'large'])
         ]
         
@@ -440,6 +499,26 @@ class RetailAnalyticsEngine:
             return 'evening'
         else:
             return 'night'
+    
+    def _categorize_age(self, age: float) -> str:
+        """Categorize shopper age into configured age groups"""
+        if pd.isna(age):
+            return 'adult'
+        
+        try:
+            age = float(age)
+        except (ValueError, TypeError):
+            return 'adult'
+        
+        age_limits = self.thresholds['age_groups']
+        if age <= age_limits['teen']:
+            return 'teen'
+        elif age <= age_limits['young_adult']:
+            return 'young_adult'
+        elif age <= age_limits['adult']:
+            return 'adult'
+        else:
+            return 'senior'
     
     def _categorize_budget(self, total_amount: float) -> str:
         """Categorize total order amount based on configured thresholds"""
@@ -596,11 +675,14 @@ class RetailAnalyticsEngine:
         # Context distribution
         time_dist = {}
         budget_dist = {}
+        age_dist = {}
         basket_dist = {}
         
         for tx in self.transaction_contexts:
             time_dist[tx['time_of_day']] = time_dist.get(tx['time_of_day'], 0) + 1
             budget_dist[tx['budget']] = budget_dist.get(tx['budget'], 0) + 1
+            age_key = tx.get('age_group', 'unknown')
+            age_dist[age_key] = age_dist.get(age_key, 0) + 1
             basket_dist[tx['basket_size']] = basket_dist.get(tx['basket_size'], 0) + 1
         
         # Use calculated budget distribution if available
@@ -618,6 +700,7 @@ class RetailAnalyticsEngine:
             'avg_basket_size': total_products / len(self.transaction_contexts),
             'time_distribution': time_dist,
             'budget_distribution': budget_dist,
+            'age_distribution': age_dist,
             'basket_size_distribution': basket_dist,
             'total_rules': sum(len(rules) for rules in self.contextual_rules.values()),
             'contexts_available': list(self.contextual_rules.keys()),

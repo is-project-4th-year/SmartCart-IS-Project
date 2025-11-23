@@ -7,7 +7,7 @@
   <!-- <div class="max-w-5xl mx-auto"> -->
     
     <!-- Header -->
-    <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 mb-6">
+    <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 mb-6 space-y-3">
       <div class="flex items-center gap-3 mb-2">
         <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
@@ -17,10 +17,19 @@
       </div>
       <span>This is automatically analyzed during upload .(Please leave this as it is, unless you know what you’re doing!)</span>
       <p class="text-gray-600">
-      
-        <span class="font-semibold">File:</span> {{ upload.filename }} | 
+
+        <span class="font-semibold">File:</span> {{ upload.filename }} |
         <span class="font-semibold">Uploaded:</span> {{ upload.upload_date.strftime('%Y-%m-%d %H:%M') }}
       </p>
+      <div class="bg-blue-50 border border-blue-100 rounded-2xl p-4 text-sm text-blue-900 leading-relaxed">
+        <p class="font-semibold mb-1">How to explain this page:</p>
+        <ul class="list-disc list-inside space-y-1">
+          <li><strong>Budget thresholds</strong>: define what “low/medium/high spend” means for your store so alerts make sense.</li>
+          <li><strong>Association rule settings</strong>: support/confidence/lift act like filters—higher numbers mean stricter rules.</li>
+          <li><strong>Basket and age tiers</strong>: categorize transactions by size and age group to tailor downstream analytics.</li>
+          <li>Leave defaults as-is unless you have a specific business reason (e.g., VIP store with higher budgets).</li>
+        </ul>
+      </div>
     </div>
 
     <!-- Data Summary Cards -->

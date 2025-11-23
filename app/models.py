@@ -79,6 +79,7 @@ class Analytics(db.Model):
     time_distribution = db.Column(db.JSON)  # {morning: x, afternoon: y, evening: z}
     budget_distribution = db.Column(db.JSON)  # {low: x, medium: y, high: z}
     basket_size_distribution = db.Column(db.JSON)  # {small: x, medium: y, large: z}
+    age_distribution = db.Column(db.JSON)  # {teen: x, young_adult: y, adult: z, senior: z}
     budget_thresholds = db.Column(db.JSON)  # {low: $value, medium: $value} - calculated percentiles
     
     # Rules statistics
@@ -161,6 +162,7 @@ class Transaction(db.Model):
     day_of_week = db.Column(db.String(20))
     budget_segment = db.Column(db.String(20))  # low, medium, high
     basket_size = db.Column(db.String(20))  # small, medium, large
+    age_group = db.Column(db.String(20))  # teen, young_adult, adult, senior
     
     # Metrics
     total_spent = db.Column(db.Float)

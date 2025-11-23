@@ -25,6 +25,16 @@
         <p class="text-gray-600 mt-2">{{ upload.filename }} - {{ upload.upload_date.strftime('%Y-%m-%d %H:%M') }}</p>
     </div>
 
+    <div class="bg-blue-50 border border-blue-100 rounded-2xl p-5 text-sm text-blue-900 leading-relaxed">
+        <p class="font-semibold mb-2">How to explain this “Analytics Report” screen:</p>
+        <ul class="list-disc list-inside space-y-1">
+            <li><strong>KPI cards</strong> (top row) answer “how many orders, products, basket size, reorder rate, and rules.”</li>
+            <li><strong>Distribution charts</strong> show when people shop, how big their baskets are, and which budget tier dominates.</li>
+            <li><strong>Rules by Context</strong> highlights how many association rules were found for general/time/budget/basket segments.</li>
+            <li><strong>Summary panel</strong> stores upload metadata plus top products and recommended associations to mention out loud.</li>
+        </ul>
+    </div>
+
     <!-- Top Action Bar -->
     <div class="flex gap-3 justify-end mb-4">
         <!-- <a href="{{ url_for('dashboard.network_visualization', upload_id=analytics.upload_id) }}" class="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
