@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}Contextual Factors{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto py-8 space-y-8">
+    <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
+                <p class="text-sm font-medium text-blue-600 uppercase tracking-widest">Contextual Factors</p>
+                <h1 class="text-4xl font-bold text-gray-900 mt-2">Contextual Association Rules</h1>
+                <p class="text-gray-600 mt-2">Focus on contextual factors—age, budget, and time-of-day—to enrich classic market basket analysis.</p>
+            </div>
+            <form method="get" class="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center bg-gray-50 rounded-2xl p-4">
+                <label class="text-sm font-semibold text-gray-600" for="upload_id">Choose dataset</label>
+                <select id="upload_id" name="upload_id" class="rounded-xl border-gray-200 focus:ring-blue-500 focus:border-blue-500 text-gray-800">
+                    {% for upload in uploads %}
+                        <option value="{{ upload.id }}" {% if upload.id == selected_upload.id %}selected{% endif %}>
+                            {{ upload.filename }} · {{ upload.upload_date.strftime('%b %d, %Y') }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition">Load</button>
+            </form>
+        </div>
+        <div class="bg-blue-50 border border-blue-100 rounded-2xl p-4 text-sm text-blue-900 leading-relaxed">
+            <p class="font-semibold mb-1">How to present this page:</p>
+            <ul class="list-disc list-inside space-y-1">
+                <li>Use the KPI cards below to state how many transactions, unique items, and rules were discovered.</li>
+                <li>Walk through the three “context” columns (Age, Budget, Time) to show who is shopping and when.</li>
+                <li>Scroll to “General Rules” for universal cross-sell stories; then move to the context grids for deeper questions.</li>
+                <li>Mention that each colored card is a ready-made talking point (“morning shoppers add…”, “high-budget baskets include…”).</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl border border-gray-100 p-6">
+            <p class="text-sm text-gray-500 font-semibold uppercase">Transactions</p>
+            <p class="text-4xl font-bold text-gray-900 mt-3">{{ summary.total_transactions or 0 }}</p>
+            <p class="text-sm text-gray-500 mt-1">Orders captured in this upload.</p>
+        </div>
+        <div class="bg-white rounded-2xl border border-gray-100 p-6">
+            <p class="text-sm text-gray-500 font-semibold uppercase">Unique Products</p>
+            <p class="text-4xl font-bold text-gray-900 mt-3">{{ summary.unique_products or 0 }}</p>
+            <p class="text-sm text-gray-500 mt-1">Items appearing in baskets.</p>
+        </div>
+        <div class="bg-white rounded-2xl border border-gray-100 p-6">
+            <p class="text-sm text-gray-500 font-semibold uppercase">Rules Found</p>
+            <p class="text-4xl font-bold text-gray-900 mt-3">{{ summary.total_rules or 0 }}</p>
+            <p class="text-sm text-gray-500 mt-1">Association rules above your thresholds.</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {% set age_distribution = summary.age_distribution or {} %}
+        <div class="bg-white rounded-2xl border border-gray-100 p-6">
+            <p class="text-sm font-semibold text-gray-500 uppercase">Age Context</p>
+            <h2 class="text-xl font-bold text-gray-900 mt-2">Shopper Mix</h2>
+            <ul class="mt-4 space-y-3">
+                {% for label, count in age_distribution|dictsort %}
+                    <li class="flex items-center justify-between text-sm">
+                        <span class="font-medium text-gray-700">{{ label.replace('_', ' ').title() }}</span>
+                        <span class="text-gray-500">{{ count }}</span>
+                    </li>
+                {% else %}
+                    <li class="text-sm text-gray-500">Age data not available for this dataset.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% set budget_distribution = summary.budget_distribution or {} %}
+        <div class="bg-white rounded-2xl border border-gray-100 p-6">
+            <p class="text-sm font-semibold text-gray-500 uppercase">Budget Context</p>
+            <h2 class="text-xl font-bold text-gray-900 mt-2">Spending Bands</h2>
+            <ul class="mt-4 space-y-3">
+                {% for label, count in budget_distribution|dictsort %}
+                    <li class="flex items-center justify-between text-sm">
+                        <span class="font-medium text-gray-700">{{ label.title() }}</span>
+                        <span class="text-gray-500">{{ count }}</span>
+                    </li>
+                {% else %}
+                    <li class="text-sm text-gray-500">Budget segments will appear once totals are processed.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% set time_distribution = summary.time_distribution or {} %}
+        <div class="bg-white rounded-2xl border border-gray-100 p-6">
+            <p class="text-sm font-semibold text-gray-500 uppercase">Time Context</p>
+            <h2 class="text-xl font-bold text-gray-900 mt-2">Shopping Moments</h2>
+            <ul class="mt-4 space-y-3">
+                {% for label, count in time_distribution|dictsort %}
+                    <li class="flex items-center justify-between text-sm">
+                        <span class="font-medium text-gray-700">{{ label.title() }}</span>
+                        <span class="text-gray-500">{{ count }}</span>
+                    </li>
+                {% else %}
+                    <li class="text-sm text-gray-500">Time-of-day context not captured in this dataset.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-3xl border border-gray-100 p-8">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+            <div>
+                <p class="text-sm font-semibold text-gray-500 uppercase">General Rules</p>
+                <h2 class="text-2xl font-bold text-gray-900 mt-1">Top associations across all shoppers</h2>
+            </div>
+        </div>
+        {% if general_rules %}
+            <div class="mt-6 grid grid-cols-1 xl:grid-cols-2 gap-4">
+                {% for rule in general_rules %}
+                    <div class="border border-gray-100 rounded-2xl p-5 hover:border-blue-200 transition">
+                        <p class="text-sm text-gray-500">If</p>
+                        <p class="text-lg font-semibold text-gray-900">
+                            {{ rule.antecedents | join(', ') }}
+                        </p>
+                        <p class="text-sm text-gray-500 mt-1">then shoppers also add</p>
+                        <p class="text-lg font-semibold text-blue-600">
+                            {{ rule.consequents | join(', ') }}
+                        </p>
+                        <div class="flex items-center gap-4 text-sm text-gray-500 mt-4">
+                            <span>Confidence: <strong class="text-gray-900">{{ '%.1f'|format(rule.confidence) }}%</strong></span>
+                            <span>Support: <strong class="text-gray-900">{{ '%.1f'|format(rule.support) }}%</strong></span>
+                            <span>Lift: <strong class="text-gray-900">{{ '%.2f'|format(rule.lift) }}</strong></span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-sm text-gray-500 mt-6">Upload a dataset with at least a few dozen transactions to unlock general rules.</p>
+        {% endif %}
+    </div>
+
+    {% for section in context_sections %}
+        {% if section.blocks %}
+            <div class="bg-white rounded-3xl border border-gray-100 p-8">
+                <div class="flex items-center justify-between flex-wrap gap-4 mb-6">
+                    <div>
+                        <p class="text-sm font-semibold text-gray-500 uppercase">{{ section.label }}</p>
+                        <h2 class="text-2xl font-bold text-gray-900 mt-1">Context-specific lift</h2>
+                        <p class="text-gray-500 text-sm mt-1">See how associations change within this context.</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {% for block in section.blocks %}
+                        <div class="border border-gray-100 rounded-2xl p-5">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-gray-900">{{ block.label }}</h3>
+                                <span class="text-xs px-2 py-1 rounded-full bg-blue-50 text-blue-700 font-semibold">Context</span>
+                            </div>
+                            <div class="space-y-4">
+                                {% for rule in block.rules %}
+                                    <div class="bg-gray-50 rounded-xl p-4 text-sm">
+                                        <p class="text-gray-500">If <span class="font-semibold text-gray-800">{{ rule.antecedents | join(', ') }}</span></p>
+                                        <p class="text-gray-500">then add <span class="font-semibold text-blue-600">{{ rule.consequents | join(', ') }}</span></p>
+                                        <div class="flex items-center gap-3 mt-3 text-xs text-gray-500">
+                                            <span>Conf: <strong class="text-gray-900">{{ '%.1f'|format(rule.confidence) }}%</strong></span>
+                                            <span>Lift: <strong class="text-gray-900">{{ '%.2f'|format(rule.lift) }}</strong></span>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

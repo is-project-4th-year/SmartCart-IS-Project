@@ -6,6 +6,7 @@ import json
 from datetime import datetime, timezone
 import logging
 import pandas as pd
+from typing import Dict, Tuple
 
 from app.models import db, User, DataUpload, Analytics, AssociationRule, Product, Transaction, OTP
 from app.forms import RegistrationForm, LoginForm, DataUploadForm, ContextFilterForm, OTPVerificationForm, SetupStoreForm, ThresholdConfigForm, UpdateProfileForm
@@ -15,6 +16,20 @@ from app.oauth_helper import create_otp, verify_otp, resend_otp
 from app.threshold_handler import ThresholdHandler
 
 logger = logging.getLogger(__name__)
+
+
+def _normalize_products_list(products_field):
+    """Normalize stored products field into a list of string IDs."""
+    if isinstance(products_field, list):
+        return [str(p) for p in products_field]
+    if isinstance(products_field, str):
+        try:
+            parsed = json.loads(products_field)
+            if isinstance(parsed, list):
+                return [str(p) for p in parsed]
+        except Exception:
+            return []
+    return []
 
 # Create blueprints
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -515,6 +530,7 @@ def process_analytics(upload_id):
                 day_of_week=tx.get('day_of_week'),
                 budget_segment=tx.get('budget'),
                 basket_size=tx.get('basket_size'),
+                age_group=tx.get('age_group'),
                 total_spent=float(tx.get('total_spent', 0) or 0),
                 item_count=int(tx.get('item_count', 0) or 0)
             ))
@@ -576,6 +592,7 @@ def process_analytics(upload_id):
             time_distribution=summary.get('time_distribution') or {},
             budget_distribution=summary.get('budget_distribution') or {},
             basket_size_distribution=summary.get('basket_size_distribution') or {},
+            age_distribution=summary.get('age_distribution') or {},
             budget_thresholds=upload.threshold_config.get('budget_thresholds') if upload.threshold_config else {},
             total_rules_generated=int(summary.get('total_rules', 0) or 0),
             general_rules_count=int(len(engine.contextual_rules.get('general', [])) if 'general' in engine.contextual_rules else 0),
@@ -674,6 +691,94 @@ def analytics_detail(upload_id):
                          upload=upload,
                          analytics=analytics)
 
+@dashboard_bp.route('/market-basket')
+@login_required
+def market_basket():
+    """Lightweight market basket view with age/budget/time context"""
+    uploads = DataUpload.query.filter_by(user_id=current_user.id).order_by(
+        DataUpload.upload_date.desc()
+    ).all()
+    
+    if not uploads:
+        flash('Upload a dataset to generate market basket insights.', 'info')
+        return redirect(url_for('dashboard.upload_data'))
+    
+    selected_upload_id = request.args.get('upload_id', type=int)
+    selected_upload = next((u for u in uploads if u.id == selected_upload_id), uploads[0])
+    
+    if not os.path.exists(selected_upload.file_path):
+        flash('Upload file no longer exists. Please upload again.', 'danger')
+        return redirect(url_for('dashboard.upload_data'))
+    
+    engine = RetailAnalyticsEngine(config=getattr(current_app, 'config', {}))
+    if selected_upload.threshold_config:
+        try:
+            engine.set_thresholds(selected_upload.threshold_config)
+        except Exception as exc:
+            logger.warning(f"Could not apply stored thresholds: {exc}")
+    
+    try:
+        sales_df = engine.load_and_validate_data(selected_upload.file_path)
+        engine.prepare_transactions_with_context(sales_df)
+        engine.generate_smart_rules()
+        summary = engine.generate_analytics_summary()
+    except Exception as exc:
+        logger.error(f"Market basket processing failed: {exc}")
+        flash('Could not generate insights for this dataset.', 'danger')
+        return redirect(url_for('dashboard.upload_history'))
+    
+    def format_rules(rules_df, limit=5):
+        formatted = []
+        if rules_df is None or getattr(rules_df, 'empty', True):
+            return formatted
+        for _, rule in rules_df.head(limit).iterrows():
+            def resolve_names(items):
+                names = []
+                for item in list(rule.get(items, [])):
+                    try:
+                        product_id = int(item)
+                    except (ValueError, TypeError):
+                        product_id = item
+                    names.append(engine._get_product_name(product_id))
+                return names
+            formatted.append({
+                'antecedents': resolve_names('antecedents'),
+                'consequents': resolve_names('consequents'),
+                'support': float(rule.get('support', 0)) * 100,
+                'confidence': float(rule.get('confidence', 0)) * 100,
+                'lift': float(rule.get('lift', 0))
+            })
+        return formatted
+    
+    def build_context_block(prefix, label, values):
+        blocks = []
+        for value in values:
+            key = f"{prefix}_{value}"
+            value_rules = format_rules(engine.contextual_rules.get(key))
+            if value_rules:
+                blocks.append({
+                    'label': value.replace('_', ' ').title(),
+                    'rules': value_rules
+                })
+        return {'label': label, 'blocks': blocks}
+    
+    context_sections = [
+        build_context_block('age_group', 'Shopper Age Groups', ['teen', 'young_adult', 'adult', 'senior']),
+        build_context_block('budget', 'Budget Segments', ['low', 'medium', 'high']),
+        build_context_block('time_of_day', 'Time of Day', ['morning', 'afternoon', 'evening', 'night'])
+    ]
+    
+    general_rules = format_rules(engine.contextual_rules.get('general'), limit=10)
+    
+    return render_template(
+        'dashboard/market_basket.html',
+        uploads=uploads,
+        selected_upload=selected_upload,
+        summary=summary,
+        general_rules=general_rules,
+        context_sections=context_sections
+    )
+
 @dashboard_bp.route('/recommendations')
 @login_required
 def recommendations():
@@ -733,6 +838,8 @@ def recommendations():
                 continue
             elif context_filter == 'basket' and (not rule.context or not rule.context.startswith('basket_')):
                 continue
+            elif context_filter == 'age' and (not rule.context or not rule.context.startswith('age_group_')):
+                continue
         
         filtered_rules.append(rule)
     
@@ -742,90 +849,190 @@ def recommendations():
     general_rules_count = len([r for r in rules_data if r.context == 'general'])
     time_rules_count = len([r for r in rules_data if r.context and r.context.startswith('time_')])
     budget_rules_count = len([r for r in rules_data if r.context and r.context.startswith('budget_')])
+    age_rules_count = len([r for r in rules_data if r.context and r.context.startswith('age_group_')])
     basket_size_rules_count = len([r for r in rules_data if r.context and r.context.startswith('basket_')])
+    
+    # Product lookup for friendly names
+    product_lookup = {}
+    products = Product.query.filter_by(user_id=current_user.id, upload_id=latest_upload.id).all()
+    for product in products:
+        product_lookup[str(product.product_id)] = product.product_name
+
+    # Cache transactions once for explainability and sampling
+    transactions = Transaction.query.filter_by(
+        user_id=current_user.id,
+        upload_id=latest_upload.id
+    ).all()
+    transaction_cache = []
+    for txn in transactions:
+        transaction_cache.append({
+            'txn': txn,
+            'products': _normalize_products_list(txn.products)
+        })
+    total_transactions = len(transaction_cache)
+    
+    def get_product_names(product_ids):
+        names = []
+        for pid in product_ids:
+            pid_str = str(pid)
+            name = product_lookup.get(pid_str)
+            if name:
+                names.append(name)
+            else:
+                names.append(f"Product {pid_str}")
+        return names
+    
+    def context_descriptor(context_key):
+        if not context_key or context_key == 'general':
+            return 'all shoppers'
+        if context_key.startswith('time_'):
+            label = context_key.split('_', 1)[1].replace('_', ' ')
+            return f"{label} shoppers"
+        if context_key.startswith('budget_'):
+            label = context_key.split('_', 1)[1].replace('_', ' ')
+            return f"{label} budget baskets"
+        if context_key.startswith('basket_'):
+            label = context_key.split('_', 1)[1].replace('_', ' ')
+            return f"{label} baskets"
+        if context_key.startswith('age_group_'):
+            label = context_key.split('_', 2)[2].replace('_', ' ')
+            return f"{label} shoppers"
+        return 'your shoppers'
+    
+    def context_type(context_key):
+        if not context_key or context_key == 'general':
+            return 'general'
+        if context_key.startswith('time_'):
+            return 'time'
+        if context_key.startswith('budget_'):
+            return 'budget'
+        if context_key.startswith('basket_'):
+            return 'basket'
+        if context_key.startswith('age_group_'):
+            return 'age'
+        return 'other'
+    
+    def build_tip(antecedents_text, consequents_text, context_desc):
+        audience = 'all shoppers' if context_desc == 'all shoppers' else context_desc
+        return f"Place {consequents_text} near {antecedents_text} for {audience} to boost attachment rate."
+    
+    # Capture highlight rules per context type
+    highlight_map = {}
+    for rule in rules_data:
+        ctype = context_type(rule.context)
+        if ctype == 'other':
+            continue
+        if ctype not in highlight_map:
+            highlight_map[ctype] = rule
     
     # Prepare rule details with product names and sample transactions
     rules = []
     for rule in rules_data[:20]:  # Top 20 rules
         try:
             # Get product names for antecedents and consequents
-            antecedent_products = []
-            for pid in rule.antecedents:
-                product = Product.query.filter_by(user_id=current_user.id, upload_id=latest_upload.id, product_id=str(pid)).first()
-                if product:
-                    antecedent_products.append(product.product_name)
-            
-            consequent_products = []
-            for pid in rule.consequents:
-                product = Product.query.filter_by(user_id=current_user.id, upload_id=latest_upload.id, product_id=str(pid)).first()
-                if product:
-                    consequent_products.append(product.product_name)
+            antecedent_products = get_product_names(rule.antecedents)
+            consequent_products = get_product_names(rule.consequents)
             
             if not antecedent_products or not consequent_products:
                 continue
             
-            # Get sample transactions that contain both antecedents and consequents
+            antecedents_text = ' + '.join(antecedent_products)
+            consequents_text = ' + '.join(consequent_products)
+            context_desc = context_descriptor(rule.context)
+            retailer_tip = build_tip(antecedents_text, consequents_text, context_desc)
+
+            # Match transactions once per rule for explanations and examples
+            matched_transactions = []
+            for entry in transaction_cache:
+                products = entry['products']
+                if not products:
+                    continue
+                has_antecedent = any(str(a) in products for a in rule.antecedents)
+                has_consequent = any(str(c) in products for c in rule.consequents)
+                if has_antecedent and has_consequent:
+                    matched_transactions.append(entry)
+            
+            transaction_count = len(matched_transactions)
+            
+            # Build sample transactions (up to 3) with friendly product names
             sample_transactions = []
-            all_transactions = Transaction.query.filter_by(
-                user_id=current_user.id,
-                upload_id=latest_upload.id
-            ).limit(100).all()
+            for entry in matched_transactions[:3]:
+                txn = entry['txn']
+                txn_product_names = [product_lookup.get(pid, pid) for pid in entry['products'] if product_lookup.get(pid)]
+                sample_transactions.append({
+                    'order_id': txn.order_id,
+                    'products_text': ', '.join(txn_product_names),
+                    'time_of_day': txn.time_of_day or 'Unknown',
+                    'budget_segment': txn.budget_segment or 'Unknown',
+                    'basket_size': txn.basket_size or 'Unknown',
+                    'total_spent': txn.total_spent or 0
+                })
             
-            for txn in all_transactions:
-                txn_products = txn.products if isinstance(txn.products, list) else json.loads(txn.products) if isinstance(txn.products, str) else []
-                txn_products_str = [str(p) for p in txn_products]
-                
-                # Check if transaction contains both antecedents and consequents
-                has_antecedent = any(str(a) in txn_products_str for a in rule.antecedents)
-                has_consequent = any(str(c) in txn_products_str for c in rule.consequents)
-                
-                if has_antecedent and has_consequent:
-                    # Get product names for this transaction
-                    txn_product_names = []
-                    for pid in txn_products_str:
-                        product = Product.query.filter_by(user_id=current_user.id, upload_id=latest_upload.id, product_id=pid).first()
-                        if product:
-                            txn_product_names.append(product.product_name)
-                    
-                    sample_transactions.append({
-                        'order_id': txn.order_id,
-                        'products_text': ', '.join(txn_product_names),
-                        'time_of_day': txn.time_of_day or 'Unknown',
-                        'budget_segment': txn.budget_segment or 'Unknown',
-                        'basket_size': txn.basket_size or 'Unknown',
-                        'total_spent': txn.total_spent or 0
-                    })
-                
-                if len(sample_transactions) >= 3:
-                    break
-            
-            # Count transactions with this rule
-            transaction_count = 0
-            all_txns = Transaction.query.filter_by(
-                user_id=current_user.id,
-                upload_id=latest_upload.id
-            ).all()
-            
-            for txn in all_txns:
-                txn_products = txn.products if isinstance(txn.products, list) else json.loads(txn.products) if isinstance(txn.products, str) else []
-                txn_products_str = [str(p) for p in txn_products]
-                has_antecedent = any(str(a) in txn_products_str for a in rule.antecedents)
-                has_consequent = any(str(c) in txn_products_str for c in rule.consequents)
-                if has_antecedent and has_consequent:
-                    transaction_count += 1
+            # Explainability: compare rule confidence to baseline add rate for consequents
+            base_hits = 0
+            if total_transactions > 0:
+                conseq_set = {str(c) for c in rule.consequents}
+                base_hits = sum(1 for entry in transaction_cache if any(pid in conseq_set for pid in entry['products']))
+            baseline_rate = (base_hits / total_transactions) if total_transactions else 0
+            uplift_pct = max((rule.confidence - baseline_rate) * 100, 0.0)
+            explanation = {
+                'narrative': (
+                    f"{consequents_text} shows up {rule.lift:.1f}x more often when shoppers already have "
+                    f"{antecedents_text} ({rule.confidence:.1%} vs {baseline_rate:.1%} baseline). "
+                    f"Backed by {transaction_count} matching orders."
+                ),
+                'baseline': baseline_rate,
+                'uplift_pct': uplift_pct,
+                'evidence': transaction_count,
+                'confidence': rule.confidence,
+                'lift': rule.lift
+            }
             
             rules.append({
-                'antecedents_text': ' + '.join(antecedent_products),
-                'consequents_text': ' + '.join(consequent_products),
+                'antecedents_text': antecedents_text,
+                'consequents_text': consequents_text,
                 'support': rule.support,
                 'confidence': rule.confidence,
                 'lift': rule.lift,
                 'transaction_count': transaction_count,
-                'sample_transactions': sample_transactions
+                'sample_transactions': sample_transactions,
+                'context_description': context_desc.title(),
+                'retailer_tip': retailer_tip,
+                'explanation': explanation
             })
         except Exception as e:
             logger.error(f"Error processing rule: {str(e)}")
             continue
+    
+    # Build highlight cards for retailer-friendly summary
+    highlight_labels = {
+        'general': 'All Shoppers',
+        'time': 'Time of Day',
+        'budget': 'Budget Tier',
+        'age': 'Age Group',
+        'basket': 'Basket Size'
+    }
+    context_highlights = []
+    for key, label in highlight_labels.items():
+        rule = highlight_map.get(key)
+        if not rule:
+            continue
+        antecedent_products = get_product_names(rule.antecedents)
+        consequent_products = get_product_names(rule.consequents)
+        if not antecedent_products or not consequent_products:
+            continue
+        antecedents_text = ' + '.join(antecedent_products)
+        consequents_text = ' + '.join(consequent_products)
+        context_desc = context_descriptor(rule.context)
+        context_highlights.append({
+            'label': label,
+            'context_description': context_desc.title(),
+            'antecedents_text': antecedents_text,
+            'consequents_text': consequents_text,
+            'confidence': round(rule.confidence * 100),
+            'support': round(rule.support * 100, 1),
+            'tip': build_tip(antecedents_text, consequents_text, context_desc)
+        })
     
     return render_template('dashboard/recommendations.html',
                          upload=latest_upload,
@@ -833,7 +1040,9 @@ def recommendations():
                          general_rules_count=general_rules_count,
                          time_rules_count=time_rules_count,
                          budget_rules_count=budget_rules_count,
+                         age_rules_count=age_rules_count,
                          basket_size_rules_count=basket_size_rules_count,
+                         context_highlights=context_highlights,
                          min_confidence=round(min_confidence * 100),
                          min_support=round(min_support * 100),
                          min_lift=round(min_lift, 1) if min_lift > 0 else 0,
@@ -968,16 +1177,50 @@ def retailer_dashboard():
     total_revenue = sum(getattr(t, 'total_spent', 0) for t in transactions) if transactions else 0
     avg_transaction_value = total_revenue / len(transactions) if transactions else 0
     
-    # Calculate peak hour
-    peak_hour = None
-    if analytics and hasattr(analytics, 'time_distribution') and analytics.time_distribution:
+    def top_slice(distribution):
+        """Return the leading label/count/percent from a distribution map"""
+        if not distribution or not isinstance(distribution, dict):
+            return None
+        safe_dist = {k: v for k, v in distribution.items() if isinstance(v, (int, float))}
+        if not safe_dist:
+            return None
+        label = max(safe_dist, key=safe_dist.get)
+        count = safe_dist.get(label, 0)
+        total = sum(safe_dist.values()) or 1
+        return {
+            'label': label.replace('_', ' ').title(),
+            'count': count,
+            'percent': (count / total) * 100
+        }
+    
+    busiest_moment = None
+    common_budget_range = None
+    leading_shopper_group = None
+    budget_thresholds = {}
+    
+    if analytics:
         try:
-            time_dist = analytics.time_distribution if isinstance(analytics.time_distribution, dict) else {}
-            if time_dist:
-                peak_hour = max(time_dist, key=time_dist.get)
+            time_dist = analytics.time_distribution if isinstance(getattr(analytics, 'time_distribution', {}), dict) else {}
+            budget_dist = analytics.budget_distribution if isinstance(getattr(analytics, 'budget_distribution', {}), dict) else {}
+            age_dist = getattr(analytics, 'age_distribution', {}) if isinstance(getattr(analytics, 'age_distribution', {}), dict) else {}
+            
+            busiest_moment = top_slice(time_dist)
+            common_budget_range = top_slice(budget_dist)
+            leading_shopper_group = top_slice(age_dist)
+            budget_thresholds = analytics.budget_thresholds or {}
         except Exception as e:
-            logger.warning(f"Could not calculate peak hour: {str(e)}")
-            peak_hour = None
+            logger.warning(f"Could not build dashboard insights: {str(e)}")
+    
+    # Fallback: derive leading shopper group from stored transactions if analytics lacked age distribution
+    if not leading_shopper_group and transactions:
+        try:
+            age_counts = {}
+            for tx in transactions:
+                key = (tx.age_group or '').strip() or 'Unknown'
+                age_counts[key] = age_counts.get(key, 0) + 1
+            leading_shopper_group = top_slice(age_counts)
+        except Exception as e:
+            logger.warning(f"Could not derive age mix from transactions: {str(e)}")
     
     return render_template('dashboard/retailer_dashboard.html',
                          upload=latest_upload,
@@ -987,7 +1230,10 @@ def retailer_dashboard():
                          transactions=transactions,
                          total_revenue=total_revenue,
                          avg_transaction_value=avg_transaction_value,
-                         peak_hour=peak_hour)
+                         busiest_moment=busiest_moment,
+                         common_budget_range=common_budget_range,
+                         leading_shopper_group=leading_shopper_group,
+                         budget_thresholds=budget_thresholds)
 
 # ==================== API ROUTES ====================
 
@@ -1011,6 +1257,27 @@ def get_recommendations(product_id):
         if not latest_upload:
             return jsonify({'error': 'No data available'}), 404
         
+        # Product lookup for explanations
+        product_lookup = {}
+        products = Product.query.filter_by(user_id=current_user.id, upload_id=latest_upload.id).all()
+        for product in products:
+            product_lookup[str(product.product_id)] = product.product_name
+        
+        # Cache transactions for baseline rates
+        transactions = Transaction.query.filter_by(
+            user_id=current_user.id,
+            upload_id=latest_upload.id
+        ).all()
+        transaction_cache = [{'products': _normalize_products_list(txn.products)} for txn in transactions]
+        total_txns = len(transaction_cache)
+        
+        def baseline_rate_for_consequents(consequents):
+            if total_txns == 0:
+                return 0
+            conseq_set = {str(c) for c in consequents}
+            hits = sum(1 for entry in transaction_cache if any(pid in conseq_set for pid in entry['products']))
+            return hits / total_txns
+        
         # Get rules from database
         rules = AssociationRule.query.filter_by(
             user_id=current_user.id,
@@ -1019,17 +1286,30 @@ def get_recommendations(product_id):
         
         recommendations = []
         for rule in rules:
-            if product_id in rule.antecedents:
+            antecedent_ids = [str(a) for a in rule.antecedents]
+            if str(product_id) in antecedent_ids:
                 for consequent_id in rule.consequents:
                     if consequent_id != product_id:
-                        product = db.session.get(Product, consequent_id)
-                        if product:
+                        target_name = product_lookup.get(str(consequent_id))
+                        source_name = product_lookup.get(str(product_id), f"Product {product_id}")
+                        if target_name:
+                            baseline = baseline_rate_for_consequents(rule.consequents)
                             recommendations.append({
-                                'product_id': product.product_id,
-                                'product_name': product.product_name,
+                                'product_id': consequent_id,
+                                'product_name': target_name,
                                 'confidence': rule.confidence,
                                 'lift': rule.lift,
-                                'context': rule.context
+                                'context': rule.context,
+                                'explanation': {
+                                    'narrative': (
+                                        f"When carts include {source_name}, shoppers add {target_name} "
+                                        f"{rule.lift:.1f}x more often than average "
+                                        f"({rule.confidence:.1%} vs {baseline:.1%} baseline)."
+                                    ),
+                                    'baseline': baseline,
+                                    'confidence': rule.confidence,
+                                    'lift': rule.lift
+                                }
                             })
         
         # Sort by confidence
@@ -1065,6 +1345,7 @@ def get_analytics(upload_id):
             'avg_basket_size': analytics.avg_basket_size,
             'time_distribution': analytics.time_distribution,
             'budget_distribution': analytics.budget_distribution,
+            'age_distribution': getattr(analytics, 'age_distribution', None),
             'basket_size_distribution': analytics.basket_size_distribution,
             'total_rules': analytics.total_rules_generated,
             'top_products': analytics.top_products,
