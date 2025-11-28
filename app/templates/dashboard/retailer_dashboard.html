@@ -175,7 +175,13 @@
             <div class="flex items-start justify-between">
                 <div>
                     <p class="text-gray-600 text-sm font-medium">Average Order Value</p>
-                    <p class="text-3xl font-bold text-gray-900 mt-3">KES {{ "%.0f"|format(avg_transaction_value) }}</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-3">
+                        {% if avg_transaction_value is not none %}
+                            KES {{ "%.0f"|format(avg_transaction_value) }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </p>
                     <p class="text-xs text-gray-500 mt-2">Per transaction average</p>
                 </div>
                 <div class="flex-shrink-0">
@@ -244,7 +250,7 @@
                         {% endif %}
                     </p>
                     {% if budget_thresholds %}
-                        <p class="text-xs text-gray-400 mt-1">Low ≤ KES {{ "%.0f"|format(budget_thresholds.get('low', 0)) }} · Medium ≤ KES {{ "%.0f"|format(budget_thresholds.get('medium', 0)) }}</p>
+                        <p class="text-xs text-gray-400 mt-1">Low ≤ KES {{ "%.0f"|format(budget_thresholds.get('low', 0) or 0) }} · Medium ≤ KES {{ "%.0f"|format(budget_thresholds.get('medium', 0) or 0) }}</p>
                     {% endif %}
                 </div>
                 <div class="flex-shrink-0">
@@ -295,8 +301,8 @@
                 <div>
                     <p class="text-gray-600 text-sm font-medium">Budget Thresholds</p>
                     {% if budget_thresholds %}
-                        <p class="text-xl font-bold text-gray-900 mt-3">Low ≤ KES {{ "%.0f"|format(budget_thresholds.get('low', 0)) }}</p>
-                        <p class="text-xl font-bold text-gray-900">Medium ≤ KES {{ "%.0f"|format(budget_thresholds.get('medium', 0)) }}</p>
+                        <p class="text-xl font-bold text-gray-900 mt-3">Low ≤ KES {{ "%.0f"|format(budget_thresholds.get('low', 0) or 0) }}</p>
+                        <p class="text-xl font-bold text-gray-900">Medium ≤ KES {{ "%.0f"|format(budget_thresholds.get('medium', 0) or 0) }}</p>
                         <p class="text-xs text-gray-500 mt-2">Auto-set from the latest upload</p>
                     {% else %}
                         <p class="text-2xl font-bold text-gray-900 mt-3">—</p>
@@ -529,6 +535,14 @@
 
 <!-- Chart.js Scripts -->
 {% if analytics %}
+<script id="analytics-payload" type="application/json">
+{{ {
+    "time_distribution": analytics.time_distribution,
+    "budget_distribution": analytics.budget_distribution,
+    "basket_size_distribution": analytics.basket_size_distribution,
+    "top_products": top_products_payload if top_products_payload else []
+} | tojson }}
+</script>
 <script>
     const baseChartConfig = {
         responsive: true,
@@ -544,20 +558,13 @@
         }
     };
 
-    // Store JSON data as variables
-    const timeData = {{ analytics.time_distribution | tojson }};
-    const budgetData = {{ analytics.budget_distribution | tojson }};
-    const basketData = {{ analytics.basket_size_distribution | tojson }};
-    
-    // Build top products data from template variables
-    const topProductsData = [
-        {% for product in top_products[:5] %}
-        {
-            product_name: {{ product.product_name | tojson }},
-            total_orders: {{ product.total_orders | tojson }}
-        }{{ "," if not loop.last else "" }}
-        {% endfor %}
-    ];
+    // Parse payload from embedded JSON to keep JS syntax clean for linters
+    const analyticsPayloadEl = document.getElementById('analytics-payload');
+    const analyticsPayload = analyticsPayloadEl ? JSON.parse(analyticsPayloadEl.textContent || '{}') : {};
+    const timeData = analyticsPayload.time_distribution || {};
+    const budgetData = analyticsPayload.budget_distribution || {};
+    const basketData = analyticsPayload.basket_size_distribution || {};
+    const topProductsData = analyticsPayload.top_products || [];
 
     // Time Distribution Chart - LINE CHART for trends
     const timeCtx = document.getElementById('timeChart').getContext('2d');

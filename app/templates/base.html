@@ -110,10 +110,6 @@
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                                 <span class="font-medium">Recommendations</span>
                             </a>
-                            <a href="{{ url_for('dashboard.market_basket') }}" class="flex items-center space-x-3 w-full px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                <span class="font-medium">Contextual Factors </span>
-                            </a>
                             <hr class="my-2 border-gray-100">
                             <a href="{{ url_for('dashboard.retailer_dashboard') }}" class="flex items-center space-x-3 w-full px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
@@ -180,21 +176,34 @@
             <!-- Flash Messages (converted to Toastr) -->
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
+                    <script id="flash-payload" type="application/json">
+                        {{ messages | tojson }}
+                    </script>
                     <script>
-                        window.addEventListener('load', function() {
-                            setTimeout(function() {
-                                {% for category, message in messages %}
-                                    {% if category == 'error' or category == 'danger' %}
-                                        toastr.error('{{ message | safe }}');
-                                    {% elif category == 'success' %}
-                                        toastr.success('{{ message | safe }}');
-                                    {% elif category == 'warning' %}
-                                        toastr.warning('{{ message | safe }}');
-                                    {% else %}
-                                        toastr.info('{{ message | safe }}');
-                                    {% endif %}
-                                {% endfor %}
-                            }, 100);
+                        document.addEventListener('DOMContentLoaded', function() {
+                            try {
+                                const payloadEl = document.getElementById('flash-payload');
+                                if (!payloadEl) return;
+                                const payload = JSON.parse(payloadEl.textContent || '[]');
+                                setTimeout(function() {
+                                    payload.forEach(function(item) {
+                                        if (!Array.isArray(item) || item.length < 2) return;
+                                        const category = item[0];
+                                        const message = item[1];
+                                        if (category === 'error' || category === 'danger') {
+                                            toastr.error(message);
+                                        } else if (category === 'success') {
+                                            toastr.success(message);
+                                        } else if (category === 'warning') {
+                                            toastr.warning(message);
+                                        } else {
+                                            toastr.info(message);
+                                        }
+                                    });
+                                }, 100);
+                            } catch (e) {
+                                console.warn('Could not parse flash payload', e);
+                            }
                         });
                     </script>
                 {% endif %}

@@ -694,90 +694,9 @@ def analytics_detail(upload_id):
 @dashboard_bp.route('/market-basket')
 @login_required
 def market_basket():
-    """Lightweight market basket view with age/budget/time context"""
-    uploads = DataUpload.query.filter_by(user_id=current_user.id).order_by(
-        DataUpload.upload_date.desc()
-    ).all()
-    
-    if not uploads:
-        flash('Upload a dataset to generate market basket insights.', 'info')
-        return redirect(url_for('dashboard.upload_data'))
-    
-    selected_upload_id = request.args.get('upload_id', type=int)
-    selected_upload = next((u for u in uploads if u.id == selected_upload_id), uploads[0])
-    
-    if not os.path.exists(selected_upload.file_path):
-        flash('Upload file no longer exists. Please upload again.', 'danger')
-        return redirect(url_for('dashboard.upload_data'))
-    
-    engine = RetailAnalyticsEngine(config=getattr(current_app, 'config', {}))
-    if selected_upload.threshold_config:
-        try:
-            engine.set_thresholds(selected_upload.threshold_config)
-        except Exception as exc:
-            logger.warning(f"Could not apply stored thresholds: {exc}")
-    
-    try:
-        sales_df = engine.load_and_validate_data(selected_upload.file_path)
-        engine.prepare_transactions_with_context(sales_df)
-        engine.generate_smart_rules()
-        summary = engine.generate_analytics_summary()
-    except Exception as exc:
-        logger.error(f"Market basket processing failed: {exc}")
-        flash('Could not generate insights for this dataset.', 'danger')
-        return redirect(url_for('dashboard.upload_history'))
-    
-    def format_rules(rules_df, limit=5):
-        formatted = []
-        if rules_df is None or getattr(rules_df, 'empty', True):
-            return formatted
-        for _, rule in rules_df.head(limit).iterrows():
-            def resolve_names(items):
-                names = []
-                for item in list(rule.get(items, [])):
-                    try:
-                        product_id = int(item)
-                    except (ValueError, TypeError):
-                        product_id = item
-                    names.append(engine._get_product_name(product_id))
-                return names
-            formatted.append({
-                'antecedents': resolve_names('antecedents'),
-                'consequents': resolve_names('consequents'),
-                'support': float(rule.get('support', 0)) * 100,
-                'confidence': float(rule.get('confidence', 0)) * 100,
-                'lift': float(rule.get('lift', 0))
-            })
-        return formatted
-    
-    def build_context_block(prefix, label, values):
-        blocks = []
-        for value in values:
-            key = f"{prefix}_{value}"
-            value_rules = format_rules(engine.contextual_rules.get(key))
-            if value_rules:
-                blocks.append({
-                    'label': value.replace('_', ' ').title(),
-                    'rules': value_rules
-                })
-        return {'label': label, 'blocks': blocks}
-    
-    context_sections = [
-        build_context_block('age_group', 'Shopper Age Groups', ['teen', 'young_adult', 'adult', 'senior']),
-        build_context_block('budget', 'Budget Segments', ['low', 'medium', 'high']),
-        build_context_block('time_of_day', 'Time of Day', ['morning', 'afternoon', 'evening', 'night'])
-    ]
-    
-    general_rules = format_rules(engine.contextual_rules.get('general'), limit=10)
-    
-    return render_template(
-        'dashboard/market_basket.html',
-        uploads=uploads,
-        selected_upload=selected_upload,
-        summary=summary,
-        general_rules=general_rules,
-        context_sections=context_sections
-    )
+    """Retired contextual factors page - redirect to recommendations."""
+    flash('Contextual Factors has been retired. Use Recommendations for rule insights.', 'info')
+    return redirect(url_for('dashboard.recommendations'))
 
 @dashboard_bp.route('/recommendations')
 @login_required
@@ -1114,9 +1033,17 @@ def retailer_dashboard():
             user_id=current_user.id,
             upload_id=latest_upload.id
         ).order_by(Product.total_orders.desc()).limit(10).all()
+        # Serialize a small slice for JSON payloads
+        top_products_payload = [
+            {
+                'product_name': p.product_name,
+                'total_orders': p.total_orders or 0
+            } for p in top_products[:5]
+        ]
     except Exception as e:
         logger.warning(f"Could not load products: {str(e)}")
         top_products = []
+        top_products_payload = []
     
     # Get top rules (safe query)
     top_rules = []
@@ -1226,6 +1153,7 @@ def retailer_dashboard():
                          upload=latest_upload,
                          analytics=analytics,
                          top_products=top_products,
+                         top_products_payload=top_products_payload,
                          top_rules=top_rules,
                          transactions=transactions,
                          total_revenue=total_revenue,

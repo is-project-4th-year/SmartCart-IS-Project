@@ -138,6 +138,18 @@
     let filteredRules = [...rulesData];
 
     function updateNetwork() {
+        if (!rulesData || rulesData.length === 0) {
+            const graph = document.getElementById('networkGraph');
+            if (graph) {
+                graph.innerHTML = '<div class="text-center text-gray-600 py-16">No rules available to plot. Upload data and generate analytics first.</div>';
+            }
+            const tableBody = document.getElementById('rulesTable');
+            if (tableBody) {
+                tableBody.innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-gray-500">No rules available</td></tr>';
+            }
+            return;
+        }
+
         const minConfidence = parseInt(document.getElementById('confidenceFilter').value);
         const minSupport = parseInt(document.getElementById('supportFilter').value);
         const minLift = parseFloat(document.getElementById('liftFilter').value);
@@ -183,6 +195,12 @@
 
         // Create Plotly network data
         const nodeArray = Array.from(nodes);
+        if (nodeArray.length === 0) {
+            document.getElementById('networkGraph').innerHTML = '<div class="text-center text-gray-600 py-16">No rules match the selected filters.</div>';
+            updateTable();
+            return;
+        }
+
         const trace = {
             type: 'scatter',
             mode: 'markers+text',

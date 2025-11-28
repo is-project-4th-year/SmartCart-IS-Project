@@ -46,15 +46,6 @@
         </div>
         {% endif %}
 
-        <div class="bg-blue-50 border border-blue-100 rounded-2xl p-4 text-sm text-blue-900 leading-relaxed mb-8">
-            <p class="font-semibold mb-1">Explaining this page in 30 seconds:</p>
-            <ol class="list-decimal list-inside space-y-1">
-                <li>Read the summary cards above to highlight one takeaway per audience (all shoppers, time, budget, basket).</li>
-                <li>Use the filter form to quickly narrow down rules for the conversation you want to have.</li>
-                <li>When reviewing the table, cite support/confidence/lift, then click “View” to show a real order example.</li>
-            </ol>
-        </div>
-
         <!-- Filter Section -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8">
             <div class="flex items-center justify-between mb-4">
@@ -99,6 +90,7 @@
                         <option value="general" {% if context_filter == 'general' %}selected{% endif %}>General</option>
                         <option value="time" {% if context_filter == 'time' %}selected{% endif %}>Time-based</option>
                         <option value="budget" {% if context_filter == 'budget' %}selected{% endif %}>Budget Segment</option>
+                        <option value="age" {% if context_filter == 'age' %}selected{% endif %}>Age Group</option>
                         <option value="basket" {% if context_filter == 'basket' %}selected{% endif %}>Basket Size</option>
                     </select>
                     <p class="text-xs text-gray-500 mt-1">Pick the audience to tailor your message</p>
@@ -194,7 +186,7 @@
                                         </span>
                                     </td>
                                     <td class="py-4 px-4 text-center">
-                                        <button onclick="toggleTransactions({{ loop.index0 }})" class="text-blue-600 hover:text-blue-800 font-semibold text-sm transition">
+                                        <button type="button" data-toggle-transactions="{{ loop.index0 }}" class="text-blue-600 hover:text-blue-800 font-semibold text-sm transition">
                                             View
                                         </button>
                                     </td>
@@ -210,11 +202,15 @@
                                                     </svg>
                                                     <h4 class="font-semibold text-gray-900">AI Explanation</h4>
                                                 </div>
-                                                <p class="text-sm text-gray-800 leading-relaxed">{{ rule.explanation.narrative }}</p>
+                                                {% set exp = rule.explanation or {} %}
+                                                <p class="text-sm text-gray-800 leading-relaxed">
+                                                    {{ exp.narrative or "Explanation unavailable for this rule." }}
+                                                </p>
                                                 <div class="mt-3 grid grid-cols-2 gap-2 text-xs text-gray-700">
                                                     <div class="bg-blue-50 rounded-lg px-3 py-2">
                                                         <p class="font-semibold text-blue-900">Baseline add rate</p>
-                                                        <p>{{ "%.1f"|format(rule.explanation.baseline * 100) }}%</p>
+                                                        <p>{{ "%.1f"|format((exp.baseline or 0) * 100) }}%</p>
+                                                        <p class="text-[11px] text-blue-900 mt-1">Share of all orders that include these recommended items, even without the trigger items.</p>
                                                     </div>
                                                     <div class="bg-green-50 rounded-lg px-3 py-2">
                                                         <p class="font-semibold text-green-900">Rule confidence</p>
@@ -222,11 +218,11 @@
                                                     </div>
                                                     <div class="bg-purple-50 rounded-lg px-3 py-2">
                                                         <p class="font-semibold text-purple-900">Lift</p>
-                                                        <p>{{ "%.2f"|format(rule.explanation.lift) }}x</p>
+                                                        <p>{{ "%.2f"|format(exp.lift or rule.lift) }}x</p>
                                                     </div>
                                                     <div class="bg-amber-50 rounded-lg px-3 py-2">
                                                         <p class="font-semibold text-amber-900">Evidence</p>
-                                                        <p>{{ rule.explanation.evidence }} matching orders</p>
+                                                        <p>{{ exp.evidence or 0 }} matching orders</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -363,12 +359,20 @@
 <script>
     function toggleTransactions(index) {
         const row = document.getElementById(`transactions-${index}`);
-        if (row.style.display === 'none') {
-            row.style.display = 'table-row';
-        } else {
-            row.style.display = 'none';
-        }
+        if (!row) return;
+        const isHidden = row.style.display === 'none' || row.style.display === '';
+        row.style.display = isHidden ? 'table-row' : 'none';
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggleButtons = document.querySelectorAll('[data-toggle-transactions]');
+        toggleButtons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const idx = btn.getAttribute('data-toggle-transactions');
+                toggleTransactions(idx);
+            });
+        });
+    });
 </script>
 
 <style>
